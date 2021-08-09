@@ -1,10 +1,24 @@
 package edu.neu.csye7374.model;
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable{
 	
 	private String userName;
 	
 	private String password;
+	
+	
+	public Account() {
+		this.userName = "user";
+		this.password = "password";
+	}
+
+	public Account(String userName, String password) {
+		super();
+		this.userName = userName;
+		this.password = password;
+	}
 
 	public String getUserName() {
 		return userName;
@@ -26,5 +40,12 @@ public class Account {
 		this.setPassword(newPasword);
 		return this.getPassword();
 	}
+
+	@Override
+	public String toString() {
+		return "Account [userName=" + userName + ", password=" + password + "]";
+	}
+	
+	
 	
 }
