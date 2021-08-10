@@ -35,6 +35,11 @@ public class InventoryManagerHomePage {
 		panel.add(categoryBtn);
 		
 		brandBtn = new JButton("Brands");
+		brandBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openBrandPageForInventoryManager(e);
+			}
+		});
 		brandBtn.setBounds(10, 143, 89, 23);
 		panel.add(brandBtn);
 		
@@ -60,5 +65,9 @@ public class InventoryManagerHomePage {
 	
 	private void openCategoryForInventoryManager(ActionEvent evt) {
 		new OpenCatagoryPageForInventoryManager(frame);
+	}
+	
+	private void openBrandPageForInventoryManager(ActionEvent e) {
+		new OpenBrandPageForInventoryManager(frame);
 	}
 }
