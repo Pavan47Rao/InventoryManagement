@@ -44,6 +44,11 @@ public class InventoryManagerHomePage {
 		panel.add(brandBtn);
 		
 		productBtn = new JButton("Products");
+		productBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openProductPageForInventoryManager(e);
+			}
+		});
 		productBtn.setBounds(10, 188, 89, 23);
 		panel.add(productBtn);
 		
@@ -69,5 +74,9 @@ public class InventoryManagerHomePage {
 	
 	private void openBrandPageForInventoryManager(ActionEvent e) {
 		new OpenBrandPageForInventoryManager(frame);
+	}
+	
+	private void openProductPageForInventoryManager(ActionEvent e) {
+		new OpenProductsForInventoryManager(frame);
 	}
 }
