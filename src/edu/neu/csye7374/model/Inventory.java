@@ -44,15 +44,4 @@ public class Inventory {
 		this.inventroyStock = inventroyStock;
 	}
 	
-	public void addInventory(Inventory inventory) {
-		
-	}
-	
-	public Inventory getInventory(int id) {
-		return null;
-	}
-	
-	public void deleteInventory(int id) {
-		
-	}
 }

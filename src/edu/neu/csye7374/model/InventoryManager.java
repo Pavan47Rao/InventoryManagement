@@ -2,7 +2,7 @@ package edu.neu.csye7374.model;
 
 import java.util.List;
 
-public class InventoryManager {
+public class InventoryManager extends Person{
 	
 	List<Item> products;
 	
@@ -34,5 +34,20 @@ public class InventoryManager {
 		this.inventories = inventories;
 	}
 	
+	public void addInventory(Inventory inventory) {
+		this.getInventories().add(inventory);
+	}
 	
+	public Inventory getInventory(int id) {
+		for(Inventory i: this.getInventories())
+			if(i.getInventoryId() == id)
+				return i;
+		return null;
+	}
+	
+	public void deleteInventory(int id) {
+		for(Inventory i: this.getInventories())
+			if(i.getInventoryId() == id)
+				this.getInventories().remove(i);
+	}
 }
