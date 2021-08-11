@@ -24,20 +24,52 @@ public class HR extends Person{
 		this.suppliers = suppliers;
 	}
 	
-	public void addPerson(Person person) {
-		
+	public void addInventoryManager(InventoryManager iManager) {
+		this.getInventoryManagers().add(iManager);
 	}
 	
-	public Person findPerson(int id) {
+	public void addSupplier(Supplier supplier) {
+		this.getSuppliers().add(supplier);
+	}
+	
+	public InventoryManager findInventoryManager(int id) {
+		for(InventoryManager im: this.getInventoryManagers())
+			if(im.getPersonId() == id)
+				return im;
 		return null;
 	}
 	
-	public Person updatePerson(Person person) {
+	public Supplier findSupplier(int id) {
+		for(Supplier s: this.getSuppliers())
+			if(s.getPersonId() == id)
+				return s;
 		return null;
 	}
 	
-	public void deletePerson(int id) {
-		
+	public InventoryManager updateIM(InventoryManager im) {
+		for(InventoryManager i: this.getInventoryManagers())
+			if(i.getPersonId() == im.getPersonId())
+				i = im;
+		return im;
+	}
+	
+	public Supplier updateIM(Supplier su) {
+		for(Supplier s: this.getSuppliers())
+			if(s.getPersonId() == su.getPersonId())
+				s = su;
+		return su;
+	}
+	
+	public void deleteIM(int id) {
+		for(InventoryManager im: this.getInventoryManagers())
+			if(im.getPersonId() == id)
+				this.getInventoryManagers().remove(im);
+	}
+	
+	public void deleteSupplier(int id) {
+		for(Supplier s: this.getSuppliers())
+			if(s.getPersonId() == id)
+				this.getSuppliers().remove(s);
 	}
 	
 }
