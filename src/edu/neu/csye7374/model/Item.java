@@ -9,6 +9,11 @@ public class Item {
 	private double itemPrice;
 	
 	private String itemDescription;
+	
+	/**
+	 * Pavan - Please add the stock over here for it to know which stock the item would be part of
+	 * @return
+	 */
 
 	public int getItemId() {
 		return itemId;

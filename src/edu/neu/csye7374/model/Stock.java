@@ -9,7 +9,7 @@ public class Stock {
 	
 	private List<Item> stockItems;
 	
-	private String stockType;
+	private String stockType;//Electronics, Grocery etc
 	
 	private String stockDescription;
 
