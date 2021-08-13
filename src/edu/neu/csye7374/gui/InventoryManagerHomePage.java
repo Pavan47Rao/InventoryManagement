@@ -22,6 +22,7 @@ public class InventoryManagerHomePage {
 	
 	private void prepareGUI() {
 		panel = new JPanel();
+		frame.getContentPane().revalidate();
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -69,14 +70,17 @@ public class InventoryManagerHomePage {
 	}
 	
 	private void openCategoryForInventoryManager(ActionEvent evt) {
+		frame.getContentPane().removeAll();
 		new OpenCatagoryPageForInventoryManager(frame);
 	}
 	
 	private void openBrandPageForInventoryManager(ActionEvent e) {
+		frame.getContentPane().removeAll();
 		new OpenBrandPageForInventoryManager(frame);
 	}
 	
 	private void openProductPageForInventoryManager(ActionEvent e) {
+		frame.getContentPane().removeAll();
 		new OpenProductsForInventoryManager(frame);
 	}
 }

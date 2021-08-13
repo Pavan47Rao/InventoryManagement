@@ -16,28 +16,28 @@ import javax.swing.JToolBar;
 
 public class MainFrame {
 	
-	private JFrame frmInventoryManagement;
+	private JFrame frame;
 	private JPanel panel;
 	private JTextField userNameTextField;
 	private JPasswordField passwordTextField;
 	private JButton loginBtn;
 	
 	public MainFrame() {
-		frmInventoryManagement = new JFrame();
-		frmInventoryManagement.setAutoRequestFocus(false);
+		frame = new JFrame();
 		prepareGUI();
 		
 	}
 	
 	private void prepareGUI() {
-		frmInventoryManagement.setTitle("Inventory Management");
-		frmInventoryManagement.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmInventoryManagement.setBounds(10, 20, 800, 400);
+		frame.setTitle("Inventory Management");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(10, 20, 800, 400);
 		panel = new JPanel();
-		panel.setFocusable(false);
+	//	panel.setLayout(BorderLayout.NORTH);
 		
-		frmInventoryManagement.getContentPane().add(panel);
-		panel.setLayout(null);
+		frame.getContentPane().revalidate();
+		frame.add(panel);
+		
 		
 		JLabel headerLabel = new JLabel("Inventory Management");
 		headerLabel.setFont(new Font("Snap ITC", Font.BOLD, 17));
@@ -78,7 +78,7 @@ public class MainFrame {
 		panel.add(loginBtn);
 		
 		
-		frmInventoryManagement.setVisible(true);
+		frame.setVisible(true);
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -86,8 +86,17 @@ public class MainFrame {
 		System.out.println("Login button is clicked");
 		System.out.println("Home page accordingly should open");
 		
+	//inventory manager
+		
 		if(userNameTextField.getText().equalsIgnoreCase("aa") && passwordTextField.getText().equals("aa")) {
-			new InventoryManagerHomePage(frmInventoryManagement);
+			frame.getContentPane().removeAll();
+			new InventoryManagerHomePage(frame);
+		}
+		//Human resources
+		
+		if(userNameTextField.getText().equalsIgnoreCase("bb") && passwordTextField.getText().equals("bb")) {
+			frame.getContentPane().removeAll();
+			new HumanResourcesHomePage(frame);
 		}
 		
 		
