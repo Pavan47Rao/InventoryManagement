@@ -61,10 +61,9 @@ public class HumanResourcesHomePage {
 	}
 	
 	private void addUserActionPerformed(ActionEvent e) {
-		JPanel addUserPanel = new JPanel();
+	
 		frame.getContentPane().removeAll();
-		frame.getContentPane().add(addUserPanel);
-		frame.setVisible(true);
+		new HumanResourceAddUserPage(frame);
 	}
 	
 	
