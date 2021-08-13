@@ -43,6 +43,7 @@ public class OpenCatagoryPageForInventoryManager {
 	private void prepareGUI() {
 		panel = new JPanel();
 		panel.setLayout(null);
+		frame.getContentPane().revalidate();
 		frame.getContentPane().add(panel);
 		
 		JLabel headerLabel = new JLabel("Inventory Management - Category");

@@ -37,6 +37,7 @@ public class OpenBrandPageForInventoryManager {
 		panel = new JPanel();
 		panel.setFont(new Font("Times New Roman", Font.BOLD, 13));
 		panel.setBounds(new Rectangle(0, 0, 800, 400));
+		frame.getContentPane().revalidate();
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		

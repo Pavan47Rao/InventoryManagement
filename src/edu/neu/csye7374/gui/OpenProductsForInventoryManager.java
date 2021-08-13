@@ -1,14 +1,18 @@
 package edu.neu.csye7374.gui;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JDesktopPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class OpenProductsForInventoryManager {
 	
@@ -18,8 +22,13 @@ public class OpenProductsForInventoryManager {
 	
 	public OpenProductsForInventoryManager(JFrame frame) {
 		this.frame = frame;
+		prepareGUI();
+	}
+	
+	private void prepareGUI() {
 		panel = new JPanel();
 		panel.setBounds(new Rectangle(0, 0, 800, 400));
+		frame.getContentPane().revalidate();
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -46,32 +55,49 @@ public class OpenProductsForInventoryManager {
 		descriptionLabel.setBounds(10, 52, 99, 27);
 		desktopPane.add(descriptionLabel);
 		
-		JLabel label_2_1 = new JLabel("New label");
-		label_2_1.setBounds(10, 170, 99, 27);
-		desktopPane.add(label_2_1);
+		JLabel brandLabel = new JLabel("Brand");
+		brandLabel.setBounds(10, 170, 99, 27);
+		desktopPane.add(brandLabel);
 		
-		JLabel label_2_2 = new JLabel("New label");
-		label_2_2.setBounds(407, 21, 99, 27);
-		desktopPane.add(label_2_2);
+		JLabel priceLabel = new JLabel("Price");
+		priceLabel.setBounds(407, 21, 99, 27);
+		desktopPane.add(priceLabel);
 		
-		JLabel label_2_3 = new JLabel("New label");
-		label_2_3.setBounds(407, 76, 99, 27);
-		desktopPane.add(label_2_3);
+		JLabel qtyLabel = new JLabel("Quantity");
+		qtyLabel.setBounds(407, 76, 99, 27);
+		desktopPane.add(qtyLabel);
 		
-		JLabel label_2_4 = new JLabel("New label");
-		label_2_4.setBounds(407, 124, 99, 27);
-		desktopPane.add(label_2_4);
+		JLabel barcodeLabel = new JLabel("Barcode");
+		barcodeLabel.setBounds(407, 124, 99, 27);
+		desktopPane.add(barcodeLabel);
 		
-		JLabel label_2_5 = new JLabel("New label");
-		label_2_5.setBounds(407, 170, 99, 27);
-		desktopPane.add(label_2_5);
+		JLabel statusLabel = new JLabel("Status");
+		statusLabel.setBounds(407, 170, 99, 27);
+		desktopPane.add(statusLabel);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		DefaultTableModel model = loadTable();
+		JTable table = new JTable(model);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(27, 269, 749, 120);
 		panel.add(scrollPane);
 		
 		
 		frame.setVisible(true);
+	}
+	
+	private DefaultTableModel loadTable() {
+		String[] columns = {"ID", "Product", "Description", "Category","Brand", "Price", "Quantity", "Barcode", "Status"};
+	      List<String[]> values = new ArrayList<String[]>();
+	      
+	      values.add(new String[] {"1","LG5675","LG tv with good eye picture","TV", "LG","50000","1","111","Active"});
+	
+	      
+	        
+	        DefaultTableModel model = new DefaultTableModel(values.toArray(new Object[][] {}), columns);
+		
+		return model;
+		
 	}
 
 }
