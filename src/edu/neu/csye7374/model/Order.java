@@ -7,6 +7,12 @@ public class Order {
 	private double amount;
 	
 	private String description;
+	
+	/**
+	 * Need to mention about the itmes
+	 * 
+	 * @return
+	 */
 
 	public int getOrderId() {
 		return orderId;

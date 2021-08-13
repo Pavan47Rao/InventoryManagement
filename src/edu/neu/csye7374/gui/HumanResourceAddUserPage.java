@@ -21,6 +21,11 @@ public class HumanResourceAddUserPage {
 	
 	public HumanResourceAddUserPage(JFrame frame) {
 		this.frame = frame;
+		prepareGUI();
+		
+	}
+	
+	private void prepareGUI() {
 		panel = new JPanel();
 		panel.setBounds(0,0,800,400);
 		frame.getContentPane().add(panel);
@@ -92,7 +97,10 @@ public class HumanResourceAddUserPage {
 		textField_1.setColumns(10);
 		textField_1.setBounds(378, 263, 217, 32);
 		panel.add(textField_1);
-		frame.setVisible(true);
 		
+		JButton backBtn = new JButton("<--  Back");
+		backBtn.setBounds(28, 11, 89, 23);
+		panel.add(backBtn);
+		frame.setVisible(true);
 	}
 }

@@ -33,14 +33,12 @@ public class MainFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(10, 20, 800, 400);
 		panel = new JPanel();
-	//	panel.setLayout(BorderLayout.NORTH);
-		
-		frame.getContentPane().revalidate();
+		panel.setLayout(null);
 		frame.add(panel);
 		
 		
 		JLabel headerLabel = new JLabel("Inventory Management");
-		headerLabel.setFont(new Font("Snap ITC", Font.BOLD, 17));
+		headerLabel.setFont(new Font("Times New Roman", Font.BOLD, 17));
 		headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		headerLabel.setBounds(101, 11, 504, 52);
 		panel.add(headerLabel);

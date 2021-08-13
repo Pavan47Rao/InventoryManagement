@@ -4,10 +4,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class HumanResourcesHomePage {
@@ -17,22 +22,30 @@ public class HumanResourcesHomePage {
 	
 	public HumanResourcesHomePage(JFrame frame) {
 		this.frame = frame;
+		prepareGUI();
+	}
+	
+	private void prepareGUI() {
 		panel = new JPanel();
 		panel.setBounds(0, 0, 800, 400);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JButton backBtn = new JButton("<-- Back");
+		backBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		backBtn.setBounds(645, 11, 89, 23);
 		panel.add(backBtn);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(158, 52, 632, 158);
-		panel.add(scrollPane);
+		DefaultTableModel model = loadTable();
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(158, 231, 632, 158);
-		panel.add(scrollPane_1);
+		JTable table = new JTable(model);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(158, 52, 632, 337);
+		panel.add(scrollPane);
 		
 		JLabel headerLabel = new JLabel("Human Resources Home Page");
 		headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -54,6 +67,10 @@ public class HumanResourcesHomePage {
 		panel.add(deleteUserBtn);
 		
 		JButton editIUserBtn = new JButton("Edit User");
+		editIUserBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		editIUserBtn.setBounds(10, 145, 138, 63);
 		panel.add(editIUserBtn);
 		
@@ -64,6 +81,19 @@ public class HumanResourcesHomePage {
 	
 		frame.getContentPane().removeAll();
 		new HumanResourceAddUserPage(frame);
+	}
+	
+	private DefaultTableModel loadTable() {
+		String[] columns = {"ID", "Role", "First Name", "Last Name", "Email ID", "Date of Birth", "Address" };
+	      List<String[]> values = new ArrayList<String[]>();
+	      
+	      values.add(new String[] {"1", "Inventory Manager", "Siddhant", "Rao", "rao.sid@northeastern.edu", "12/07/1991", "Boston"});
+	     
+	      
+	        
+	        DefaultTableModel model = new DefaultTableModel(values.toArray(new Object[][] {}), columns);
+		
+		return model;
 	}
 	
 	

@@ -6,9 +6,9 @@ public class Inventory {
 
 	private int inventoryId;
 	
-	private String inventoryType;
+	private String inventoryType; // remove this - change this to inventory name
 	
-	private int inventoryQuantity;
+	private int inventoryQuantity; // this needs to go to the item quantity
 	
 	private List<Stock> inventroyStock;
 
