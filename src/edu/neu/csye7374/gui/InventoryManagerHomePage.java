@@ -6,14 +6,19 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
 
 public class InventoryManagerHomePage {
 	
 	private JFrame frame;
 	private JPanel panel;
-	private JTable table;
-	private JButton categoryBtn, brandBtn, productBtn;
 	
 	public InventoryManagerHomePage(JFrame frame) {
 		this.frame = frame;
@@ -22,65 +27,85 @@ public class InventoryManagerHomePage {
 	
 	private void prepareGUI() {
 		panel = new JPanel();
-		frame.getContentPane().revalidate();
-		frame.getContentPane().add(panel);
+		panel.setBounds(new Rectangle(800, 500));
 		panel.setLayout(null);
 		
-		categoryBtn = new JButton("Category");
-		categoryBtn.addActionListener(new ActionListener() {
+		JLabel headerLabel = new JLabel("Inventory Manager Home Page");
+		headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		headerLabel.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		headerLabel.setBounds(170, 11, 444, 14);
+		panel.add(headerLabel);
+		
+		JButton backBtn = new JButton("Back");
+		backBtn.setBounds(10, 8, 89, 23);
+		panel.add(backBtn);
+		
+		JButton logoutBtn = new JButton("Logout");
+		logoutBtn.setBounds(656, 8, 89, 23);
+		panel.add(logoutBtn);
+		
+		DefaultTableModel model = loadTable();
+		JTable table = new JTable(model);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(186, 52, 556, 387);
+		panel.add(scrollPane);
+		
+		JButton inventoryBtn = new JButton("Manage Inventory");
+		inventoryBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openCategoryForInventoryManager(e);
+				manageInventoryActionPerformed(e);
 			}
 		});
-		categoryBtn.setBounds(10, 93, 89, 23);
-		panel.add(categoryBtn);
+		inventoryBtn.setBounds(10, 62, 166, 57);
+		panel.add(inventoryBtn);
 		
-		brandBtn = new JButton("Brands");
-		brandBtn.addActionListener(new ActionListener() {
+		JButton stockBtn = new JButton("Manage Stocks");
+		stockBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openBrandPageForInventoryManager(e);
+				manageStocksActionPerformed(e);
 			}
 		});
-		brandBtn.setBounds(10, 143, 89, 23);
-		panel.add(brandBtn);
+		stockBtn.setBounds(10, 142, 166, 57);
+		panel.add(stockBtn);
 		
-		productBtn = new JButton("Products");
-		productBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				openProductPageForInventoryManager(e);
-			}
-		});
-		productBtn.setBounds(10, 188, 89, 23);
-		panel.add(productBtn);
+		JButton itemBtn = new JButton("Manage Items");
+		itemBtn.setBounds(10, 222, 166, 57);
+		panel.add(itemBtn);
 		
-		table = new JTable();
-		table.setBounds(109, 97, 331, 114);
-		panel.add(table);
+		JButton orderBtn = new JButton("Manage Orders");
+		orderBtn.setBounds(10, 304, 166, 57);
+		panel.add(orderBtn);
 		
-		JLabel welcomeLabel = new JLabel("Welcome: ");
-		welcomeLabel.setBounds(24, 23, 206, 14);
-		panel.add(welcomeLabel);
-		
-		JLabel role = new JLabel("Role:");
-		role.setBounds(24, 48, 206, 14);
-		panel.add(role);
-		
+		JButton inboundBtn = new JButton("Manage Inbound Delivery");
+		inboundBtn.setBounds(10, 382, 166, 57);
+		panel.add(inboundBtn);
+		frame.getContentPane().revalidate();
+		frame.getContentPane().add(panel);
 		frame.setVisible(true);
 		
 	}
 	
-	private void openCategoryForInventoryManager(ActionEvent evt) {
-		frame.getContentPane().removeAll();
-		new OpenCatagoryPageForInventoryManager(frame);
+	private DefaultTableModel loadTable() {
+		String[] columns = {"Inventory ID", "Inventory Name", "Inventory Description", "Stock ID", "Stock Type", "Stock Description", "Item ID", "Item Name", "Item Price", "Item Quantity", "Item Description"};
+	      List<String[]> values = new ArrayList<String[]>();
+	      
+	      values.add(new String[] {"IN1", "Inventory One", "Inventory One", "ST1", "Electronics", "Contains electronics item", "1", "Samsung TV", "10000.00", "100","TV with 4K UHD"});
+	
+	      
+	        
+	        DefaultTableModel model = new DefaultTableModel(values.toArray(new Object[][] {}), columns);
+		
+		return model;
 	}
 	
-	private void openBrandPageForInventoryManager(ActionEvent e) {
+	private void manageInventoryActionPerformed(ActionEvent e) {
 		frame.getContentPane().removeAll();
-		new OpenBrandPageForInventoryManager(frame);
+		new ManageInventoryPage(frame);
 	}
 	
-	private void openProductPageForInventoryManager(ActionEvent e) {
+	private void manageStocksActionPerformed(ActionEvent e) {
 		frame.getContentPane().removeAll();
-		new OpenProductsForInventoryManager(frame);
+		new ManageStockPage(frame);
 	}
 }
