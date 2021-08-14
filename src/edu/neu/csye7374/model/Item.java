@@ -10,10 +10,25 @@ public class Item {
 	
 	private String itemDescription;
 	
-	/**
-	 * Pavan - Please add the stock over here for it to know which stock the item would be part of
-	 * @return
-	 */
+	private int itemQuantity;
+	
+	private String stock;
+	
+	public String getStock() {
+		return stock;
+	}
+
+	public void setStock(String stock) {
+		this.stock = stock;
+	}
+
+	public int getItemQuantity() {
+		return itemQuantity;
+	}
+
+	public void setItemQuantity(int itemQuantity) {
+		this.itemQuantity = itemQuantity;
+	}
 
 	public int getItemId() {
 		return itemId;
