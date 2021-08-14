@@ -31,7 +31,7 @@ public class MainFrame {
 	private void prepareGUI() {
 		frame.setTitle("Inventory Management");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(10, 20, 800, 400);
+		frame.setBounds(10, 20, 800, 500);
 		panel = new JPanel();
 		panel.setLayout(null);
 		frame.add(panel);

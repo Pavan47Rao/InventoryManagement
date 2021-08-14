@@ -25,7 +25,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 
-public class OpenCatagoryPageForInventoryManager {
+public class ManageStockPage {
 	
 	private JFrame frame;
 	private JPanel panel;
@@ -35,7 +35,7 @@ public class OpenCatagoryPageForInventoryManager {
 	private JButton backBtn;
 	private JTable table;
 	
-	public OpenCatagoryPageForInventoryManager(JFrame frame) {
+	public ManageStockPage(JFrame frame) {
 		this.frame = frame;
 	prepareGUI();
 	}
