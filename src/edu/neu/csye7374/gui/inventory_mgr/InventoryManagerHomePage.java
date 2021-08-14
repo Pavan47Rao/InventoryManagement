@@ -1,4 +1,4 @@
-package edu.neu.csye7374.gui;
+package edu.neu.csye7374.gui.inventory_mgr;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -70,14 +70,29 @@ public class InventoryManagerHomePage {
 		panel.add(stockBtn);
 		
 		JButton itemBtn = new JButton("Manage Items");
+		itemBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manageItemsActionPerformed(e);
+			}
+		});
 		itemBtn.setBounds(10, 222, 166, 57);
 		panel.add(itemBtn);
 		
 		JButton orderBtn = new JButton("Manage Orders");
+		orderBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manageOrderActionPerformed(e);
+			}
+		});
 		orderBtn.setBounds(10, 304, 166, 57);
 		panel.add(orderBtn);
 		
 		JButton inboundBtn = new JButton("Manage Inbound Delivery");
+		inboundBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				manageInboundDeliveryActionPerformed(e);
+			}
+		});
 		inboundBtn.setBounds(10, 382, 166, 57);
 		panel.add(inboundBtn);
 		frame.getContentPane().revalidate();
@@ -107,5 +122,20 @@ public class InventoryManagerHomePage {
 	private void manageStocksActionPerformed(ActionEvent e) {
 		frame.getContentPane().removeAll();
 		new ManageStockPage(frame);
+	}
+	
+	private void manageItemsActionPerformed(ActionEvent e) {
+		frame.getContentPane().removeAll();
+		new ManageItemPage(frame);
+	}
+	
+	private void manageOrderActionPerformed(ActionEvent e) {
+		frame.getContentPane().removeAll();
+		new ManageOrderPage(frame);
+	}
+	
+	private void manageInboundDeliveryActionPerformed(ActionEvent e) {
+		frame.getContentPane().removeAll();
+		new ManageInboundDeliveryPage(frame);
 	}
 }

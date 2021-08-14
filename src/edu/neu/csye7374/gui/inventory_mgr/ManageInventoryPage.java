@@ -1,4 +1,4 @@
-package edu.neu.csye7374.gui;
+package edu.neu.csye7374.gui.inventory_mgr;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -43,10 +43,20 @@ public class ManageInventoryPage {
 	panel.add(headerLabel);
 	
 	JButton addInventoryBtn = new JButton("Add Inventory");
+	addInventoryBtn.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			addInventoryActionPerformed(e);
+		}
+	});
 	addInventoryBtn.setBounds(10, 75, 143, 60);
 	panel.add(addInventoryBtn);
 	
 	JButton editInventoryBtn = new JButton("Edit Inventory");
+	editInventoryBtn.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			editInventoryActionPerformed(e);
+		}
+	});
 	editInventoryBtn.setBounds(10, 171, 143, 60);
 	panel.add(editInventoryBtn);
 	
@@ -57,13 +67,15 @@ public class ManageInventoryPage {
 	JButton backBtn = new JButton("Back");
 	backBtn.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
+			frame.getContentPane().removeAll();
+			new InventoryManagerHomePage(frame);
 		}
 	});
 	backBtn.setBounds(10, 8, 89, 23);
 	panel.add(backBtn);
 	
 	JButton logoutBtn = new JButton("Logout");
-	logoutBtn.setBounds(702, 8, 89, 23);
+	logoutBtn.setBounds(606, 8, 89, 23);
 	panel.add(logoutBtn);
 	
 	DefaultTableModel model = loadTable();
@@ -73,7 +85,7 @@ public class ManageInventoryPage {
 	
 	
 	JScrollPane scrollPane = new JScrollPane(table);
-	scrollPane.setBounds(188, 67, 527, 398);
+	scrollPane.setBounds(188, 67, 502, 312);
 	panel.add(scrollPane);
 	
 	frame.setVisible(true);
@@ -91,6 +103,16 @@ public class ManageInventoryPage {
 		
 		return model;
 		
+	}
+	
+	private void addInventoryActionPerformed(ActionEvent e) {
+		frame.getContentPane().removeAll();
+		new AddInventoryPage(frame);
+	}
+	
+	private void editInventoryActionPerformed(ActionEvent e) {
+		frame.getContentPane().removeAll();
+		new EditInventoryPage(frame);
 	}
 
 }
