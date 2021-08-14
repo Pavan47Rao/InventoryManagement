@@ -6,9 +6,7 @@ public class Inventory {
 
 	private int inventoryId;
 	
-	private String inventoryType; // remove this - change this to inventory name
-	
-	private int inventoryQuantity; // this needs to go to the item quantity
+	private String inventoryName;
 	
 	private List<Stock> inventroyStock;
 
@@ -20,20 +18,12 @@ public class Inventory {
 		this.inventoryId = inventoryId;
 	}
 
-	public String getInventoryType() {
-		return inventoryType;
+	public String getInventoryName() {
+		return inventoryName;
 	}
 
-	public void setInventoryType(String inventoryType) {
-		this.inventoryType = inventoryType;
-	}
-
-	public int getInventoryQuantity() {
-		return inventoryQuantity;
-	}
-
-	public void setInventoryQuantity(int inventoryQuantity) {
-		this.inventoryQuantity = inventoryQuantity;
+	public void setInventoryType(String inventoryName) {
+		this.inventoryName = inventoryName;
 	}
 
 	public List<Stock> getInventroyStock() {

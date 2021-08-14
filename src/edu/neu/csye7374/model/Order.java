@@ -1,5 +1,7 @@
 package edu.neu.csye7374.model;
 
+import java.util.List;
+
 public class Order {
 	
 	private int orderId;
@@ -8,11 +10,15 @@ public class Order {
 	
 	private String description;
 	
-	/**
-	 * Need to mention about the itmes
-	 * 
-	 * @return
-	 */
+	private List<Item> items;
+	
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
 
 	public int getOrderId() {
 		return orderId;
