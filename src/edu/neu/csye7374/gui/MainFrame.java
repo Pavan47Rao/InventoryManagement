@@ -1,5 +1,7 @@
 package edu.neu.csye7374.gui;
 
+import edu.neu.csye7374.gui.inventory_mgr.*;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
