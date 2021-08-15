@@ -1,10 +1,10 @@
 package edu.neu.csye7374.items;
 
-import edu.neu.csye7374.api.AbstractItemAPI;
-import edu.neu.csye7374.api.AbstractStockAPI;
+
+import edu.neu.csye7374.model.Item;
 import edu.neu.csye7374.model.Stock;
 
-public class WritingPad extends AbstractItemAPI{
+public class WritingPad extends Item{
 	
 	private int itemId;
 	private String itemName;
