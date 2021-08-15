@@ -7,9 +7,13 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class ManageInboundDeliveryPage {
@@ -35,7 +39,11 @@ public class ManageInboundDeliveryPage {
 		inboundDeliveryLabel.setBounds(232, 11, 293, 18);
 		panel.add(inboundDeliveryLabel);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		DefaultTableModel model = loadTable();
+		JTable table = new JTable(model);
+		
+		
+		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(90, 74, 614, 278);
 		panel.add(scrollPane);
 		
@@ -58,6 +66,19 @@ public class ManageInboundDeliveryPage {
 		panel.add(acceptDeliveryBtn);
 		frame.setVisible(true);
 		
+	}
+	
+	private DefaultTableModel loadTable() {
+		String[] columns = {"Order ID", "Amount", "Item ID", "Quantity"};
+	      List<String[]> values = new ArrayList<String[]>();
+	      
+	      values.add(new String[] {"O1", "10000.00", "1", "20"});
+	      
+	      
+	        
+	        DefaultTableModel model = new DefaultTableModel(values.toArray(new Object[][] {}), columns);
+		
+		return model;
 	}
 
 }

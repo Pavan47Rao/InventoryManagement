@@ -1,6 +1,7 @@
 package edu.neu.csye7374.gui;
 
 import edu.neu.csye7374.gui.inventory_mgr.*;
+import edu.neu.csye7374.gui.supplier.SupplierHomePage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -98,6 +99,13 @@ public class MainFrame {
 			frame.getContentPane().removeAll();
 			new HumanResourcesHomePage(frame);
 		}
+		
+		if(userNameTextField.getText().equalsIgnoreCase("cc") && passwordTextField.getText().equals("cc")) {
+			frame.getContentPane().removeAll();
+			new SupplierHomePage(frame);
+		}
+		
+		
 		
 		
 	}
