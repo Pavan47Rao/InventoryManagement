@@ -1,19 +1,19 @@
 package edu.neu.csye7374.gui;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.Font;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class HumanResourceAddUserPage {
-	
+public class HumanResourceEditUserPage {
 	private JFrame frame;
 	private JPanel panel;
 	private JTextField textField;
@@ -23,7 +23,7 @@ public class HumanResourceAddUserPage {
 	private JTextField textField_6;
 	private JTextField textField_1;
 	
-	public HumanResourceAddUserPage(JFrame frame) {
+	public HumanResourceEditUserPage(JFrame frame) {
 		this.frame = frame;
 		prepareGUI();
 		
@@ -112,7 +112,7 @@ public class HumanResourceAddUserPage {
 		backBtn.setBounds(28, 11, 89, 23);
 		panel.add(backBtn);
 		
-		JLabel addUserLabel = new JLabel("Add Users");
+		JLabel addUserLabel = new JLabel("Edit Users");
 		addUserLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		addUserLabel.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		addUserLabel.setBounds(332, 15, 156, 14);
@@ -124,3 +124,4 @@ public class HumanResourceAddUserPage {
 		frame.setVisible(true);
 	}
 }
+
