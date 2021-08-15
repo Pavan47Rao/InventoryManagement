@@ -3,7 +3,7 @@ package edu.neu.csye7374.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Stock {
+public class Stock implements Cloneable{
 	
 	private int stockId;
 	
@@ -88,5 +88,15 @@ public class Stock {
 				result.add(i);
 		}
 		return result;
+	}
+	
+	public Stock getMyClone() {
+		Object obj = null;
+		try {
+			obj = this.clone();
+		} catch(CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return (Stock) obj;
 	}
 }
