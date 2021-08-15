@@ -12,6 +12,12 @@ public class Order {
 	
 	private List<Item> items;
 	
+	/*
+	 * Add a state attribute to handle the states of the order
+	 * this field would be how we would be tracking the flow of purchase orders
+	 * 
+	 */
+	
 	public List<Item> getItems() {
 		return items;
 	}

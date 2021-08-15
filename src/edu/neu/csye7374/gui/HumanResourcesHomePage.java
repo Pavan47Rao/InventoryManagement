@@ -27,17 +27,17 @@ public class HumanResourcesHomePage {
 	
 	private void prepareGUI() {
 		panel = new JPanel();
-		panel.setBounds(0, 0, 800, 400);
+		panel.setBounds(0, 0, 800, 500);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JButton backBtn = new JButton("<-- Back");
-		backBtn.addActionListener(new ActionListener() {
+		JButton logoutBtn = new JButton("Logout");
+		logoutBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		backBtn.setBounds(645, 11, 89, 23);
-		panel.add(backBtn);
+		logoutBtn.setBounds(645, 11, 89, 23);
+		panel.add(logoutBtn);
 		
 		DefaultTableModel model = loadTable();
 		
@@ -69,6 +69,7 @@ public class HumanResourcesHomePage {
 		JButton editIUserBtn = new JButton("Edit User");
 		editIUserBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				editUserActionPerformed(e);
 			}
 		});
 		editIUserBtn.setBounds(10, 145, 138, 63);
@@ -81,6 +82,11 @@ public class HumanResourcesHomePage {
 	
 		frame.getContentPane().removeAll();
 		new HumanResourceAddUserPage(frame);
+	}
+	
+	private void editUserActionPerformed(ActionEvent e) {
+		frame.getContentPane().removeAll();
+		new HumanResourceEditUserPage(frame);
 	}
 	
 	private DefaultTableModel loadTable() {
