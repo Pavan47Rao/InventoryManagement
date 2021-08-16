@@ -12,4 +12,9 @@ public class MilkFactory extends AbstractItemFactory {
 		return new Milk();
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getObject().toString();
+	}
 }

@@ -11,5 +11,11 @@ public class CheeseFactory extends AbstractItemFactory {
 		// TODO Auto-generated method stub
 		return new Cheese();
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getObject().toString();
+	}
 
 }

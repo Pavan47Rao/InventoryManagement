@@ -8,10 +8,24 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import edu.neu.csye7374.api.AbstractItemFactory;
+import edu.neu.csye7374.singleton.AirpodsFactorySingleton;
+import edu.neu.csye7374.singleton.CheeseFactorySingleton;
+import edu.neu.csye7374.singleton.IphoneFactorySingleton;
+import edu.neu.csye7374.singleton.MilkFactorySingleton;
+import edu.neu.csye7374.singleton.PenFactorySingleton;
+import edu.neu.csye7374.singleton.PencilFactorySingleton;
+import edu.neu.csye7374.singleton.VRHeadsetFactorySingleton;
+import edu.neu.csye7374.singleton.WritingPadFactorySingleton;
+import edu.neu.csye7374.singleton.YogurtFactorySingleton;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class AddItemsPage {
@@ -22,10 +36,42 @@ public class AddItemsPage {
 	private JTextField nameField;
 	private JTextField priceField;
 	private JTextField qtyField;
+	private List<AbstractItemFactory> itemList;
 	
 	public AddItemsPage(JFrame frame) {
 	this.frame = frame;
+	itemList = new ArrayList<AbstractItemFactory>();
+	populateItemList(itemList);
 	prepareGUI();
+	
+	}
+	
+	private void populateItemList(List<AbstractItemFactory> itemList) {
+		System.out.print("Populate item list method");
+		AbstractItemFactory airpodsFactory, cheeseFactory, iphoneFactory,
+		milkFactory, pencilFactory, penFactory, vrheadsetFactory, writingpadFactory, yogurFactory;
+		
+		airpodsFactory = AirpodsFactorySingleton.getObject();
+		cheeseFactory = CheeseFactorySingleton.getObject();
+		iphoneFactory = IphoneFactorySingleton.getObject();
+		milkFactory = MilkFactorySingleton.getObject();
+		pencilFactory = PencilFactorySingleton.getObject();
+		penFactory = PenFactorySingleton.getObject();
+		vrheadsetFactory = VRHeadsetFactorySingleton.getObject();
+		writingpadFactory = WritingPadFactorySingleton.getObject();
+		yogurFactory = YogurtFactorySingleton.getObject();
+		
+		itemList.add(airpodsFactory);
+		itemList.add(cheeseFactory);
+		itemList.add(yogurFactory);
+		itemList.add(iphoneFactory);
+		itemList.add(pencilFactory);
+		itemList.add(penFactory);
+		itemList.add(milkFactory);
+		itemList.add(vrheadsetFactory);
+		itemList.add(writingpadFactory);
+		
+		
 	}
 	
 	private void prepareGUI() {
@@ -99,7 +145,10 @@ public class AddItemsPage {
 		stockLabel.setBounds(225, 243, 108, 34);
 		panel.add(stockLabel);
 		
-		JComboBox stockCombo = new JComboBox();
+		/*
+		 * Code to populate comboBox
+		 */
+		JComboBox stockCombo = new JComboBox(itemList.toArray());
 		stockCombo.setBounds(342, 249, 220, 34);
 		panel.add(stockCombo);
 		

@@ -12,5 +12,10 @@ public class YogurtFactory extends AbstractItemFactory {
 		return new Yogurt();
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getObject().toString();
+	}
 }
 

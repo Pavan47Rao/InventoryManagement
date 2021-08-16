@@ -84,4 +84,11 @@ public class Item {
 	}
 	
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		System.out.println("To string method of item");
+		return getItemName();
+	}
+	
 }

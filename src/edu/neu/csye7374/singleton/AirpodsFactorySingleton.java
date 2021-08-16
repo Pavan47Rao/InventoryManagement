@@ -6,16 +6,13 @@ import edu.neu.csye7374.factories.AirpodsFactory;
 
 public class AirpodsFactorySingleton {
 	
-	private static AbstractItemFactory airpodsInstance;
+	private static AbstractItemFactory airpodsInstance = new AirpodsFactory();
 	
 	private AirpodsFactorySingleton() {
-		airpodsInstance = null;
+	
 	}
 	
 	public static AbstractItemFactory getObject() {
-		if(airpodsInstance == null) {
-			airpodsInstance = new AirpodsFactory();
-		}
 		return airpodsInstance;
 	}
 

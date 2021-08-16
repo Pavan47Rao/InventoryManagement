@@ -11,5 +11,11 @@ public class AirpodsFactory extends AbstractItemFactory {
 		// TODO Auto-generated method stub
 		return new Airpods();
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getObject().toString();
+	}
 
 }

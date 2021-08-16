@@ -12,4 +12,9 @@ public class IphoneFactory extends AbstractItemFactory {
 		return new Iphone();
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getObject().toString();
+	}
 }
