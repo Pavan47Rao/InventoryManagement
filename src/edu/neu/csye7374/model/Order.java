@@ -6,9 +6,7 @@ public class Order {
 	
 	private int orderId;
 	
-	private double amount;
-	
-	private String description;
+	private Supplier supplier;
 	
 	private List<Item> items;
 	
@@ -38,21 +36,12 @@ public class Order {
 		this.orderId = orderId;
 	}
 
-	public double getAmount() {
-		return amount;
+	public Supplier getSupplier() {
+		return supplier;
 	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
 	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
 	
 }
