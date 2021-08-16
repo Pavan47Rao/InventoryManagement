@@ -18,7 +18,6 @@ public class ManageOrderPage {
 	private JFrame frame;
 	private JPanel panel;
 	private JTextField orderIdtextField;
-	private JTextField amtField;
 	private JTextField textField;
 	
 	public ManageOrderPage(JFrame frame) {
@@ -65,43 +64,47 @@ public class ManageOrderPage {
 		panel.add(orderIdtextField);
 		orderIdtextField.setColumns(10);
 		
-		JLabel lblAmoutn = new JLabel("Amount");
-		lblAmoutn.setBounds(254, 105, 116, 41);
-		panel.add(lblAmoutn);
-		
-		amtField = new JTextField();
-		amtField.setColumns(10);
-		amtField.setBounds(380, 101, 209, 45);
-		panel.add(amtField);
-		
 		JLabel itemLabel = new JLabel("Item");
-		itemLabel.setBounds(254, 157, 116, 41);
+		itemLabel.setBounds(254, 101, 116, 41);
 		panel.add(itemLabel);
 		
 		JLabel lblQuantity_1 = new JLabel("Quantity");
-		lblQuantity_1.setBounds(254, 213, 116, 41);
+		lblQuantity_1.setBounds(254, 157, 116, 41);
 		panel.add(lblQuantity_1);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(380, 209, 209, 45);
+		textField.setBounds(380, 153, 209, 45);
 		panel.add(textField);
 		
 		JComboBox itemCombo = new JComboBox();
-		itemCombo.setBounds(380, 157, 209, 41);
+		itemCombo.setBounds(380, 101, 209, 41);
 		panel.add(itemCombo);
 		
 		JLabel supplierLabel = new JLabel("Supplier");
-		supplierLabel.setBounds(254, 267, 116, 41);
+		supplierLabel.setBounds(254, 211, 116, 41);
 		panel.add(supplierLabel);
 		
 		JComboBox supplierCombo = new JComboBox();
-		supplierCombo.setBounds(380, 265, 209, 45);
+		supplierCombo.setBounds(380, 209, 209, 45);
 		panel.add(supplierCombo);
 		
 		JButton purchaseOrder = new JButton("Purchase Order");
-		purchaseOrder.setBounds(287, 331, 275, 36);
+		purchaseOrder.setBounds(287, 275, 275, 36);
 		panel.add(purchaseOrder);
+		
+		JButton addItemToOrderBtn = new JButton("Add Item");
+		addItemToOrderBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addItemToOrderActionPerformed(e);
+			}
+		});
+		addItemToOrderBtn.setBounds(605, 101, 127, 30);
+		panel.add(addItemToOrderBtn);
 		frame.setVisible(true);
+	}
+	
+	private void addItemToOrderActionPerformed(ActionEvent e) {
+		System.out.println("Adding item to order code would come here");
 	}
 }
