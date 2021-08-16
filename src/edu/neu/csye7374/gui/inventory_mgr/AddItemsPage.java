@@ -33,7 +33,6 @@ public class AddItemsPage {
 	private JFrame frame;
 	private JPanel panel;
 	private JTextField idField;
-	private JTextField nameField;
 	private JTextField priceField;
 	private JTextField qtyField;
 	private List<AbstractItemFactory> itemList;
@@ -114,11 +113,6 @@ public class AddItemsPage {
 		lblItemName.setBounds(225, 102, 108, 34);
 		panel.add(lblItemName);
 		
-		nameField = new JTextField();
-		nameField.setColumns(10);
-		nameField.setBounds(342, 100, 220, 39);
-		panel.add(nameField);
-		
 		JLabel lblItemPrice = new JLabel("Item Price");
 		lblItemPrice.setBounds(225, 149, 108, 34);
 		panel.add(lblItemPrice);
@@ -159,7 +153,10 @@ public class AddItemsPage {
 		JButton btnNewButton = new JButton("Submit");
 		btnNewButton.setBounds(306, 419, 89, 23);
 		panel.add(btnNewButton);
+		
+		JComboBox itemCombo = new JComboBox();
+		itemCombo.setBounds(342, 100, 220, 39);
+		panel.add(itemCombo);
 		frame.setVisible(true);
 	}
-
 }
