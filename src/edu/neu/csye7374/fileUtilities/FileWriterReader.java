@@ -1,5 +1,4 @@
 package edu.neu.csye7374.fileUtilities;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,35 +20,30 @@ public class FileWriterReader {
 	private static List<Person> persons = new ArrayList<>();
 
 	public FileWriterReader() {
-		this.saver = new Save(data);
-		this.loader = new Load(data);
+		this.saver = new Save();
+		this.loader = new Load();
 
 	}
 
-	public void save() throws IOException {
-		saver.save();
-
+	public void saveAll() throws IOException {
+		saver.saveAll();
 	}
 
-	public void load() {
-		loader.loadCSV();
+	public void loadAll() throws ClassNotFoundException, IOException {
+		loader.loadAll();
+	}
+	
+	public void loadPersons() throws ClassNotFoundException, IOException {
+		loader.loadAllPersons();
 	}
 
-	public void refresh() throws IOException {
-		saver.save();
-		loader.loadCSV();
+	public void loadSupplier() throws ClassNotFoundException, IOException {
+		loader.loadSuppliers();
 	}
-
-	public static void demo() throws IOException {
-
-		FileWriterReader fileUti = new FileWriterReader();
+	
+	
 
 
-		fileUti.save();
 
-		// Read objects
-		fileUti.load();
-
-	}
 
 }
