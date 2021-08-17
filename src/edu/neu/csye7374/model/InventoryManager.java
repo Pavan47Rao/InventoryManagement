@@ -3,6 +3,7 @@ package edu.neu.csye7374.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
 
 public class InventoryManager extends Person{
 	
@@ -51,5 +52,14 @@ public class InventoryManager extends Person{
 	
 	public void addItems(Item item) {
 		this.getItems().add(item);
+	}
+	
+	public void deleteItems(int id) {
+		for(ListIterator<Item> itr = this.getItems().listIterator(); itr.hasNext();) {
+			Item i = itr.next();
+			if(i.getItemId() == id) {
+				itr.remove();
+			}
+		}
 	}
 }

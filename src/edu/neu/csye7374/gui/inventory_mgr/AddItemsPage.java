@@ -247,6 +247,8 @@ public class AddItemsPage {
 			addItem.setStock(StockRepository.getStock(selectedStock));
 			addItem.setItemDescription(descPane.getText());
 			
+			StockRepository.getStock(selectedStock).addItemToStock(addItem);
+			
 			MainFrame.getInventoryManager().addItems(addItem);
 			JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");
 		} else {
@@ -270,6 +272,8 @@ public class AddItemsPage {
 						addItem.setItemQuantity(Integer.parseInt(qtyField.getText()));
 						addItem.setStock(StockRepository.getStock(selectedStock));
 						addItem.setItemDescription(descPane.getText());
+						
+						StockRepository.getStock(selectedStock).addItemToStock(addItem);
 						
 					MainFrame.getInventoryManager().addItems(addItem);
 						JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");

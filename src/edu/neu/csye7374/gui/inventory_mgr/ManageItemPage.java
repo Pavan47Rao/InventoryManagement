@@ -91,6 +91,11 @@ public class ManageItemPage {
 		panel.add(editItemBtn);
 		
 		JButton deleteItemBtn = new JButton("Delete Items");
+		deleteItemBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deleteItemActionPerformed(e);
+			}
+		});
 		deleteItemBtn.setBounds(10, 274, 120, 55);
 		panel.add(deleteItemBtn);
 		frame.setVisible(true);
@@ -148,6 +153,27 @@ public class ManageItemPage {
 		} else {
 			return false;
 		}
+	}
+	
+	
+	/**
+	 * Delete Item
+	 */
+	
+	private void deleteItemActionPerformed(ActionEvent e) {
+		if(table.getModel().getRowCount() <= 0) {
+			JOptionPane.showMessageDialog(panel, "There are no entries in the table");
+		}
+		else {
+			if(checkItemSelectedInTable()) {
+				JOptionPane.showMessageDialog(panel, "Please select an entry to delete from table");
+			} else {
+				int itemId = Integer.parseInt((String)table.getValueAt(table.getSelectedRow(), 0));
+				MainFrame.getInventoryManager().deleteItems(itemId);
+				JOptionPane.showMessageDialog(panel, "Item has been deleted successfully");
+			}
+		}
+		table.setModel(loadTable());
 	}
 
 }
