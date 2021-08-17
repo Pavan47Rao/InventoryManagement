@@ -7,52 +7,48 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.neu.csye7374.model.Person;
 
+//a unified interface to a set of interfaces in a subsytem
 public class FileWriterReader {
 
-	private static final String PersonFile = "Persons.txt";
+	private Save saver;
+	private Load loader;
+	private static final String data = "data.txt";
+	private static List<Person> persons = new ArrayList<>();
 
-	public static void main(String[] args) {
+	public FileWriterReader() {
+		this.saver = new Save(data);
+		this.loader = new Load(data);
 
-		Person p1 = new Person();
-		Person p2 = new Person();
-		p2.setFirstName("Siddhant");
-		p2.setLastName("Rao");
+	}
 
-		try {
-			FileOutputStream f = new FileOutputStream(new File("myObjects.txt"));
-			ObjectOutputStream o = new ObjectOutputStream(f);
+	public void save() throws IOException {
+		saver.save();
 
-			// Write objects to file
-			o.writeObject(p1);
-			o.writeObject(p2);
+	}
 
-			o.close();
-			f.close();
+	public void load() {
+		loader.loadCSV();
+	}
 
-			FileInputStream fi = new FileInputStream(new File("myObjects.txt"));
-			ObjectInputStream oi = new ObjectInputStream(fi);
+	public void refresh() throws IOException {
+		saver.save();
+		loader.loadCSV();
+	}
 
-			// Read objects
-			Person pr1 = (Person) oi.readObject();
-			Person pr2 = (Person) oi.readObject();
+	public static void demo() throws IOException {
 
-			System.out.println(pr1.toString());
-			System.out.println(pr2.toString());
+		FileWriterReader fileUti = new FileWriterReader();
 
-			oi.close();
-			fi.close();
 
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
-		} catch (IOException e) {
-			System.out.println("Error initializing stream");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		fileUti.save();
+
+		// Read objects
+		fileUti.load();
 
 	}
 
