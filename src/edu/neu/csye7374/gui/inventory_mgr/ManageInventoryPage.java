@@ -45,28 +45,6 @@ public class ManageInventoryPage {
 	headerLabel.setBounds(303, 11, 263, 14);
 	panel.add(headerLabel);
 	
-	JButton addInventoryBtn = new JButton("Add Inventory");
-	addInventoryBtn.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			addInventoryActionPerformed(e);
-		}
-	});
-	addInventoryBtn.setBounds(10, 75, 143, 60);
-	panel.add(addInventoryBtn);
-	
-	JButton editInventoryBtn = new JButton("Edit Inventory");
-	editInventoryBtn.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			editInventoryActionPerformed(e);
-		}
-	});
-	editInventoryBtn.setBounds(10, 171, 143, 60);
-	panel.add(editInventoryBtn);
-	
-	JButton btnDeleteInventory = new JButton("Delete Inventory");
-	btnDeleteInventory.setBounds(10, 273, 143, 60);
-	panel.add(btnDeleteInventory);
-	
 	JButton backBtn = new JButton("Back");
 	backBtn.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -94,7 +72,7 @@ public class ManageInventoryPage {
 	
 	
 	JScrollPane scrollPane = new JScrollPane(table);
-	scrollPane.setBounds(188, 67, 502, 312);
+	scrollPane.setBounds(41, 67, 703, 312);
 	panel.add(scrollPane);
 	
 	frame.setVisible(true);
@@ -112,16 +90,6 @@ public class ManageInventoryPage {
 		
 		return model;
 		
-	}
-	
-	private void addInventoryActionPerformed(ActionEvent e) {
-		frame.getContentPane().removeAll();
-		new AddInventoryPage(frame);
-	}
-	
-	private void editInventoryActionPerformed(ActionEvent e) {
-		frame.getContentPane().removeAll();
-		new EditInventoryPage(frame);
 	}
 
 }
