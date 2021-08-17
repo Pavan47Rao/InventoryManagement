@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,6 +15,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import edu.neu.csye7374.model.Item;
+
 public class EditItemPage {
 	private JFrame frame;
 	private JPanel panel;
@@ -21,9 +24,11 @@ public class EditItemPage {
 	private JTextField nameField;
 	private JTextField priceField;
 	private JTextField qtyField;
+	private List<Item> itemList;
 	
-	public EditItemPage(JFrame frame) {
+	public EditItemPage(JFrame frame, List<Item> itemList) {
 	this.frame = frame;
+	this.itemList = itemList;
 	prepareGUI();
 	}
 	
@@ -44,7 +49,7 @@ public class EditItemPage {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.getContentPane().removeAll();
-				new ManageItemPage(frame);
+				new ManageItemPage(frame, itemList);
 			}
 		});
 		btnBack.setBounds(10, 11, 89, 23);

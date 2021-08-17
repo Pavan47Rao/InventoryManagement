@@ -16,6 +16,7 @@ import edu.neu.csye7374.singleton.PencilFactorySingleton;
 import edu.neu.csye7374.singleton.VRHeadsetFactorySingleton;
 import edu.neu.csye7374.singleton.WritingPadFactorySingleton;
 import edu.neu.csye7374.singleton.YogurtFactorySingleton;
+import edu.neu.csye7374.stock.StockRepository;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -40,14 +41,29 @@ public class MainFrame {
 	private JTextField userNameTextField;
 	private JPasswordField passwordTextField;
 	private JButton loginBtn;
+	private static List<Item> itemList;
 	
-	
+
+
 	public MainFrame() {
 		frame = new JFrame();
 		prepareGUI();
-	
+		init();
 	}
 	
+	private void init() {
+		StockRepository.loadItems();
+		itemList = new ArrayList<Item>();
+	}
+	
+	
+	public static List<Item> getItemList() {
+		return itemList;
+	}
+
+	public static void setItemList(List<Item> itemList) {
+		MainFrame.itemList = itemList;
+	}
 
 	
 	private void prepareGUI() {

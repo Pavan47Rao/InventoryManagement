@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import edu.neu.csye7374.model.Item;
+
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,10 +24,11 @@ public class ManageItemPage {
 	
 	private JFrame frame;
 	private JPanel panel;
+	private List<Item> itemList;
 	
-	
-	public ManageItemPage(JFrame frame) {
+	public ManageItemPage(JFrame frame, List<Item> itemList) {
 		this.frame = frame;
+		this.itemList = itemList;
 		prepareGUI();
 	}
 	
@@ -92,7 +96,11 @@ public class ManageItemPage {
 		String[] columns = {"Item ID", "Item Name", "Item Price", "Item Description", "Item Quantity", "Stock"};
 	      List<String[]> values = new ArrayList<String[]>();
 	      
-	      values.add(new String[] {"1", "LG TV", "10000.00", "LG TV with 4K UHD", "100", "Electronics"});
+	     for(Item item: itemList) {
+	    	 values.add(new String[] {String.valueOf(item.getItemId()), item.getItemName(), String.valueOf(item.getItemPrice())
+	    	, item.getItemDescription(), String.valueOf(item.getItemQuantity()), item.getStock().getStockType()	 
+	    	 });
+	     }
 	      
 	      
 	        
@@ -104,12 +112,12 @@ public class ManageItemPage {
 	
 	private void addItemActionPerformed(ActionEvent e) {
 		frame.getContentPane().removeAll();
-		new AddItemsPage(frame);
+		new AddItemsPage(frame, itemList);
 	}
 	
 	private void editItemActionPerformed(ActionEvent e) {
 		frame.getContentPane().removeAll();
-		new EditItemPage(frame);
+		new EditItemPage(frame, itemList);
 	}
 
 }

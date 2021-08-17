@@ -99,4 +99,10 @@ public class Stock implements Cloneable{
 		}
 		return (Stock) obj;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getStockType();
+	}
 }

@@ -7,7 +7,7 @@ import edu.neu.csye7374.model.Stock;
 
 public class StockRepository {
 	
-	private static Map<String, Stock> stockMap  = new HashMap<>();
+	public static Map<String, Stock> stockMap  = new HashMap<>();
 	
 	public static Stock getStock(String itemId) {
 		Stock cachedStock = stockMap.get(itemId);
