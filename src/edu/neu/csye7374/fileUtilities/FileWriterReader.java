@@ -16,8 +16,7 @@ public class FileWriterReader {
 
 	private Save saver;
 	private Load loader;
-	private static final String data = "data.txt";
-	private static List<Person> persons = new ArrayList<>();
+
 
 	public FileWriterReader() {
 		this.saver = new Save();
