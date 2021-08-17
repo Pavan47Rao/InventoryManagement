@@ -1,10 +1,11 @@
 package edu.neu.csye7374.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import edu.neu.csye7374.stock.StockRepository;
 
-public class Inventory {
+public class Inventory implements Serializable {
 
 	private int inventoryId;
 	
