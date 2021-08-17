@@ -1,18 +1,33 @@
 package edu.neu.csye7374.fileUtilities;
 
 import java.io.BufferedWriter;
-
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Save implements FileUtility {
+public class Save   {
 
-	private String csv;
+	private String data;
+	
 
 	public Save(String csv) {
-		this.csv = csv;
+		this.data = csv;
+	}
+	
+	public void save() throws IOException {
+		
+		FileOutputStream f = new FileOutputStream(new File(data));
+		ObjectOutputStream o = new ObjectOutputStream(f);
+
+		// Write objects to file
+		//o.writeObject(p1);
+
+		o.close();
+		f.close();
 	}
 
 	public String processData() {
@@ -21,12 +36,12 @@ public class Save implements FileUtility {
 		return sb.toString();
 	}
 
-	@Override
-	public void execute() {
+
+	public void saveCSV() {
 
 		FileWriter fileWriter;
 		try {
-			fileWriter = new FileWriter(csv);
+			fileWriter = new FileWriter(data);
 			BufferedWriter bufferWriter = new BufferedWriter(fileWriter);
 
 			StringBuilder sb = new StringBuilder();
