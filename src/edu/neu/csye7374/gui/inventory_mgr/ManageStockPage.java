@@ -12,6 +12,11 @@ import java.awt.Rectangle;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+import edu.neu.csye7374.gui.MainFrame;
+import edu.neu.csye7374.model.Stock;
+import edu.neu.csye7374.stock.StockRepository;
+
 import javax.swing.JInternalFrame;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
@@ -23,6 +28,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -33,7 +39,6 @@ public class ManageStockPage {
 	private JPanel panel;
 	private JButton backBtn;
 	private JTable table;
-	private JButton addStockBtn;
 	private JButton btnEditStocks;
 	private JButton btnDeleteStocks;
 	private JButton btnNewButton;
@@ -68,19 +73,11 @@ public class ManageStockPage {
 		panel.add(backBtn);
 		
 		table = new JTable(modelTable);
+		table.setAutoCreateRowSorter(true);
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(181, 69, 547, 381);
 		
 		panel.add(scrollPane);
-		
-		addStockBtn = new JButton("Add Stocks");
-		addStockBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				addStocksActionPerformed(e);
-			}
-		});
-		addStockBtn.setBounds(10, 80, 141, 56);
-		panel.add(addStockBtn);
 		
 		btnEditStocks = new JButton("Edit Stocks");
 		btnEditStocks.addActionListener(new ActionListener() {
@@ -88,11 +85,11 @@ public class ManageStockPage {
 				editStocksActionPerformed(e);
 			}
 		});
-		btnEditStocks.setBounds(10, 183, 141, 56);
+		btnEditStocks.setBounds(10, 130, 141, 56);
 		panel.add(btnEditStocks);
 		
 		btnDeleteStocks = new JButton("Delete Stocks");
-		btnDeleteStocks.setBounds(10, 281, 141, 56);
+		btnDeleteStocks.setBounds(10, 253, 141, 56);
 		panel.add(btnDeleteStocks);
 		
 		btnNewButton = new JButton("Logout");
@@ -110,7 +107,13 @@ public class ManageStockPage {
 		String[] columns = {"Stock ID", "Stock Type", "Stock Description"};
 	      List<String[]> values = new ArrayList<String[]>();
 	      
-	      values.add(new String[] {"ST1", "Electronics", "Stocking electronic items"});
+	      Set<String> stockMapSet = StockRepository.stockMap.keySet();
+	      for(String s: stockMapSet) {
+	    	  Stock stock = StockRepository.getStock(s);
+	    	  values.add(new String[] {String.valueOf(stock.getStockId()), stock.getStockType(), stock.getStockDescription()});
+	      }
+	      
+	     
 	      
 	      
 	        
@@ -123,11 +126,6 @@ public class ManageStockPage {
 	private void goBackToInventoryManagerHomePage(ActionEvent e) {
 		frame.getContentPane().removeAll();
 		new InventoryManagerHomePage(frame);
-	}
-	
-	private void addStocksActionPerformed(ActionEvent e) {
-		frame.getContentPane().removeAll();
-		new AddStocksPage(frame);
 	}
 	
 	private void editStocksActionPerformed(ActionEvent e) {
