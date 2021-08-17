@@ -2,6 +2,8 @@ package edu.neu.csye7374.model;
 
 import java.util.List;
 
+import edu.neu.csye7374.stock.StockRepository;
+
 public class Inventory {
 
 	private int inventoryId;
@@ -9,6 +11,21 @@ public class Inventory {
 	private String inventoryName;
 	
 	private List<Stock> inventroyStock;
+	
+	private StockRepository stockRepository;
+	
+	{
+		this.inventoryId = 1;
+		this.inventoryName = "CSYE7374 Inventory";
+	}
+
+	public StockRepository getStockRepository() {
+		return stockRepository;
+	}
+
+	public void setStockRepository(StockRepository stockRepository) {
+		this.stockRepository = stockRepository;
+	}
 
 	public int getInventoryId() {
 		return inventoryId;

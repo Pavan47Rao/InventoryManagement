@@ -19,6 +19,11 @@ public class Company {
 	private List<Order> orders=new ArrayList<>();
 	private List<Item> items=new ArrayList<>();
 	
+	public Company() {
+		// TODO Auto-generated constructor stub
+		inventory = new Inventory();
+	}
+	
 	
 	
 	public List<Order> getOrders() {

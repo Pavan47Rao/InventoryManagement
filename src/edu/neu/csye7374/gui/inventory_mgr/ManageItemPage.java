@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.model.Item;
+import edu.neu.csye7374.model.Stock;
 import edu.neu.csye7374.stock.StockRepository;
 
 import javax.swing.JButton;
@@ -169,7 +170,10 @@ public class ManageItemPage {
 				JOptionPane.showMessageDialog(panel, "Please select an entry to delete from table");
 			} else {
 				int itemId = Integer.parseInt((String)table.getValueAt(table.getSelectedRow(), 0));
+				Stock selectedStock = StockRepository.getStock((String)table.getValueAt(table.getSelectedRow(), 5));
+				StockRepository.getStock(selectedStock.getStockType()).deleteItemInStock(itemId);
 				MainFrame.getInventoryManager().deleteItems(itemId);
+				
 				JOptionPane.showMessageDialog(panel, "Item has been deleted successfully");
 			}
 		}
