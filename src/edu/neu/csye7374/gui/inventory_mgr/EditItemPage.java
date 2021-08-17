@@ -149,7 +149,7 @@ public class EditItemPage {
 	
 	private void updateItemActionPerformed(ActionEvent e) {
 		String selectedStock = (String)stockCombo.getSelectedItem();
-	for(Item i: MainFrame.getInventoryManager().getProducts()) {
+	for(Item i: MainFrame.getInventoryManager().getItems()) {
 		if(i.getItemId() == editItem.getItemId()) {
 			i.setItemQuantity(Integer.parseInt(qtyField.getText()));
 			i.setStock(StockRepository.getStock(selectedStock));
