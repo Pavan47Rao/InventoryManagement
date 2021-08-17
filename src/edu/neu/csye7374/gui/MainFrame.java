@@ -21,22 +21,29 @@ import edu.neu.csye7374.singleton.VRHeadsetFactorySingleton;
 import edu.neu.csye7374.singleton.WritingPadFactorySingleton;
 import edu.neu.csye7374.singleton.YogurtFactorySingleton;
 import edu.neu.csye7374.stock.StockRepository;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.event.ActionEvent;
-import javax.swing.JToolBar;
+
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import edu.neu.csye7374.fileUtilities.FileWriterReader;
+import edu.neu.csye7374.gui.inventory_mgr.InventoryManagerHomePage;
+import edu.neu.csye7374.gui.supplier.SupplierHomePage;
+import edu.neu.csye7374.model.InventoryManager;
+import edu.neu.csye7374.model.Item;
+import edu.neu.csye7374.model.Person;
+import edu.neu.csye7374.stock.StockRepository;
 
 public class MainFrame {
 	
@@ -154,17 +161,15 @@ public class MainFrame {
 	public void loginActionPerformed(ActionEvent e) {
 		System.out.println("Login button is clicked");
 		System.out.println("Home page accordingly should open");
+		String userName = userNameTextField.getText().toLowerCase();
+		String password = passwordTextField.getPassword().toString();
 		
-	//inventory manager
-		
+		//inventory manager
 		if(userNameTextField.getText().equalsIgnoreCase("aa") && passwordTextField.getText().equals("aa")) {
 			frame.getContentPane().removeAll();
-			
-			
 			new InventoryManagerHomePage(frame);
 		}
 		//Human resources
-		
 		if(userNameTextField.getText().equalsIgnoreCase("bb") && passwordTextField.getText().equals("bb")) {
 			frame.getContentPane().removeAll();
 			new HumanResourcesHomePage(frame);
@@ -175,9 +180,36 @@ public class MainFrame {
 			new SupplierHomePage(frame);
 		}
 		
-		
-		
-		
+		FileWriterReader fwr = new FileWriterReader();
+		try {
+			List<Person> staff = fwr.loadPersons();
+			for(Person person: staff) {
+				if(person.getAccount().getUserName().equals(userName) && person.getAccount().getPassword().equals(password)) {
+					switch(person.getRoleId()) {
+					case 1:
+						frame.getContentPane().removeAll();
+						new InventoryManagerHomePage(frame);
+						break;
+					case 2:
+						frame.getContentPane().removeAll();
+						new SupplierHomePage(frame);
+						break;
+					case 3:
+						frame.getContentPane().removeAll();
+						new HumanResourcesHomePage(frame);
+						break;
+					}
+					loggedInPerson = person;
+				}
+			}
+			
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	
 	public static void demo() {
