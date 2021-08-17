@@ -18,6 +18,11 @@ public class Company {
 	private List<Person> people = new ArrayList<>();
 
 	
+	public Company() {
+		// TODO Auto-generated constructor stub
+		inventory = new Inventory();
+	}
+	
 	
 	
 
