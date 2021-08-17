@@ -6,10 +6,10 @@ import edu.neu.csye7374.model.Account;
 public class CreateNewPassword implements ResetPasswordAPI{
 
 	@Override
-	public String resetPassword(Account account, String newPassword) {
+	public Account resetPassword(Account account, String newPassword) {
 		// TODO Auto-generated method stub
 		account.resetPassword(newPassword);
-		return newPassword;
+		return account;
 	}
 	
 }

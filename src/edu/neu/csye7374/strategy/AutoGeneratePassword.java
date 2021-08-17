@@ -41,7 +41,7 @@ public class AutoGeneratePassword implements ResetPasswordAPI{
     }
 	
 	@Override
-	public String resetPassword(Account account, String keyword) {
+	public Account resetPassword(Account account, String keyword) {
 		AutoGeneratePassword passwordGenerator = new AutoGeneratePassword();
         StringBuilder pwd = new StringBuilder();
             
@@ -49,7 +49,8 @@ public class AutoGeneratePassword implements ResetPasswordAPI{
             pwd.append(passwordGenerator.getRandom());
         }
 		
-        return pwd.toString();
+        account.resetPassword(pwd.toString());
+        return account;
 	}
 
 }

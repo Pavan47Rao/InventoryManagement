@@ -7,7 +7,7 @@ public class Context {
 
 	private ResetPasswordAPI resetPwd;
 
-	public void setViewBill(ResetPasswordAPI resetPwd) {
+	public void setResetPwd(ResetPasswordAPI resetPwd) {
 		this.resetPwd = resetPwd;
 	}
 
@@ -15,7 +15,7 @@ public class Context {
 		this.resetPwd = resetPwd;
 	}
 	
-	public String displayBillItems(Account account, String keyOrPassword) {
+	public Account performReset(Account account, String keyOrPassword) {
 		return resetPwd.resetPassword(account, keyOrPassword);
 	}
 	

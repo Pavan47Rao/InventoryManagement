@@ -1,23 +1,22 @@
 package edu.neu.csye7374.gui.inventory_mgr;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import edu.neu.csye7374.gui.MainFrame;
-import edu.neu.csye7374.model.Item;
-
-import javax.swing.JScrollPane;
+import edu.neu.csye7374.gui.ResetPasswordPage;
 
 public class InventoryManagerHomePage {
 	
@@ -49,7 +48,7 @@ public class InventoryManagerHomePage {
 		panel.add(backBtn);
 		
 		JButton logoutBtn = new JButton("Logout");
-		logoutBtn.setBounds(656, 8, 89, 23);
+		logoutBtn.setBounds(672, 8, 89, 23);
 		panel.add(logoutBtn);
 		
 		DefaultTableModel model = loadTable();
@@ -105,6 +104,16 @@ public class InventoryManagerHomePage {
 		panel.add(inboundBtn);
 		frame.getContentPane().revalidate();
 		frame.getContentPane().add(panel);
+		
+		JButton resetPwdButton = new JButton("Reset Password");
+		resetPwdButton.setBounds(542, 5, 130, 29);
+		resetPwdButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new ResetPasswordPage(frame);
+			}
+		});
+		panel.add(resetPwdButton);
 		frame.setVisible(true);
 		
 	}
