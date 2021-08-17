@@ -12,5 +12,10 @@ public class VRHeadsetFactory extends AbstractItemFactory {
 		return new VRHeadset();
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getObject().toString();
+	}
 }
 

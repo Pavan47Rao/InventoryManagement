@@ -12,5 +12,10 @@ public class PencilFactory extends AbstractItemFactory {
 		return new Pencil();
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getObject().toString();
+	}
 }
 

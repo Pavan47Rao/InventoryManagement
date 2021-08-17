@@ -1,7 +1,22 @@
 package edu.neu.csye7374.gui;
 
+import edu.neu.csye7374.api.AbstractItemFactory;
+import edu.neu.csye7374.factories.AirpodsFactory;
 import edu.neu.csye7374.gui.inventory_mgr.*;
 import edu.neu.csye7374.gui.supplier.SupplierHomePage;
+import edu.neu.csye7374.items.Airpods;
+import edu.neu.csye7374.items.Pen;
+import edu.neu.csye7374.model.Item;
+import edu.neu.csye7374.singleton.AirpodsFactorySingleton;
+import edu.neu.csye7374.singleton.CheeseFactorySingleton;
+import edu.neu.csye7374.singleton.IphoneFactorySingleton;
+import edu.neu.csye7374.singleton.MilkFactorySingleton;
+import edu.neu.csye7374.singleton.PenFactorySingleton;
+import edu.neu.csye7374.singleton.PencilFactorySingleton;
+import edu.neu.csye7374.singleton.VRHeadsetFactorySingleton;
+import edu.neu.csye7374.singleton.WritingPadFactorySingleton;
+import edu.neu.csye7374.singleton.YogurtFactorySingleton;
+import edu.neu.csye7374.stock.StockRepository;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +29,8 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JToolBar;
 
@@ -24,12 +41,30 @@ public class MainFrame {
 	private JTextField userNameTextField;
 	private JPasswordField passwordTextField;
 	private JButton loginBtn;
+	private static List<Item> itemList;
 	
+
+
 	public MainFrame() {
 		frame = new JFrame();
 		prepareGUI();
-		
+		init();
 	}
+	
+	private void init() {
+		StockRepository.loadItems();
+		itemList = new ArrayList<Item>();
+	}
+	
+	
+	public static List<Item> getItemList() {
+		return itemList;
+	}
+
+	public static void setItemList(List<Item> itemList) {
+		MainFrame.itemList = itemList;
+	}
+
 	
 	private void prepareGUI() {
 		frame.setTitle("Inventory Management");

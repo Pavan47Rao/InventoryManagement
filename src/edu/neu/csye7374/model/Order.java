@@ -1,4 +1,4 @@
-package edu.neu.csye7374.model;
+	package edu.neu.csye7374.model;
 
 import java.util.List;
 

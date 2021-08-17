@@ -12,4 +12,9 @@ public class WritingPadFactory extends AbstractItemFactory {
 		return new WritingPad();
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getObject().toString();
+	}
 }

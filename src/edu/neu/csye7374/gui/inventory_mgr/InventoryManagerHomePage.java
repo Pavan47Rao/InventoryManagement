@@ -13,6 +13,10 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import edu.neu.csye7374.gui.MainFrame;
+import edu.neu.csye7374.model.Item;
+
 import javax.swing.JScrollPane;
 
 public class InventoryManagerHomePage {
@@ -20,9 +24,13 @@ public class InventoryManagerHomePage {
 	private JFrame frame;
 	private JPanel panel;
 	
+
+	
 	public InventoryManagerHomePage(JFrame frame) {
 		this.frame = frame;
 		prepareGUI();
+		
+		
 	}
 	
 	private void prepareGUI() {
@@ -126,7 +134,7 @@ public class InventoryManagerHomePage {
 	
 	private void manageItemsActionPerformed(ActionEvent e) {
 		frame.getContentPane().removeAll();
-		new ManageItemPage(frame);
+		new ManageItemPage(frame, MainFrame.getItemList());
 	}
 	
 	private void manageOrderActionPerformed(ActionEvent e) {

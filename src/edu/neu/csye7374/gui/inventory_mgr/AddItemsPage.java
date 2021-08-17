@@ -5,13 +5,36 @@ import java.awt.Rectangle;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import edu.neu.csye7374.api.AbstractItemFactory;
+import edu.neu.csye7374.factories.AirpodsFactory;
+import edu.neu.csye7374.model.Item;
+import edu.neu.csye7374.model.Stock;
+import edu.neu.csye7374.singleton.AirpodsFactorySingleton;
+import edu.neu.csye7374.singleton.CheeseFactorySingleton;
+import edu.neu.csye7374.singleton.IphoneFactorySingleton;
+import edu.neu.csye7374.singleton.MilkFactorySingleton;
+import edu.neu.csye7374.singleton.PenFactorySingleton;
+import edu.neu.csye7374.singleton.PencilFactorySingleton;
+import edu.neu.csye7374.singleton.VRHeadsetFactorySingleton;
+import edu.neu.csye7374.singleton.WritingPadFactorySingleton;
+import edu.neu.csye7374.singleton.YogurtFactorySingleton;
+import edu.neu.csye7374.stock.Dairy;
+import edu.neu.csye7374.stock.Electronics;
+import edu.neu.csye7374.stock.Stationary;
+import edu.neu.csye7374.stock.StockRepository;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 
 public class AddItemsPage {
@@ -21,10 +44,47 @@ public class AddItemsPage {
 	private JTextField idField;
 	private JTextField priceField;
 	private JTextField qtyField;
+	private JComboBox stockCombo,itemCombo;
+	private JTextArea descPane;
+	private List<AbstractItemFactory> itemFactoryList;
+	private List<Item> itemList;
 	
-	public AddItemsPage(JFrame frame) {
+	public AddItemsPage(JFrame frame, List<Item> itemList) {
 	this.frame = frame;
+	this.itemList = itemList;
+	itemFactoryList = new ArrayList<AbstractItemFactory>();
+	populateItemList(itemFactoryList);
 	prepareGUI();
+	
+	}
+	
+	private void populateItemList(List<AbstractItemFactory> itemFactoryList) {
+		System.out.print("Populate item list method");
+		AbstractItemFactory airpodsFactory, cheeseFactory, iphoneFactory,
+		milkFactory, pencilFactory, penFactory, vrheadsetFactory, writingpadFactory, yogurFactory;
+		
+		airpodsFactory = AirpodsFactorySingleton.getObject();
+		cheeseFactory = CheeseFactorySingleton.getObject();
+		iphoneFactory = IphoneFactorySingleton.getObject();
+		milkFactory = MilkFactorySingleton.getObject();
+		pencilFactory = PencilFactorySingleton.getObject();
+		penFactory = PenFactorySingleton.getObject();
+		vrheadsetFactory = VRHeadsetFactorySingleton.getObject();
+		writingpadFactory = WritingPadFactorySingleton.getObject();
+		yogurFactory = YogurtFactorySingleton.getObject();
+		
+	
+		itemFactoryList.add(airpodsFactory);
+		itemFactoryList.add(cheeseFactory);
+		itemFactoryList.add(yogurFactory);
+		itemFactoryList.add(iphoneFactory);
+		itemFactoryList.add(pencilFactory);
+		itemFactoryList.add(penFactory);
+		itemFactoryList.add(milkFactory);
+		itemFactoryList.add(vrheadsetFactory);
+		itemFactoryList.add(writingpadFactory);
+		
+		
 	}
 	
 	private void prepareGUI() {
@@ -44,7 +104,7 @@ public class AddItemsPage {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.getContentPane().removeAll();
-				new ManageItemPage(frame);
+				new ManageItemPage(frame, itemList);
 			}
 		});
 		btnBack.setBounds(10, 11, 89, 23);
@@ -93,21 +153,88 @@ public class AddItemsPage {
 		stockLabel.setBounds(225, 243, 108, 34);
 		panel.add(stockLabel);
 		
-		JComboBox stockCombo = new JComboBox();
+		/*
+		 * Code to populate comboBox
+		 * Replace this code later on - SR
+		 */
+		List<Stock> stockList = new ArrayList<Stock>();
+		Set<String> stockMapSet = StockRepository.stockMap.keySet();
+		
+		
+		
+		 stockCombo = new JComboBox(stockMapSet.toArray());
 		stockCombo.setBounds(342, 249, 220, 34);
 		panel.add(stockCombo);
 		
-		JTextArea descPane = new JTextArea();
+		 descPane = new JTextArea();
 		descPane.setBounds(342, 304, 220, 93);
 		panel.add(descPane);
 		
 		JButton btnNewButton = new JButton("Submit");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				submitItemActionPerformed(e);
+			}
+		});
 		btnNewButton.setBounds(306, 419, 89, 23);
 		panel.add(btnNewButton);
 		
-		JComboBox itemCombo = new JComboBox();
+		 itemCombo = new JComboBox(itemFactoryList.toArray());
+		itemCombo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fetchSelectedItem(e);
+			}
+		});
 		itemCombo.setBounds(342, 100, 220, 39);
 		panel.add(itemCombo);
 		frame.setVisible(true);
+	}
+	
+	private void fetchSelectedItem(ActionEvent e) {
+		AbstractItemFactory selctedItem = (AbstractItemFactory)itemCombo.getSelectedItem();
+		for(AbstractItemFactory item: itemFactoryList) {
+			if(item.getObject().getItemName().equals(selctedItem.getObject().getItemName())) {
+				populateTextFields(selctedItem);
+			}
+		}
+	}
+	
+	private void populateTextFields(AbstractItemFactory selectedItem) {
+		idField.setText(String.valueOf(selectedItem.getObject().getItemId()));
+		priceField.setText(String.valueOf(selectedItem.getObject().getItemPrice()));
+		descPane.setText(selectedItem.getObject().getItemDescription());
+	}
+	
+	private void submitItemActionPerformed(ActionEvent e) {
+	System.out.println("Check for population of allfields "+allFieldsArePopulated());
+		if(allFieldsArePopulated()) {
+			AbstractItemFactory selctedItem = (AbstractItemFactory)itemCombo.getSelectedItem();
+			String selectedStock = (String)stockCombo.getSelectedItem();
+			
+			System.out.println(selectedStock);
+			Item item = new Item();
+			item.setItemId(Integer.parseInt(idField.getText()));
+			item.setItemName(selctedItem.getObject().getItemName());
+			item.setItemPrice(Double.parseDouble(priceField.getText()));
+			item.setItemQuantity(Integer.parseInt(qtyField.getText()));
+			item.setStock(StockRepository.getStock(selectedStock));
+			item.setItemDescription(descPane.getText());
+			
+			
+			itemList.add(item);
+			JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");
+		}
+	}
+	
+	private boolean allFieldsArePopulated() {
+		System.out.println(idField.getText());
+		System.out.println(priceField.getText());
+		System.out.println(qtyField.getText());
+		System.out.println(descPane.getText());
+		if(idField.getText().equals("") || priceField.getText().equals("") || qtyField.getText().equals("") || descPane.getText().equals("")) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

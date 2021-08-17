@@ -3,7 +3,7 @@ package edu.neu.csye7374.items;
 import edu.neu.csye7374.model.Item;
 import edu.neu.csye7374.model.Stock;
 
-public class Cheese extends Item{
+public class Cheese extends Item {
 	
 	private int itemId;
 	private String itemName;
@@ -17,7 +17,7 @@ public class Cheese extends Item{
 	 * Initialization block
 	 */
 	
-	{
+	public Cheese(){
 		this.itemId = 8;
 		this.itemName = "Cheese";
 		this.itemDescription = "Swiss cheese";
@@ -26,6 +26,8 @@ public class Cheese extends Item{
 		
 	}
 
+	
+	
 
 	@Override
 	public int getItemId() {
