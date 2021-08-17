@@ -59,7 +59,7 @@ public class Load {
 		List<Person> hr = new ArrayList<>();
 		for (int i = 0; i < persons.size(); i++) {
 			if (persons.get(i).getAccount().getStatus() == "HR") {
-				suppliers.add(persons.get(i));
+				hr.add(persons.get(i));
 			}
 		}
 		
