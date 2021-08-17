@@ -167,18 +167,17 @@ public class HumanResourceAddUserPage {
 		System.out.println("dob field is " + textField_dob.getText());
 		System.out.println("Role field is " + comboBox.getSelectedItem().toString());
 
-		// create new person 
+		// create new person
 		Person newPerson = new Person();
 		newPerson.setPersonId(Integer.parseInt(textField_ID.getText()));
 		newPerson.setFirstName(textField_firstName.getText());
 		newPerson.setLastName(textField_lastname.getText());
 		newPerson.setEmailId(textField_email.getText());
 		String role = comboBox.getSelectedItem().toString();
-		newPerson.setRoleId(Integer.parseInt(role.substring(0,1)));
+		newPerson.setRoleId(Integer.parseInt(role.substring(0, 1)));
 		Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(textField_dob.getText());
 		newPerson.setDob(dob);
-		
-		
+		newPerson.setPassword(passwordField.getText());
 
 	}
 
