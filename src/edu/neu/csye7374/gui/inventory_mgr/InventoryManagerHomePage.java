@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import edu.neu.csye7374.gui.LogoutPage;
 import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.gui.ResetPasswordPage;
 import edu.neu.csye7374.model.Item;
@@ -53,6 +54,12 @@ public class InventoryManagerHomePage {
 		panel.add(backBtn);
 		
 		JButton logoutBtn = new JButton("Logout");
+		logoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new LogoutPage(frame);
+			}
+		});
 		logoutBtn.setBounds(672, 8, 89, 23);
 		panel.add(logoutBtn);
 		

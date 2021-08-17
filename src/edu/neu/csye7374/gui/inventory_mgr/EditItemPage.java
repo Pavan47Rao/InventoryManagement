@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import edu.neu.csye7374.gui.LogoutPage;
 import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.model.Item;
 import edu.neu.csye7374.stock.StockRepository;
@@ -64,6 +65,12 @@ public class EditItemPage {
 		panel.add(btnBack);
 		
 		JButton logoutBtn = new JButton("Logout");
+		logoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new LogoutPage(frame);
+			}
+		});
 		logoutBtn.setBounds(586, 7, 89, 23);
 		panel.add(logoutBtn);
 		

@@ -11,6 +11,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import edu.neu.csye7374.gui.LogoutPage;
 import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.model.Item;
 import edu.neu.csye7374.model.Stock;
@@ -64,6 +65,12 @@ public class ManageItemPage {
 		panel.add(btnNewButton);
 		
 		JButton logoutBtn = new JButton("Logout");
+		logoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new LogoutPage(frame);
+			}
+		});
 		logoutBtn.setBounds(614, 8, 89, 23);
 		panel.add(logoutBtn);
 		

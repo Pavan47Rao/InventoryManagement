@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import edu.neu.csye7374.gui.LogoutPage;
 import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.model.Stock;
 import edu.neu.csye7374.stock.StockRepository;
@@ -94,6 +95,12 @@ public class ManageStockPage {
 		panel.add(btnDeleteStocks);
 		
 		btnNewButton = new JButton("Logout");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new LogoutPage(frame);
+			}
+		});
 		btnNewButton.setBounds(634, 8, 89, 23);
 		panel.add(btnNewButton);
 		

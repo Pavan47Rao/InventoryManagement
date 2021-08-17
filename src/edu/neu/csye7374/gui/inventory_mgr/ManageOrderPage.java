@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 
 import edu.neu.csye7374.api.AbstractItemFactory;
 import edu.neu.csye7374.fileUtilities.FileWriterReader;
+import edu.neu.csye7374.gui.LogoutPage;
 import edu.neu.csye7374.singleton.AirpodsFactorySingleton;
 import edu.neu.csye7374.singleton.CheeseFactorySingleton;
 import edu.neu.csye7374.singleton.IphoneFactorySingleton;
@@ -34,7 +35,6 @@ public class ManageOrderPage {
 	private JTextField orderIdtextField;
 	private JTextField textField;
 	private List<AbstractItemFactory> itemFactoryList;
-	private JComboBox itemCombo;
 	private FileWriterReader file;
 	
 	public ManageOrderPage(JFrame frame) {
@@ -101,6 +101,12 @@ public class ManageOrderPage {
 		panel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Logout");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new LogoutPage(frame);
+			}
+		});
 		btnNewButton_1.setBounds(632, 8, 89, 23);
 		panel.add(btnNewButton_1);
 		
@@ -114,35 +120,24 @@ public class ManageOrderPage {
 		orderIdtextField.setColumns(10);
 		
 		JLabel itemLabel = new JLabel("Item");
-		itemLabel.setBounds(254, 101, 116, 41);
+		itemLabel.setBounds(254, 101, 72, 41);
 		panel.add(itemLabel);
 		
 		JLabel lblQuantity_1 = new JLabel("Quantity");
-		lblQuantity_1.setBounds(254, 157, 116, 41);
+		lblQuantity_1.setBounds(254, 170, 116, 41);
 		panel.add(lblQuantity_1);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(380, 153, 209, 45);
+		textField.setBounds(380, 166, 209, 45);
 		panel.add(textField);
 		
-		itemCombo = new JComboBox(itemFactoryList.toArray());
-		itemCombo.setBounds(380, 101, 209, 41);
-		itemCombo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//fetchSelectedItem(e);
-			}
-		});
-		itemCombo.setBounds(342, 100, 220, 39);
-		panel.add(itemCombo);
-		panel.add(itemCombo);
-		
 		JLabel supplierLabel = new JLabel("Supplier");
-		supplierLabel.setBounds(254, 211, 116, 41);
+		supplierLabel.setBounds(254, 224, 116, 41);
 		panel.add(supplierLabel);
 		
 		JComboBox supplierCombo = new JComboBox();
-		supplierCombo.setBounds(380, 209, 209, 45);
+		supplierCombo.setBounds(380, 222, 209, 45);
 		panel.add(supplierCombo);
 		
 		JButton purchaseOrderBtn = new JButton("Purchase Order");
@@ -151,7 +146,7 @@ public class ManageOrderPage {
 				placeOrder(e);
 			}
 		});
-		purchaseOrderBtn.setBounds(287, 275, 275, 36);
+		purchaseOrderBtn.setBounds(287, 288, 275, 36);
 		panel.add(purchaseOrderBtn);
 		
 		JButton addItemToOrderBtn = new JButton("Add Item");
@@ -160,8 +155,12 @@ public class ManageOrderPage {
 				addItemToOrderActionPerformed(e);
 			}
 		});
-		addItemToOrderBtn.setBounds(605, 101, 127, 30);
+		addItemToOrderBtn.setBounds(641, 101, 127, 30);
 		panel.add(addItemToOrderBtn);
+		
+		JComboBox comboBox = new JComboBox(itemFactoryList.toArray());
+		comboBox.setBounds(380, 103, 213, 45);
+		panel.add(comboBox);
 		frame.setVisible(true);
 	}
 	
