@@ -43,9 +43,13 @@ public class Load {
 		ObjectInputStream ois = new ObjectInputStream(fis);
 		
 		items = (List<Item>) ois.readObject();
+		
+		System.out.println("Start loading items...");
 		for (int i = 0; i < items.size(); i++) {
 			System.out.println(items.get(i));
 		}
+		
+		this.company.setItems(items);
 		return items;
 	}
 	
@@ -58,11 +62,12 @@ public class Load {
 		ObjectInputStream ois = new ObjectInputStream(fis);
 
 		persons = (List<Person>) ois.readObject();
-
+		System.out.println("Start loading persons...");
 		for (int i = 0; i < persons.size(); i++) {
 			System.out.println(persons.get(i));
 		}
 
+		this.company.setPeople(persons);
 		return persons;
 	}
 
@@ -119,10 +124,12 @@ public class Load {
 
 		orders = (List<Order>) ois.readObject();
 
+		System.out.println("Start loading orders...");
 		for (int i = 0; i < orders.size(); i++) {
 			System.out.println(orders.get(i));
 		}
 
+		this.company.setOrders(orders);
 		return orders;
 	}
 
@@ -131,6 +138,7 @@ public class Load {
 		@SuppressWarnings("resource")
 		ObjectInputStream ois = new ObjectInputStream(fis);
 
+		System.out.println("Loading the company...");
 		this.company = (Company) ois.readObject();
 		return this.company;
 
