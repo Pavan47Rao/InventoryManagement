@@ -119,6 +119,12 @@ public class HumanResourceEditUserPage {
 		panel.add(addUserLabel);
 		
 		JButton btnNewButton = new JButton("Logout");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new LogoutPage(frame);
+			}
+		});
 		btnNewButton.setBounds(593, 10, 89, 23);
 		panel.add(btnNewButton);
 		frame.setVisible(true);

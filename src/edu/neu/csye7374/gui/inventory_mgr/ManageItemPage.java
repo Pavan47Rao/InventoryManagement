@@ -11,6 +11,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import edu.neu.csye7374.gui.LogoutPage;
 import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.model.Item;
 import edu.neu.csye7374.model.Stock;
@@ -23,6 +24,7 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.awt.event.ActionEvent;
 
 public class ManageItemPage {
@@ -63,6 +65,12 @@ public class ManageItemPage {
 		panel.add(btnNewButton);
 		
 		JButton logoutBtn = new JButton("Logout");
+		logoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new LogoutPage(frame);
+			}
+		});
 		logoutBtn.setBounds(614, 8, 89, 23);
 		panel.add(logoutBtn);
 		
@@ -171,7 +179,12 @@ public class ManageItemPage {
 			} else {
 				int itemId = Integer.parseInt((String)table.getValueAt(table.getSelectedRow(), 0));
 				Stock selectedStock = StockRepository.getStock((String)table.getValueAt(table.getSelectedRow(), 5));
-				StockRepository.getStock(selectedStock.getStockType()).deleteItemInStock(itemId);
+				for(ListIterator<Item> itr = StockRepository.getStock(selectedStock.getStockType()).getStockItems().listIterator();itr.hasNext();) {
+					Item i = itr.next();
+					if(i.getItemId() == itemId){
+						itr.remove();
+					}
+				}
 				MainFrame.getInventoryManager().deleteItems(itemId);
 				
 				JOptionPane.showMessageDialog(panel, "Item has been deleted successfully");

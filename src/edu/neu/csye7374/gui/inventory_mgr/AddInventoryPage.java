@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import edu.neu.csye7374.gui.LogoutPage;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -51,6 +54,12 @@ public class AddInventoryPage {
 		panel.add(backBrn);
 		
 		JButton logoutBtn = new JButton("Logout");
+		logoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new LogoutPage(frame);
+			}
+		});
 		logoutBtn.setBounds(597, 11, 89, 23);
 		panel.add(logoutBtn);
 		
