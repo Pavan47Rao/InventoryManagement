@@ -16,8 +16,6 @@ public class Company {
 	private Inventory inventory;
 	
 	private List<Person> people = new ArrayList<>();
-	private List<Order> orders=new ArrayList<>();
-	private List<Item> items=new ArrayList<>();
 	
 	
 	
