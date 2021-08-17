@@ -157,6 +157,6 @@ public class EditItemPage {
 		}
 	}
 	JOptionPane.showMessageDialog(panel, "Item "+editItem.getItemName()+" has been updated successfully");
-	
+	System.out.println("edit item is completed");
 	}
 }
