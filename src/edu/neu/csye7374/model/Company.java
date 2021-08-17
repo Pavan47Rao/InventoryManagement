@@ -1,6 +1,9 @@
 package edu.neu.csye7374.model;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import edu.neu.csye7374.fileUtilities.FileWriterReader;
 
 public class Company {
 
@@ -12,8 +15,28 @@ public class Company {
 	
 	private Inventory inventory;
 	
-	private List<Person> people;
+	private List<Person> people = new ArrayList<>();
+	private List<Order> orders=new ArrayList<>();
+	private List<Item> items=new ArrayList<>();
 	
+	
+	
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
 	public String getCompanyName() {
 		return companyName;
 	}
