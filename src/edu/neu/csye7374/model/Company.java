@@ -16,24 +16,11 @@ public class Company {
 	private Inventory inventory;
 	
 	private List<Person> people = new ArrayList<>();
+
 	
 	
 	
-	public List<Order> getOrders() {
-		return orders;
-	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
-
-	public List<Item> getItems() {
-		return items;
-	}
-
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
 
 	public String getCompanyName() {
 		return companyName;
