@@ -30,8 +30,13 @@ public class CalculatorAdapter implements ItemBillingAPI{
 	@Override
 	public int updateQuantity(List<Item> billItems) {
 		for(Item item:billItems) {
-			quantity = (int)this.calc.operation(OPERATION.ADD,price,item.getItemQuantity());
+			quantity = (int)this.calc.operation(OPERATION.ADD,quantity,item.getItemQuantity());
 		}
+		return quantity;
+	}
+	
+	public int updateQuantity(Item item, int newQuantity) {
+		quantity = (int) this.calc.operation(OPERATION.ADD, item.getItemQuantity(), newQuantity);
 		return quantity;
 	}
 

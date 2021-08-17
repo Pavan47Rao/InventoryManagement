@@ -10,8 +10,11 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import edu.neu.csye7374.adapter.Calculator;
+import edu.neu.csye7374.adapter.CalculatorAdapter;
 import edu.neu.csye7374.api.AbstractItemFactory;
 import edu.neu.csye7374.factories.AirpodsFactory;
+import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.model.Item;
 import edu.neu.csye7374.model.Stock;
 import edu.neu.csye7374.singleton.AirpodsFactorySingleton;
@@ -33,7 +36,9 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 import java.awt.event.ActionEvent;
 
@@ -48,10 +53,10 @@ public class AddItemsPage {
 	private JTextArea descPane;
 	private List<AbstractItemFactory> itemFactoryList;
 	private List<Item> itemList;
+
 	
-	public AddItemsPage(JFrame frame, List<Item> itemList) {
+	public AddItemsPage(JFrame frame) {
 	this.frame = frame;
-	this.itemList = itemList;
 	itemFactoryList = new ArrayList<AbstractItemFactory>();
 	populateItemList(itemFactoryList);
 	prepareGUI();
@@ -104,7 +109,7 @@ public class AddItemsPage {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.getContentPane().removeAll();
-				new ManageItemPage(frame, itemList);
+				new ManageItemPage(frame);
 			}
 		});
 		btnBack.setBounds(10, 11, 89, 23);
@@ -206,35 +211,71 @@ public class AddItemsPage {
 	}
 	
 	private void submitItemActionPerformed(ActionEvent e) {
-	System.out.println("Check for population of allfields "+allFieldsArePopulated());
+		
+
 		if(allFieldsArePopulated()) {
-			AbstractItemFactory selctedItem = (AbstractItemFactory)itemCombo.getSelectedItem();
-			String selectedStock = (String)stockCombo.getSelectedItem();
+		
 			
-			System.out.println(selectedStock);
-			Item item = new Item();
-			item.setItemId(Integer.parseInt(idField.getText()));
-			item.setItemName(selctedItem.getObject().getItemName());
-			item.setItemPrice(Double.parseDouble(priceField.getText()));
-			item.setItemQuantity(Integer.parseInt(qtyField.getText()));
-			item.setStock(StockRepository.getStock(selectedStock));
-			item.setItemDescription(descPane.getText());
+			checkIfItemIsPresentInListAlready(Integer.parseInt(idField.getText()));
 			
 			
-			itemList.add(item);
-			JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");
 		}
 	}
 	
 	private boolean allFieldsArePopulated() {
-		System.out.println(idField.getText());
-		System.out.println(priceField.getText());
-		System.out.println(qtyField.getText());
-		System.out.println(descPane.getText());
 		if(idField.getText().equals("") || priceField.getText().equals("") || qtyField.getText().equals("") || descPane.getText().equals("")) {
 			return false;
 		} else {
 			return true;
 		}
+	}
+	
+	private void checkIfItemIsPresentInListAlready(int itemId) {
+		
+		AbstractItemFactory selctedItem = (AbstractItemFactory)itemCombo.getSelectedItem();
+		String selectedStock = (String)stockCombo.getSelectedItem();
+		
+		Calculator cal = new Calculator();
+		CalculatorAdapter adpater = new CalculatorAdapter(cal);
+		boolean itemFound = false;
+		if(MainFrame.getInventoryManager().getProducts().size() == 0) {
+			Item addItem = new Item();
+			addItem.setItemId(Integer.parseInt(idField.getText()));
+			addItem.setItemName(selctedItem.getObject().getItemName());
+			addItem.setItemPrice(Double.parseDouble(priceField.getText()));
+			addItem.setItemQuantity(Integer.parseInt(qtyField.getText()));
+			addItem.setStock(StockRepository.getStock(selectedStock));
+			addItem.setItemDescription(descPane.getText());
+			
+			MainFrame.getInventoryManager().addItems(addItem);
+			JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");
+		} else {
+			for(ListIterator<Item> itr = MainFrame.getInventoryManager().getProducts().listIterator();itr.hasNext();) {
+				Item i = itr.next();
+				if(i.getItemId() == itemId) {
+					
+					i.setItemQuantity(adpater.updateQuantity(i, Integer.parseInt(qtyField.getText())));
+					JOptionPane.showMessageDialog(panel, selctedItem.getObject().getItemName()+" already exist in the list. Updated quantity in inventory: "+i.getItemQuantity());
+					itemFound = true;
+				}
+			}
+			
+			if(!itemFound) {
+				
+						
+						Item addItem = new Item();
+						addItem.setItemId(Integer.parseInt(idField.getText()));
+						addItem.setItemName(selctedItem.getObject().getItemName());
+						addItem.setItemPrice(Double.parseDouble(priceField.getText()));
+						addItem.setItemQuantity(Integer.parseInt(qtyField.getText()));
+						addItem.setStock(StockRepository.getStock(selectedStock));
+						addItem.setItemDescription(descPane.getText());
+						
+					MainFrame.getInventoryManager().addItems(addItem);
+						JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");
+					
+			}
+		}
+		
 	}
 }

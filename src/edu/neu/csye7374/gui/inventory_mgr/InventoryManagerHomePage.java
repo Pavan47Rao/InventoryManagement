@@ -134,7 +134,7 @@ public class InventoryManagerHomePage {
 	
 	private void manageItemsActionPerformed(ActionEvent e) {
 		frame.getContentPane().removeAll();
-		new ManageItemPage(frame, MainFrame.getItemList());
+		new ManageItemPage(frame);
 	}
 	
 	private void manageOrderActionPerformed(ActionEvent e) {
