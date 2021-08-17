@@ -56,14 +56,14 @@ public class Load {
 	@SuppressWarnings("unchecked")
 	public List<Person> loadHR() throws IOException, ClassNotFoundException {
 		List<Person> persons = loadAllPersons();
-		List<Person> suppliers = new ArrayList<>();
+		List<Person> hr = new ArrayList<>();
 		for (int i = 0; i < persons.size(); i++) {
 			if (persons.get(i).getAccount().getStatus() == "HR") {
 				suppliers.add(persons.get(i));
 			}
 		}
 		
-		return suppliers;
+		return hr;
 	}
 	
 	@SuppressWarnings("unchecked")
