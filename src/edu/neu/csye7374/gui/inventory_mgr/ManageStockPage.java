@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -79,10 +80,10 @@ public class ManageStockPage {
 		
 		panel.add(scrollPane);
 		
-		btnEditStocks = new JButton("Edit Stocks");
+		btnEditStocks = new JButton("View Stock Details");
 		btnEditStocks.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				editStocksActionPerformed(e);
+				viewStocksActionPerformed(e);
 			}
 		});
 		btnEditStocks.setBounds(10, 130, 141, 56);
@@ -128,8 +129,23 @@ public class ManageStockPage {
 		new InventoryManagerHomePage(frame);
 	}
 	
-	private void editStocksActionPerformed(ActionEvent e) {
+	private void viewStocksActionPerformed(ActionEvent e) {
 		frame.getContentPane().removeAll();
-		new EditStockPage(frame);
+		if(StockRepository.stockMap.size() <= 0) {
+			JOptionPane.showMessageDialog(panel, "There are no stocks currently present");
+			
+		}
+		else {
+			if(table.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(panel, "Please select a stock to view details");
+			} else {
+				String stockType = (String)table.getValueAt(table.getSelectedRow(), 1);
+				Stock viewStock = StockRepository.getStock(stockType);
+				new EditStockPage(frame, viewStock);
+				
+			}
+		}
+		
+		
 	}
 }

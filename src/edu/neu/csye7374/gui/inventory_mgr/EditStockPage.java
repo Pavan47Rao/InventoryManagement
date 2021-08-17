@@ -4,6 +4,9 @@ import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,17 +16,32 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+
+import edu.neu.csye7374.gui.MainFrame;
+import edu.neu.csye7374.model.Item;
+import edu.neu.csye7374.model.Stock;
+import edu.neu.csye7374.stock.StockRepository;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class EditStockPage {
 	
 	private JFrame frame;
 	private JPanel panel;
 	private JTextField stockIdTextField;
+	private Stock viewStock;
+	private JTable table;
+	private JComboBox comboBox;
+	private JTextArea textArea;
 	
-	public EditStockPage(JFrame frame) {
+	public EditStockPage(JFrame frame, Stock viewStock) {
 		// TODO Auto-generated constructor stub
 		this.frame = frame;
+		this.viewStock = viewStock;
 		prepareGUI();
+		populateFields(viewStock);
 	}
 	
 	private void prepareGUI() {
@@ -33,7 +51,7 @@ public class EditStockPage {
 		
 		frame.getContentPane().add(panel);
 		
-		JLabel addStockHeaderLable = new JLabel("Edit Stocks");
+		JLabel addStockHeaderLable = new JLabel("View Stock Details");
 		addStockHeaderLable.setHorizontalAlignment(SwingConstants.CENTER);
 		addStockHeaderLable.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		addStockHeaderLable.setBounds(241, 11, 221, 14);
@@ -54,35 +72,71 @@ public class EditStockPage {
 		panel.add(logoutBtn);
 		
 		JLabel stockIdLabel = new JLabel("Stock ID");
-		stockIdLabel.setBounds(186, 59, 127, 36);
+		stockIdLabel.setBounds(37, 60, 127, 36);
 		panel.add(stockIdLabel);
 		
 		stockIdTextField = new JTextField();
-		stockIdTextField.setBounds(323, 59, 221, 36);
+		stockIdTextField.setEnabled(false);
+		stockIdTextField.setEditable(false);
+		stockIdTextField.setBounds(174, 60, 221, 36);
 		panel.add(stockIdTextField);
 		stockIdTextField.setColumns(10);
 		
 		JLabel lblStockType = new JLabel("Stock Type");
-		lblStockType.setBounds(186, 113, 127, 36);
+		lblStockType.setBounds(37, 114, 127, 36);
 		panel.add(lblStockType);
 		
 		JLabel lblStockDescription = new JLabel("Stock Description");
-		lblStockDescription.setBounds(186, 171, 127, 36);
+		lblStockDescription.setBounds(37, 172, 127, 36);
 		panel.add(lblStockDescription);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(323, 113, 221, 36);
+		Set<String> stockMapSet = StockRepository.stockMap.keySet();
+		
+		
+		 comboBox = new JComboBox(stockMapSet.toArray());
+		comboBox.setEnabled(false);
+		comboBox.setBounds(174, 114, 221, 36);
 		panel.add(comboBox);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(323, 177, 221, 97);
+		 textArea = new JTextArea();
+		textArea.setEnabled(false);
+		textArea.setEditable(false);
+		textArea.setBounds(174, 178, 221, 97);
 		panel.add(textArea);
 		
-		JButton submitBtn = new JButton("Submit");
-		submitBtn.setBounds(273, 296, 136, 36);
-		panel.add(submitBtn);
+		DefaultTableModel model = loadTable();
+		JTable table = new JTable(model);
+		
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(405, 60, 385, 413);
+		panel.add(scrollPane);
 		frame.setVisible(true);
 		
+	}
+	
+	private DefaultTableModel loadTable() {
+		String[] columns = {"Item ID", "Item Name", "Item Price", "Item Description", "Item Quantity", "Stock"};
+	      List<String[]> values = new ArrayList<String[]>();
+	      
+	     for(Item item: viewStock.getStockItems()) {
+	    	 values.add(new String[] {String.valueOf(item.getItemId()), item.getItemName(), String.valueOf(item.getItemPrice())
+	    	, item.getItemDescription(), String.valueOf(item.getItemQuantity()), item.getStock().getStockType()	 
+	    	 });
+	     }
+	      
+	      
+	        
+	        DefaultTableModel model = new DefaultTableModel(values.toArray(new Object[][] {}), columns);
+		
+		return model;
+		
+	}
+	
+	private void populateFields(Stock viewStock) {
+		stockIdTextField.setText(String.valueOf(viewStock.getStockId()));
+		comboBox.setSelectedItem(viewStock.getStockType());
+		textArea.setText(viewStock.getStockDescription());
 	}
 }
 
