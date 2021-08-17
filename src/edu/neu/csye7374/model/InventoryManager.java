@@ -1,10 +1,11 @@
 package edu.neu.csye7374.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InventoryManager extends Person{
 	
-	List<Item> products;
+	List<Item> products = new ArrayList<Item>();
 	
 	List<Person> suppliers;
 	
@@ -14,9 +15,6 @@ public class InventoryManager extends Person{
 		return products;
 	}
 
-	public void setProducts(List<Item> products) {
-		this.products = products;
-	}
 
 	public List<Person> getSuppliers() {
 		return suppliers;
@@ -49,5 +47,9 @@ public class InventoryManager extends Person{
 		for(Inventory i: this.getInventories())
 			if(i.getInventoryId() == id)
 				this.getInventories().remove(i);
+	}
+	
+	public void addItems(Item item) {
+		this.getProducts().add(item);
 	}
 }

@@ -6,7 +6,9 @@ import edu.neu.csye7374.gui.inventory_mgr.*;
 import edu.neu.csye7374.gui.supplier.SupplierHomePage;
 import edu.neu.csye7374.items.Airpods;
 import edu.neu.csye7374.items.Pen;
+import edu.neu.csye7374.model.InventoryManager;
 import edu.neu.csye7374.model.Item;
+import edu.neu.csye7374.model.Person;
 import edu.neu.csye7374.singleton.AirpodsFactorySingleton;
 import edu.neu.csye7374.singleton.CheeseFactorySingleton;
 import edu.neu.csye7374.singleton.IphoneFactorySingleton;
@@ -42,7 +44,12 @@ public class MainFrame {
 	private JPasswordField passwordTextField;
 	private JButton loginBtn;
 	private static List<Item> itemList;
+	private static InventoryManager inventoryManager = new InventoryManager();
+	private static Person loggedInPerson;
+
+
 	
+
 
 
 	public MainFrame() {
@@ -56,6 +63,7 @@ public class MainFrame {
 		itemList = new ArrayList<Item>();
 	}
 	
+
 	
 	public static List<Item> getItemList() {
 		return itemList;
@@ -64,8 +72,25 @@ public class MainFrame {
 	public static void setItemList(List<Item> itemList) {
 		MainFrame.itemList = itemList;
 	}
+	
+	public static InventoryManager getInventoryManager() {
+		return inventoryManager;
+	}
+
+	public static void setInventoryManager(InventoryManager inventoryManager) {
+		MainFrame.inventoryManager = inventoryManager;
+	}
 
 	
+	
+	public static Person getLoggedInPerson() {
+		return loggedInPerson;
+	}
+
+	public static void setLoggedInPerson(Person loggedInPerson) {
+		MainFrame.loggedInPerson = loggedInPerson;
+	}
+
 	private void prepareGUI() {
 		frame.setTitle("Inventory Management");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -126,6 +151,8 @@ public class MainFrame {
 		
 		if(userNameTextField.getText().equalsIgnoreCase("aa") && passwordTextField.getText().equals("aa")) {
 			frame.getContentPane().removeAll();
+			
+			
 			new InventoryManagerHomePage(frame);
 		}
 		//Human resources
@@ -134,7 +161,7 @@ public class MainFrame {
 			frame.getContentPane().removeAll();
 			new HumanResourcesHomePage(frame);
 		}
-		
+		//Supplier
 		if(userNameTextField.getText().equalsIgnoreCase("cc") && passwordTextField.getText().equals("cc")) {
 			frame.getContentPane().removeAll();
 			new SupplierHomePage(frame);

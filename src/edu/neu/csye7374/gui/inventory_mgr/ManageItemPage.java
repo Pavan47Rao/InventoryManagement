@@ -9,7 +9,9 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.model.Item;
+import edu.neu.csye7374.stock.StockRepository;
 
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -25,10 +27,10 @@ public class ManageItemPage {
 	private JFrame frame;
 	private JPanel panel;
 	private List<Item> itemList;
+	private JTable table;
 	
-	public ManageItemPage(JFrame frame, List<Item> itemList) {
+	public ManageItemPage(JFrame frame) {
 		this.frame = frame;
-		this.itemList = itemList;
 		prepareGUI();
 	}
 	
@@ -62,7 +64,7 @@ public class ManageItemPage {
 		panel.add(logoutBtn);
 		
 		DefaultTableModel model = loadTable();
-		JTable table = new JTable(model);
+		table = new JTable(model);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(174, 66, 529, 395);
@@ -96,7 +98,7 @@ public class ManageItemPage {
 		String[] columns = {"Item ID", "Item Name", "Item Price", "Item Description", "Item Quantity", "Stock"};
 	      List<String[]> values = new ArrayList<String[]>();
 	      
-	     for(Item item: itemList) {
+	     for(Item item: MainFrame.getInventoryManager().getProducts()) {
 	    	 values.add(new String[] {String.valueOf(item.getItemId()), item.getItemName(), String.valueOf(item.getItemPrice())
 	    	, item.getItemDescription(), String.valueOf(item.getItemQuantity()), item.getStock().getStockType()	 
 	    	 });
@@ -112,12 +114,27 @@ public class ManageItemPage {
 	
 	private void addItemActionPerformed(ActionEvent e) {
 		frame.getContentPane().removeAll();
-		new AddItemsPage(frame, itemList);
+		new AddItemsPage(frame);
 	}
 	
 	private void editItemActionPerformed(ActionEvent e) {
+		int itemId = (int) table.getValueAt(table.getSelectedRow(), 0);
+		Item editItem = new Item();
+		for(Item item: MainFrame.getInventoryManager().getProducts()) {
+			if(item.getItemId() == itemId) {
+				editItem = item;
+			}
+		}
 		frame.getContentPane().removeAll();
-		new EditItemPage(frame, itemList);
+		new EditItemPage(frame);
+	}
+	
+	private boolean checkItemSelectedInTable() {
+		if(table.getSelectedRow() == -1) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 }

@@ -25,10 +25,10 @@ public class EditItemPage {
 	private JTextField priceField;
 	private JTextField qtyField;
 	private List<Item> itemList;
+	private Item item;
 	
-	public EditItemPage(JFrame frame, List<Item> itemList) {
+	public EditItemPage(JFrame frame) {
 	this.frame = frame;
-	this.itemList = itemList;
 	prepareGUI();
 	}
 	
@@ -49,7 +49,7 @@ public class EditItemPage {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.getContentPane().removeAll();
-				new ManageItemPage(frame, itemList);
+				new ManageItemPage(frame);
 			}
 		});
 		btnBack.setBounds(10, 11, 89, 23);
@@ -64,6 +64,7 @@ public class EditItemPage {
 		panel.add(lblNewLabel);
 		
 		idField = new JTextField();
+		idField.setEditable(false);
 		idField.setBounds(342, 53, 220, 39);
 		panel.add(idField);
 		idField.setColumns(10);
@@ -73,6 +74,7 @@ public class EditItemPage {
 		panel.add(lblItemName);
 		
 		nameField = new JTextField();
+		nameField.setEditable(false);
 		nameField.setColumns(10);
 		nameField.setBounds(342, 100, 220, 39);
 		panel.add(nameField);
@@ -82,6 +84,7 @@ public class EditItemPage {
 		panel.add(lblItemPrice);
 		
 		priceField = new JTextField();
+		priceField.setEditable(false);
 		priceField.setColumns(10);
 		priceField.setBounds(342, 147, 220, 39);
 		panel.add(priceField);
@@ -108,6 +111,7 @@ public class EditItemPage {
 		panel.add(stockCombo);
 		
 		JTextArea descPane = new JTextArea();
+		descPane.setEditable(false);
 		descPane.setBounds(342, 304, 220, 93);
 		panel.add(descPane);
 		
