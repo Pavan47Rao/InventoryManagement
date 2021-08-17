@@ -12,6 +12,16 @@ public class Order {
 	
 	private String status;
 	
+	private InventoryManager inventoryManager;
+	
+	public InventoryManager getInventoryManager() {
+		return inventoryManager;
+	}
+
+	public void setInventoryManager(InventoryManager inventoryManager) {
+		this.inventoryManager = inventoryManager;
+	}
+
 	public String getStatus() {
 		return status;
 	}

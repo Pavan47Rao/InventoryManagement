@@ -5,23 +5,22 @@ import java.util.List;
 
 public class InventoryManager extends Person{
 	
-	List<Item> products = new ArrayList<Item>();
-	
-	List<Person> suppliers;
+	List<Item> items = new ArrayList<Item>();
 	
 	List<Inventory> inventories;
-
-	public List<Item> getProducts() {
-		return products;
+	
+	List<Order> orders;
+	
+	public List<Order> getOrders() {
+		return orders;
 	}
 
-
-	public List<Person> getSuppliers() {
-		return suppliers;
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
-	public void setSuppliers(List<Person> suppliers) {
-		this.suppliers = suppliers;
+	public List<Item> getItems() {
+		return items;
 	}
 
 	public List<Inventory> getInventories() {
@@ -50,6 +49,6 @@ public class InventoryManager extends Person{
 	}
 	
 	public void addItems(Item item) {
-		this.getProducts().add(item);
+		this.getItems().add(item);
 	}
 }

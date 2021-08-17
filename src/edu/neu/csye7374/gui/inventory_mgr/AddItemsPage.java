@@ -238,7 +238,7 @@ public class AddItemsPage {
 		Calculator cal = new Calculator();
 		CalculatorAdapter adpater = new CalculatorAdapter(cal);
 		boolean itemFound = false;
-		if(MainFrame.getInventoryManager().getProducts().size() == 0) {
+		if(MainFrame.getInventoryManager().getItems().size() == 0) {
 			Item addItem = new Item();
 			addItem.setItemId(Integer.parseInt(idField.getText()));
 			addItem.setItemName(selctedItem.getObject().getItemName());
@@ -250,7 +250,7 @@ public class AddItemsPage {
 			MainFrame.getInventoryManager().addItems(addItem);
 			JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");
 		} else {
-			for(ListIterator<Item> itr = MainFrame.getInventoryManager().getProducts().listIterator();itr.hasNext();) {
+			for(ListIterator<Item> itr = MainFrame.getInventoryManager().getItems().listIterator();itr.hasNext();) {
 				Item i = itr.next();
 				if(i.getItemId() == itemId) {
 					

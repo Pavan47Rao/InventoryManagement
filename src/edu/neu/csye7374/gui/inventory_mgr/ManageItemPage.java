@@ -100,7 +100,7 @@ public class ManageItemPage {
 		String[] columns = {"Item ID", "Item Name", "Item Price", "Item Description", "Item Quantity", "Stock"};
 	      List<String[]> values = new ArrayList<String[]>();
 	      
-	     for(Item item: MainFrame.getInventoryManager().getProducts()) {
+	     for(Item item: MainFrame.getInventoryManager().getItems()) {
 	    	 values.add(new String[] {String.valueOf(item.getItemId()), item.getItemName(), String.valueOf(item.getItemPrice())
 	    	, item.getItemDescription(), String.valueOf(item.getItemQuantity()), item.getStock().getStockType()	 
 	    	 });
@@ -130,7 +130,7 @@ public class ManageItemPage {
 			} else {
 				int itemId = Integer.parseInt((String)table.getValueAt(table.getSelectedRow(), 0)) ;
 				Item editItem = new Item();
-				for(Item item: MainFrame.getInventoryManager().getProducts()) {
+				for(Item item: MainFrame.getInventoryManager().getItems()) {
 					if(item.getItemId() == itemId) {
 						editItem = item;
 					}
