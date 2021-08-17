@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -118,22 +120,33 @@ public class ManageItemPage {
 	}
 	
 	private void editItemActionPerformed(ActionEvent e) {
-		int itemId = (int) table.getValueAt(table.getSelectedRow(), 0);
-		Item editItem = new Item();
-		for(Item item: MainFrame.getInventoryManager().getItems()) {
-			if(item.getItemId() == itemId) {
-				editItem = item;
-			}
+		if(table.getModel().getRowCount() <=0) {
+			JOptionPane.showMessageDialog(panel, "There are no entries in the table");
 		}
-		frame.getContentPane().removeAll();
-		new EditItemPage(frame);
+		
+		else {
+			if(checkItemSelectedInTable()) {
+				JOptionPane.showMessageDialog(panel, "Please select an entry to update from table");
+			} else {
+				int itemId = Integer.parseInt((String)table.getValueAt(table.getSelectedRow(), 0)) ;
+				Item editItem = new Item();
+				for(Item item: MainFrame.getInventoryManager().getItems()) {
+					if(item.getItemId() == itemId) {
+						editItem = item;
+					}
+				}
+				frame.getContentPane().removeAll();
+				new EditItemPage(frame, editItem);
+			}
+		}	
+		
 	}
 	
 	private boolean checkItemSelectedInTable() {
 		if(table.getSelectedRow() == -1) {
-			return false;
-		} else {
 			return true;
+		} else {
+			return false;
 		}
 	}
 
