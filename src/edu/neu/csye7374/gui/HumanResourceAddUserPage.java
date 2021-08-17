@@ -11,6 +11,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class HumanResourceAddUserPage {
 	
@@ -22,6 +23,7 @@ public class HumanResourceAddUserPage {
 	private JTextField textField_4;
 	private JTextField textField_6;
 	private JTextField textField_1;
+	private JPasswordField passwordField;
 	
 	public HumanResourceAddUserPage(JFrame frame) {
 		this.frame = frame;
@@ -76,20 +78,20 @@ public class HumanResourceAddUserPage {
 		panel.add(textField_4);
 		
 		JLabel lblDateOfBirth = new JLabel("Date of Birth");
-		lblDateOfBirth.setBounds(239, 263, 98, 32);
+		lblDateOfBirth.setBounds(239, 306, 98, 32);
 		panel.add(lblDateOfBirth);
 		
 		JLabel lblAddress = new JLabel("Address");
-		lblAddress.setBounds(239, 306, 98, 32);
+		lblAddress.setBounds(239, 349, 98, 32);
 		panel.add(lblAddress);
 		
 		textField_6 = new JTextField();
 		textField_6.setColumns(10);
-		textField_6.setBounds(378, 306, 217, 32);
+		textField_6.setBounds(378, 349, 217, 32);
 		panel.add(textField_6);
 		
 		JButton submitBtn = new JButton("Submit");
-		submitBtn.setBounds(332, 366, 156, 23);
+		submitBtn.setBounds(332, 409, 156, 23);
 		panel.add(submitBtn);
 		
 		JComboBox comboBox = new JComboBox();
@@ -99,7 +101,7 @@ public class HumanResourceAddUserPage {
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(378, 263, 217, 32);
+		textField_1.setBounds(378, 306, 217, 32);
 		panel.add(textField_1);
 		
 		JButton backBtn = new JButton("Back");
@@ -121,6 +123,14 @@ public class HumanResourceAddUserPage {
 		JButton btnNewButton = new JButton("Logout");
 		btnNewButton.setBounds(593, 10, 89, 23);
 		panel.add(btnNewButton);
+		
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setBounds(239, 263, 98, 32);
+		panel.add(lblPassword);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(378, 263, 217, 32);
+		panel.add(passwordField);
 		frame.setVisible(true);
 	}
 }
