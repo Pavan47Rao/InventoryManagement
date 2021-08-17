@@ -1,16 +1,23 @@
 package edu.neu.csye7374.gui.inventory_mgr;
 
+import java.awt.Font;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
-import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import edu.neu.csye7374.api.AbstractItemFactory;
-import edu.neu.csye7374.model.Item;
+import edu.neu.csye7374.fileUtilities.FileWriterReader;
 import edu.neu.csye7374.singleton.AirpodsFactorySingleton;
 import edu.neu.csye7374.singleton.CheeseFactorySingleton;
 import edu.neu.csye7374.singleton.IphoneFactorySingleton;
@@ -21,14 +28,6 @@ import edu.neu.csye7374.singleton.VRHeadsetFactorySingleton;
 import edu.neu.csye7374.singleton.WritingPadFactorySingleton;
 import edu.neu.csye7374.singleton.YogurtFactorySingleton;
 
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.event.ActionEvent;
-
 public class ManageOrderPage {
 	private JFrame frame;
 	private JPanel panel;
@@ -36,10 +35,12 @@ public class ManageOrderPage {
 	private JTextField textField;
 	private List<AbstractItemFactory> itemFactoryList;
 	private JComboBox itemCombo;
+	private FileWriterReader file;
 	
 	public ManageOrderPage(JFrame frame) {
 		this.frame = frame;
 		itemFactoryList = new ArrayList<AbstractItemFactory>();
+		file = new FileWriterReader();
 		populateItemList(itemFactoryList);
 		prepareGUI();
 	}
