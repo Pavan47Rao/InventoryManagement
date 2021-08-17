@@ -9,6 +9,10 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import edu.neu.csye7374.gui.inventory_mgr.InventoryManagerHomePage;
+import edu.neu.csye7374.gui.supplier.SupplierHomePage;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
@@ -17,12 +21,12 @@ public class HumanResourceAddUserPage {
 	
 	private JFrame frame;
 	private JPanel panel;
-	private JTextField textField;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_6;
-	private JTextField textField_1;
+	private JTextField textField_ID;
+	private JTextField textField_firstName;
+	private JTextField textField_lastname;
+	private JTextField textField_email;
+	private JTextField textField_addr;
+	private JTextField textField_dob;
 	private JPasswordField passwordField;
 	
 	public HumanResourceAddUserPage(JFrame frame) {
@@ -41,10 +45,10 @@ public class HumanResourceAddUserPage {
 		lblNewLabel.setBounds(239, 44, 98, 32);
 		panel.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(378, 44, 217, 32);
-		panel.add(textField);
-		textField.setColumns(10);
+		textField_ID = new JTextField();
+		textField_ID.setBounds(378, 44, 217, 32);
+		panel.add(textField_ID);
+		textField_ID.setColumns(10);
 		
 		JLabel lblRole = new JLabel("Role");
 		lblRole.setBounds(239, 87, 98, 32);
@@ -54,28 +58,28 @@ public class HumanResourceAddUserPage {
 		lblFirstName.setBounds(239, 130, 98, 32);
 		panel.add(lblFirstName);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(378, 130, 217, 32);
-		panel.add(textField_2);
+		textField_firstName = new JTextField();
+		textField_firstName.setColumns(10);
+		textField_firstName.setBounds(378, 130, 217, 32);
+		panel.add(textField_firstName);
 		
 		JLabel lblLastName = new JLabel("Last Name");
 		lblLastName.setBounds(239, 177, 98, 32);
 		panel.add(lblLastName);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(378, 177, 217, 32);
-		panel.add(textField_3);
+		textField_lastname = new JTextField();
+		textField_lastname.setColumns(10);
+		textField_lastname.setBounds(378, 177, 217, 32);
+		panel.add(textField_lastname);
 		
 		JLabel lblEmailId = new JLabel("Email ID");
 		lblEmailId.setBounds(239, 220, 98, 32);
 		panel.add(lblEmailId);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(378, 220, 217, 32);
-		panel.add(textField_4);
+		textField_email = new JTextField();
+		textField_email.setColumns(10);
+		textField_email.setBounds(378, 220, 217, 32);
+		panel.add(textField_email);
 		
 		JLabel lblDateOfBirth = new JLabel("Date of Birth");
 		lblDateOfBirth.setBounds(239, 306, 98, 32);
@@ -85,24 +89,29 @@ public class HumanResourceAddUserPage {
 		lblAddress.setBounds(239, 349, 98, 32);
 		panel.add(lblAddress);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(378, 349, 217, 32);
-		panel.add(textField_6);
+		textField_addr = new JTextField();
+		textField_addr.setColumns(10);
+		textField_addr.setBounds(378, 349, 217, 32);
+		panel.add(textField_addr);
 		
 		JButton submitBtn = new JButton("Submit");
 		submitBtn.setBounds(332, 409, 156, 23);
 		panel.add(submitBtn);
+		submitBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				submitBtnActionPerformed(e);
+			}
+		});
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"--None--", "Inventory Manager", "Supplied"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"--None--", "1 - Inventory Manager",  "2 - HR"," 3 - Supplied"}));
 		comboBox.setBounds(378, 92, 217, 22);
 		panel.add(comboBox);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(378, 306, 217, 32);
-		panel.add(textField_1);
+		textField_dob = new JTextField();
+		textField_dob.setColumns(10);
+		textField_dob.setBounds(378, 306, 217, 32);
+		panel.add(textField_dob);
 		
 		JButton backBtn = new JButton("Back");
 		backBtn.addActionListener(new ActionListener() {
@@ -133,4 +142,21 @@ public class HumanResourceAddUserPage {
 		panel.add(passwordField);
 		frame.setVisible(true);
 	}
+	
+	@SuppressWarnings("deprecation")
+	public void submitBtnActionPerformed(ActionEvent e) {
+		System.out.println("Submit button is clicked after adding a new user");
+		
+		System.out.println("ID field is "+textField_ID.getText());
+		System.out.println("textField_Role field is "+textField_firstName.getText());
+		System.out.println("textField_FirstName field is "+textField_lastname.getText());
+		System.out.println("textField_LastName field is "+textField_email.getText());
+		System.out.println("textField_Email field is "+textField_addr.getText());
+		System.out.println("textField_Address field is "+textField_dob.getText());
+		
+
+
+		
+	}
+	
 }
