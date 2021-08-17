@@ -9,75 +9,44 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Save   {
+import edu.neu.csye7374.model.Order;
+import edu.neu.csye7374.model.Person;
 
-	private String data;
-	
+public class Save {
 
-	public Save(String csv) {
-		this.data = csv;
+	private String person_file = "persons.ser";
+	private String order_file = "orders.ser";
+
+	public Save() {
+
 	}
-	
-	public void save() throws IOException {
-		
-		FileOutputStream f = new FileOutputStream(new File(data));
+
+	public void savePersons(List<Person> persons) throws IOException {
+
+		FileOutputStream f = new FileOutputStream(new File(person_file));
 		ObjectOutputStream o = new ObjectOutputStream(f);
 
 		// Write objects to file
-		//o.writeObject(p1);
+		o.writeObject(persons);
 
 		o.close();
 		f.close();
 	}
 
-	public String processData() {
+	public void saveOrders(List<Order> orders) throws IOException {
 
-		String sb = "";
-		return sb.toString();
+		FileOutputStream f = new FileOutputStream(new File(order_file));
+		ObjectOutputStream o = new ObjectOutputStream(f);
+
+		// Write objects to file
+		o.writeObject(orders);
+
+		o.close();
+		f.close();
 	}
 
-
-	public void saveCSV() {
-
-		FileWriter fileWriter;
-		try {
-			fileWriter = new FileWriter(data);
-			BufferedWriter bufferWriter = new BufferedWriter(fileWriter);
-
-			StringBuilder sb = new StringBuilder();
-			sb.append("ID");
-			sb.append(',');
-			sb.append("First Name");
-			sb.append(',');
-			sb.append("Last Name");
-			sb.append(',');
-			sb.append("Total Bill");
-			sb.append(',');
-			sb.append("Detail");
-
-			sb.append('\n');
-			sb.append("");
-			sb.append(',');
-			sb.append("");
-			sb.append(',');
-			sb.append("");
-			sb.append(',');
-			sb.append("");
-			sb.append(',');
-
-			String data = processData();
-			sb.append(data);
-			sb.append('\n');
-			bufferWriter.write(sb.toString());
-
-			bufferWriter.newLine();
-
-			bufferWriter.flush();
-			bufferWriter.close();
-			fileWriter.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void saveAll() {
 
 	}
+
 }
