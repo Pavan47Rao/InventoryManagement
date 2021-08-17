@@ -12,41 +12,78 @@ import java.util.List;
 
 import java.util.Scanner;
 
+import edu.neu.csye7374.model.Order;
 import edu.neu.csye7374.model.Person;
 
 public class Load {
 
-	private String csv;
-	private String data;
-	
+	private String person_file = "persons.ser";
+	private String order_file = "orders.ser";
 
-	public Load(String csv) {
-		this.csv = csv;
+	public Load() {
+		
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Person> loadAllPersons() throws IOException, ClassNotFoundException {
+		List<Person> persons = new ArrayList<>();
+		FileInputStream fis = new FileInputStream(person_file);
+		@SuppressWarnings("resource")
+		ObjectInputStream ois = new ObjectInputStream(fis);
 
-	public void loadCSV() {
-		List<String> strings = new ArrayList<String>();
-		Scanner inLine = null;
-		try {
-			inLine = new Scanner(new BufferedReader(new FileReader(csv)));
-		} catch (FileNotFoundException e) {
-			
-			e.printStackTrace();
+		persons = (List<Person>) ois.readObject();
+
+		for (int i = 0; i < persons.size(); i++) {
+			System.out.println(persons.get(i));
 		}
-		while (inLine.hasNextLine()) {
-			strings.add(inLine.nextLine());
+
+		return persons;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Person> loadSuppliers() throws IOException, ClassNotFoundException {
+		List<Person> persons = loadAllPersons();
+		List<Person> suppliers = new ArrayList<>();
+		for (int i = 0; i < persons.size(); i++) {
+			if (persons.get(i).getAccount().getStatus() == "Supplier") {
+				suppliers.add(persons.get(i));
+			}
 		}
-		inLine.close();
+
+		return suppliers;
 	}
 	
-	public void loadObjects() throws IOException, ClassNotFoundException {
-		FileInputStream fi = new FileInputStream(new File(data));
-		ObjectInputStream oi = new ObjectInputStream(fi);
-		Person pr1 = (Person) oi.readObject();
-		System.out.println(pr1.toString());
-		oi.close();
-		fi.close();
+	@SuppressWarnings("unchecked")
+	public List<Person> loadHR() throws IOException, ClassNotFoundException {
+		List<Person> persons = loadAllPersons();
+		List<Person> suppliers = new ArrayList<>();
+		for (int i = 0; i < persons.size(); i++) {
+			if (persons.get(i).getAccount().getStatus() == "HR") {
+				suppliers.add(persons.get(i));
+			}
+		}
+		
+		return suppliers;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Order> loadAllOrders() throws IOException, ClassNotFoundException {
+		List<Order> orders = new ArrayList<>();
+		FileInputStream fis = new FileInputStream(order_file);
+		@SuppressWarnings("resource")
+		ObjectInputStream ois = new ObjectInputStream(fis);
+
+		orders = (List<Order>) ois.readObject();
+
+		for (int i = 0; i < orders.size(); i++) {
+			System.out.println(orders.get(i));
+		}
+
+		return orders;
+	}
+
+	public void loadAll() throws IOException, ClassNotFoundException {
+
+	}
+
 }
-	
