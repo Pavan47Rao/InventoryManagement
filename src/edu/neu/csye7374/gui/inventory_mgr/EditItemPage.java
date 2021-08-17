@@ -5,17 +5,21 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.model.Item;
+import edu.neu.csye7374.stock.StockRepository;
 
 public class EditItemPage {
 	private JFrame frame;
@@ -24,12 +28,16 @@ public class EditItemPage {
 	private JTextField nameField;
 	private JTextField priceField;
 	private JTextField qtyField;
+	private JTextArea descPane;
+	private JComboBox stockCombo;
 	private List<Item> itemList;
-	private Item item;
+	private Item editItem;
 	
-	public EditItemPage(JFrame frame) {
+	public EditItemPage(JFrame frame, Item editItem) {
 	this.frame = frame;
+	this.editItem = editItem;
 	prepareGUI();
+	populateFields(editItem);
 	}
 	
 	private void prepareGUI() {
@@ -106,19 +114,49 @@ public class EditItemPage {
 		stockLabel.setBounds(225, 243, 108, 34);
 		panel.add(stockLabel);
 		
-		JComboBox stockCombo = new JComboBox();
+		Set<String> stockMapSet = StockRepository.stockMap.keySet();
+		
+		stockCombo = new JComboBox(stockMapSet.toArray());
 		stockCombo.setBounds(342, 249, 220, 34);
 		panel.add(stockCombo);
 		
-		JTextArea descPane = new JTextArea();
+		descPane = new JTextArea();
 		descPane.setEditable(false);
 		descPane.setBounds(342, 304, 220, 93);
 		panel.add(descPane);
 		
 		JButton btnNewButton = new JButton("Submit");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateItemActionPerformed(e);
+			}
+		});
 		btnNewButton.setBounds(306, 419, 89, 23);
 		panel.add(btnNewButton);
 		frame.setVisible(true);
 	}
 
+	
+	private void populateFields(Item editItem) {
+		
+		idField.setText(String.valueOf(editItem.getItemId()));
+		nameField.setText(editItem.getItemName());
+		priceField.setText(String.valueOf(editItem.getItemPrice()));
+		qtyField.setText(String.valueOf(editItem.getItemQuantity()));
+		descPane.setText(editItem.getItemDescription());
+		
+	}
+	
+	private void updateItemActionPerformed(ActionEvent e) {
+		String selectedStock = (String)stockCombo.getSelectedItem();
+	for(Item i: MainFrame.getInventoryManager().getProducts()) {
+		if(i.getItemId() == editItem.getItemId()) {
+			i.setItemQuantity(Integer.parseInt(qtyField.getText()));
+			i.setStock(StockRepository.getStock(selectedStock));
+		
+		}
+	}
+	JOptionPane.showMessageDialog(panel, "Item "+editItem.getItemName()+" has been updated successfully");
+	
+	}
 }
