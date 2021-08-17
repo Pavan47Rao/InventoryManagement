@@ -11,7 +11,7 @@ public class Person extends Account implements Serializable{
 
 	private int personId;
 
-	private int roleId;
+	private int roleId; //ID=1 is Manager, ID=2 is HR, ID=3 is Supplier
 
 	private String firstName;
 
