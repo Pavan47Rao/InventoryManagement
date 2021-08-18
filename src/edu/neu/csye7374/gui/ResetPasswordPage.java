@@ -14,7 +14,10 @@ import javax.swing.JTextField;
 
 import edu.neu.csye7374.fileUtilities.FileWriterReader;
 import edu.neu.csye7374.model.Account;
+import edu.neu.csye7374.model.HR;
+import edu.neu.csye7374.model.InventoryManager;
 import edu.neu.csye7374.model.Person;
+import edu.neu.csye7374.model.Supplier;
 import edu.neu.csye7374.strategy.AutoGeneratePassword;
 import edu.neu.csye7374.strategy.Context;
 import edu.neu.csye7374.strategy.CreateNewPassword;
@@ -134,7 +137,15 @@ public class ResetPasswordPage {
 	private static Account getAccountByEmailId(String email) {
 		try {
 			FileWriterReader file = new FileWriterReader();
-			for(Person person: file.loadPersons()) {
+			for(InventoryManager person: file.loadManagers()) {
+				if(person.getAccount().getUserName().equals(email))
+					return person.getAccount();
+			}
+			for(Supplier person: file.loadSupplier()) {
+				if(person.getAccount().getUserName().equals(email))
+					return person.getAccount();
+			}
+			for(HR person: file.loadHRs()) {
 				if(person.getAccount().getUserName().equals(email))
 					return person.getAccount();
 			}
@@ -152,7 +163,17 @@ public class ResetPasswordPage {
 	private static void updateFile(Account updatedAccount) {
 		FileWriterReader fileUtil;
 		try {
-			for(Person person: MainFrame.getCompany().getPeople()) {
+			for(InventoryManager person: MainFrame.getCompany().getManagers()) {
+				if(person.getAccount().getUserName().equals(updatedAccount.getUserName()))
+					person.getAccount().setPassword(updatedAccount.getPassword());
+					System.out.println(person.getAccount().getPassword());
+			}
+			for(Supplier person: MainFrame.getCompany().getSuppliers()) {
+				if(person.getAccount().getUserName().equals(updatedAccount.getUserName()))
+					person.getAccount().setPassword(updatedAccount.getPassword());
+					System.out.println(person.getAccount().getPassword());
+			}
+			for(HR person: MainFrame.getCompany().getHrs()) {
 				if(person.getAccount().getUserName().equals(updatedAccount.getUserName()))
 					person.getAccount().setPassword(updatedAccount.getPassword());
 					System.out.println(person.getAccount().getPassword());
