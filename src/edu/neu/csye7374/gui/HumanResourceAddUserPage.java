@@ -193,11 +193,13 @@ public class HumanResourceAddUserPage {
 		newPerson.setPersonId(Integer.parseInt(textField_ID.getText()));
 		newPerson.setFirstName(textField_firstName.getText());
 		newPerson.setLastName(textField_lastname.getText());
+		newPerson.getAccount().setUserName(textField_email.getText());
 		newPerson.setEmailId(textField_email.getText());
 		String role = comboBox.getSelectedItem().toString();
 		newPerson.setRoleId(Integer.parseInt(role.substring(0, 1)));
 		Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(textField_dob.getText());
 		newPerson.setDob(dob);
+		newPerson.getAccount().setPassword(passwordField.getText());
 		newPerson.getAccount().setUserName(newPerson.getEmailId());
 		newPerson.setPassword(passwordField.getText());
 		
