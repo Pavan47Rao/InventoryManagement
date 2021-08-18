@@ -8,10 +8,13 @@ import edu.neu.csye7374.gui.supplier.SupplierHomePage;
 import edu.neu.csye7374.items.Airpods;
 import edu.neu.csye7374.items.Pen;
 import edu.neu.csye7374.model.Company;
+import edu.neu.csye7374.model.HR;
 import edu.neu.csye7374.model.Inventory;
 import edu.neu.csye7374.model.InventoryManager;
 import edu.neu.csye7374.model.Item;
 import edu.neu.csye7374.model.Person;
+import edu.neu.csye7374.model.State;
+import edu.neu.csye7374.model.Supplier;
 import edu.neu.csye7374.singleton.AirpodsFactorySingleton;
 import edu.neu.csye7374.singleton.CheeseFactorySingleton;
 import edu.neu.csye7374.singleton.CompanyFactorySingleton;
@@ -59,6 +62,10 @@ public class MainFrame {
 	private static Person loggedInPerson;
 	private static Company company;
 	private JButton resetPwdButton;
+	
+	private State state;
+
+	
 
 	public MainFrame() throws ClassNotFoundException, IOException {
 		frame = new JFrame();
@@ -188,7 +195,10 @@ public class MainFrame {
 		System.out.println("Home page accordingly should open");
 		String userName = userNameTextField.getText().toLowerCase();
 		String password = passwordTextField.getPassword().toString();
-		
+		//ID=1 is Manager, ID=2 is HR, ID=3 is Supplier
+
+
+	
 		//inventory manager
 		if(userNameTextField.getText().equalsIgnoreCase("aa") && passwordTextField.getText().equals("aa")) {
 			frame.getContentPane().removeAll();
@@ -204,12 +214,13 @@ public class MainFrame {
 			frame.getContentPane().removeAll();
 			new SupplierHomePage(frame);
 		}
-		
+	
 		FileWriterReader fwr = new FileWriterReader();
 		try {
 			List<Person> staff = fwr.loadPersons();
+			System.out.println(staff);
 			for(Person person: staff) {
-				if(person.getAccount().getUserName().equals(userName) && person.getAccount().getPassword().equals(password)) {
+				if(person.getAccount().getUserName().equals(userNameTextField.getText()) && person.getAccount().getPassword().equals(passwordTextField.getText())) {
 					switch(person.getRoleId()) {
 					case 1:
 						frame.getContentPane().removeAll();
