@@ -14,6 +14,7 @@ import edu.neu.csye7374.adapter.Calculator;
 import edu.neu.csye7374.adapter.CalculatorAdapter;
 import edu.neu.csye7374.api.AbstractItemFactory;
 import edu.neu.csye7374.factories.AirpodsFactory;
+import edu.neu.csye7374.fileUtilities.FileWriterReader;
 import edu.neu.csye7374.gui.LogoutPage;
 import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.model.Item;
@@ -36,10 +37,14 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.Set;
 import java.awt.event.ActionEvent;
 
@@ -223,7 +228,12 @@ public class AddItemsPage {
 		if(allFieldsArePopulated()) {
 		
 			
-			checkIfItemIsPresentInListAlready(Integer.parseInt(idField.getText()));
+			try {
+				checkIfItemIsPresentInListAlready(Integer.parseInt(idField.getText()));
+			} catch (NumberFormatException | ClassNotFoundException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 			
 		}
@@ -237,56 +247,71 @@ public class AddItemsPage {
 		}
 	}
 	
-	private void checkIfItemIsPresentInListAlready(int itemId) {
-		
+	private void checkIfItemIsPresentInListAlready(int itemId) throws ClassNotFoundException, IOException {
+		FileWriterReader fileUtil = new FileWriterReader(MainFrame.getCompany());
 		AbstractItemFactory selctedItem = (AbstractItemFactory)itemCombo.getSelectedItem();
 		String selectedStock = (String)stockCombo.getSelectedItem();
 		
 		Calculator cal = new Calculator();
 		CalculatorAdapter adpater = new CalculatorAdapter(cal);
 		boolean itemFound = false;
-		if(MainFrame.getInventoryManager().getItems().size() == 0) {
-			Item addItem = new Item();
-			addItem.setItemId(Integer.parseInt(idField.getText()));
-			addItem.setItemName(selctedItem.getObject().getItemName());
-			addItem.setItemPrice(Double.parseDouble(priceField.getText()));
-			addItem.setItemQuantity(Integer.parseInt(qtyField.getText()));
-			addItem.setStock(StockRepository.getStock(selectedStock));
-			addItem.setItemDescription(descPane.getText());
+		
+		
 			
-			StockRepository.getStock(selectedStock).addItemToStock(addItem);
-			
-			MainFrame.getInventoryManager().addItems(addItem);
-			JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");
+		
+		if(StockRepository.getStock(selectedStock).getStockItems().size() == 0) {
+			try {
+				addItem(selctedItem, selectedStock);
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
-			for(ListIterator<Item> itr = MainFrame.getInventoryManager().getItems().listIterator();itr.hasNext();) {
+			
+			
+			
+			for(ListIterator<Item> itr = StockRepository.getStock(selectedStock).getStockItems().listIterator();itr.hasNext();) {
 				Item i = itr.next();
 				if(i.getItemId() == itemId) {
 					
 					i.setItemQuantity(adpater.updateQuantity(i, Integer.parseInt(qtyField.getText())));
 					JOptionPane.showMessageDialog(panel, selctedItem.getObject().getItemName()+" already exist in the list. Updated quantity in inventory: "+i.getItemQuantity());
 					itemFound = true;
+					StockRepository.getStock(selectedStock).getStockItems().set(StockRepository.getStock(selectedStock).getStockItems().indexOf(i), i);
+					fileUtil.saveStockRepo();
 				}
 			}
 			
 			if(!itemFound) {
-				
-						
-						Item addItem = new Item();
-						addItem.setItemId(Integer.parseInt(idField.getText()));
-						addItem.setItemName(selctedItem.getObject().getItemName());
-						addItem.setItemPrice(Double.parseDouble(priceField.getText()));
-						addItem.setItemQuantity(Integer.parseInt(qtyField.getText()));
-						addItem.setStock(StockRepository.getStock(selectedStock));
-						addItem.setItemDescription(descPane.getText());
-						
-						StockRepository.getStock(selectedStock).addItemToStock(addItem);
-						
-					MainFrame.getInventoryManager().addItems(addItem);
-						JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");
-					
+			try {
+				addItem(selctedItem, selectedStock);
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
 			}
 		}
 		
+	}
+	
+	private void addItem(AbstractItemFactory selctedItem, String selectedStock) throws ClassNotFoundException, IOException {
+		Item addItem = new Item();
+		addItem.setItemId(Integer.parseInt(idField.getText()));
+		addItem.setItemName(selctedItem.getObject().getItemName());
+		addItem.setItemPrice(Double.parseDouble(priceField.getText()));
+		addItem.setItemQuantity(Integer.parseInt(qtyField.getText()));
+		addItem.setStock(StockRepository.getStock(selectedStock));
+		addItem.setItemDescription(descPane.getText());
+		
+		Stock s = StockRepository.getStock(selectedStock);
+		s.addItemToStock(addItem);
+		
+		StockRepository.stockMap.replace(selectedStock, s);
+		
+			
+		FileWriterReader fileUtil = new FileWriterReader(MainFrame.getCompany());
+		fileUtil.saveStockRepo();
+		
+		JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");
 	}
 }

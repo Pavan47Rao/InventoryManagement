@@ -42,7 +42,6 @@ public class ManageStockPage {
 	private JButton backBtn;
 	private JTable table;
 	private JButton btnEditStocks;
-	private JButton btnDeleteStocks;
 	private JButton btnNewButton;
 	
 	public ManageStockPage(JFrame frame) {
@@ -87,12 +86,8 @@ public class ManageStockPage {
 				viewStocksActionPerformed(e);
 			}
 		});
-		btnEditStocks.setBounds(10, 130, 141, 56);
+		btnEditStocks.setBounds(30, 235, 141, 56);
 		panel.add(btnEditStocks);
-		
-		btnDeleteStocks = new JButton("Delete Stocks");
-		btnDeleteStocks.setBounds(10, 253, 141, 56);
-		panel.add(btnDeleteStocks);
 		
 		btnNewButton = new JButton("Logout");
 		btnNewButton.addActionListener(new ActionListener() {

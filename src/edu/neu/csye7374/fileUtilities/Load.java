@@ -4,17 +4,26 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
+import java.util.Map;
 
 import edu.neu.csye7374.model.Company;
 import edu.neu.csye7374.model.HR;
 import edu.neu.csye7374.model.InventoryManager;
 import edu.neu.csye7374.model.Person;
+<<<<<<< HEAD
 import edu.neu.csye7374.model.Supplier;
+=======
+import edu.neu.csye7374.model.Stock;
+import edu.neu.csye7374.singleton.CompanyFactorySingleton;
+import edu.neu.csye7374.stock.StockRepository;
+>>>>>>> 6dc9dd7a4be5341e0bc4e6ca1f4382cf084dbe9c
 
 public class Load {
 
 	private String company_file = "company.ser";
-
+	private String stock_repo_file = "stock_repo_file.ser";
+	
+	
 	public Load() {
 
 	}
@@ -83,6 +92,15 @@ public class Load {
 		Company c = (Company) ois.readObject();
 		return c;
 
+	}
+
+	public Map<String, Stock> loadStockRepo() throws IOException, ClassNotFoundException {
+		FileInputStream fis = new FileInputStream(stock_repo_file);
+		@SuppressWarnings("resource")
+		ObjectInputStream ois = new ObjectInputStream(fis);
+
+		System.out.println("Loading the stock repo...");
+		return (Map<String, Stock>) ois.readObject();
 	}
 
 }

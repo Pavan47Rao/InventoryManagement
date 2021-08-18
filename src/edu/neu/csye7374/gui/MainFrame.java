@@ -73,7 +73,7 @@ public class MainFrame {
 	private void init() throws ClassNotFoundException, IOException {
 		StockRepository.loadItems();
 		itemList = new ArrayList<Item>();
-//		company = new Company();
+
 		AbstractCompanyFactory companyFactory = CompanyFactorySingleton.getCompanyObject();
 		company = companyFactory.getCompanyObject();
 
@@ -82,6 +82,7 @@ public class MainFrame {
 		
 		FileWriterReader fileUtil = new FileWriterReader();
 		fileUtil.loadAll();
+		fileUtil.loadStockRepo();
 	}
 	
 

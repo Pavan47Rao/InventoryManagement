@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import edu.neu.csye7374.fileUtilities.FileWriterReader;
 import edu.neu.csye7374.gui.LogoutPage;
 import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.model.Item;
@@ -33,12 +35,23 @@ public class EditItemPage {
 	private JComboBox stockCombo;
 	private List<Item> itemList;
 	private Item editItem;
+	private FileWriterReader fileUtil;
 	
 	public EditItemPage(JFrame frame, Item editItem) {
 	this.frame = frame;
 	this.editItem = editItem;
 	prepareGUI();
 	populateFields(editItem);
+	try {
+		init();
+	} catch (ClassNotFoundException | IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	}
+	
+	private void init() throws ClassNotFoundException, IOException {
+		fileUtil = new FileWriterReader(MainFrame.getCompany());
 	}
 	
 	private void prepareGUI() {
@@ -135,7 +148,12 @@ public class EditItemPage {
 		JButton btnNewButton = new JButton("Submit");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				updateItemActionPerformed(e);
+				try {
+					updateItemActionPerformed(e);
+				} catch (IOException | ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnNewButton.setBounds(306, 419, 89, 23);
@@ -154,15 +172,16 @@ public class EditItemPage {
 		
 	}
 	
-	private void updateItemActionPerformed(ActionEvent e) {
+	private void updateItemActionPerformed(ActionEvent e) throws IOException, ClassNotFoundException {
 
 	
-	for(Item i: MainFrame.getInventoryManager().getItems()) {
+	for(Item i: StockRepository.getStock(editItem.getStock().getStockType()).getStockItems()) {
 		if(i.getItemId() == editItem.getItemId()) {
 			i.setItemQuantity(Integer.parseInt(qtyField.getText()));
 			i.setItemDescription(descPane.getText());
 		}
 	}
+	fileUtil.saveStockRepo();
 	JOptionPane.showMessageDialog(panel, "Item "+editItem.getItemName()+" has been updated successfully");
 	System.out.println("edit item is completed");
 	}
