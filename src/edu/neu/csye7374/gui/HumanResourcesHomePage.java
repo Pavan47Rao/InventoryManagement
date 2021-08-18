@@ -11,7 +11,10 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import edu.neu.csye7374.fileUtilities.FileWriterReader;
+import edu.neu.csye7374.model.HR;
+import edu.neu.csye7374.model.InventoryManager;
 import edu.neu.csye7374.model.Person;
+import edu.neu.csye7374.model.Supplier;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -101,6 +104,9 @@ public class HumanResourcesHomePage {
 	      
 	      FileWriterReader fileUtil = new FileWriterReader();
 	      List<Person> personList = fileUtil.loadPersons();
+	      List<InventoryManager> managers = fileUtil.loadManagers();
+	      List<HR> hrs = fileUtil.loadHRs();
+	      List<Supplier> supps = fileUtil.loadSupplier();
 	      
 	      for(Person p: personList) {
 	    	  values.add(new String[] {
@@ -114,7 +120,45 @@ public class HumanResourcesHomePage {
 	    			  
 	    	  });
 	      }
+	      for(InventoryManager p: managers) {
+	    	  values.add(new String[] {
+	    			  String.valueOf(p.getPersonId()),
+	    			  String.valueOf(p.getRoleId()),
+	    			  p.getFirstName(),
+	    			  p.getLastName(),
+	    			  p.getEmailId(),
+	    			  p.getDob().toString(),
+	    			  p.getAddress()
+	    			  
+	    	  });
+	      }
 	     
+	      for(HR p: hrs) {
+	    	  values.add(new String[] {
+	    			  String.valueOf(p.getPersonId()),
+	    			  String.valueOf(p.getRoleId()),
+	    			  p.getFirstName(),
+	    			  p.getLastName(),
+	    			  p.getEmailId(),
+	    			  p.getDob().toString(),
+	    			  p.getAddress()
+	    			  
+	    	  });
+	      }
+	      
+	      for(Supplier p: supps) {
+	    	  values.add(new String[] {
+	    			  String.valueOf(p.getPersonId()),
+	    			  String.valueOf(p.getRoleId()),
+	    			  p.getFirstName(),
+	    			  p.getLastName(),
+	    			  p.getEmailId(),
+	    			  p.getDob().toString(),
+	    			  p.getAddress()
+	    			  
+	    	  });
+	      }
+	      
 	      
 	        
 	        DefaultTableModel model = new DefaultTableModel(values.toArray(new Object[][] {}), columns);
