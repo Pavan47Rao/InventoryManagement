@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import edu.neu.csye7374.model.Company;
+import edu.neu.csye7374.stock.StockRepository;
 
 public class Save {
 
@@ -38,7 +39,7 @@ public class Save {
 		ObjectOutputStream o = new ObjectOutputStream(f);
 		
 		// Write objects to file
-		o.writeObject(this.company.getInventory().getStockRepository());
+		o.writeObject(StockRepository.stockMap);
 		
 		o.close();
 		f.close();

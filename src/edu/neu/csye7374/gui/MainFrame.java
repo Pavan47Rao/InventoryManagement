@@ -83,6 +83,7 @@ public class MainFrame {
 		
 		FileWriterReader fileUtil = new FileWriterReader();
 		fileUtil.loadAll();
+		fileUtil.loadStockRepo();
 	}
 	
 

@@ -14,6 +14,7 @@ import edu.neu.csye7374.adapter.Calculator;
 import edu.neu.csye7374.adapter.CalculatorAdapter;
 import edu.neu.csye7374.api.AbstractItemFactory;
 import edu.neu.csye7374.factories.AirpodsFactory;
+import edu.neu.csye7374.fileUtilities.FileWriterReader;
 import edu.neu.csye7374.gui.LogoutPage;
 import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.model.Item;
@@ -36,6 +37,8 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -246,7 +249,12 @@ public class AddItemsPage {
 		CalculatorAdapter adpater = new CalculatorAdapter(cal);
 		boolean itemFound = false;
 		if(MainFrame.getInventoryManager().getItems().size() == 0) {
-			addItem(selctedItem, selectedStock);
+			try {
+				addItem(selctedItem, selectedStock);
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			for(ListIterator<Item> itr = MainFrame.getInventoryManager().getItems().listIterator();itr.hasNext();) {
 				Item i = itr.next();
@@ -259,13 +267,18 @@ public class AddItemsPage {
 			}
 			
 			if(!itemFound) {
-			addItem(selctedItem, selectedStock);		
+			try {
+				addItem(selctedItem, selectedStock);
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
 			}
 		}
 		
 	}
 	
-	private void addItem(AbstractItemFactory selctedItem, String selectedStock) {
+	private void addItem(AbstractItemFactory selctedItem, String selectedStock) throws ClassNotFoundException, IOException {
 		Item addItem = new Item();
 		addItem.setItemId(Integer.parseInt(idField.getText()));
 		addItem.setItemName(selctedItem.getObject().getItemName());
@@ -274,9 +287,15 @@ public class AddItemsPage {
 		addItem.setStock(StockRepository.getStock(selectedStock));
 		addItem.setItemDescription(descPane.getText());
 		
-		StockRepository.getStock(selectedStock).addItemToStock(addItem);
+		Stock s = StockRepository.getStock(selectedStock);
+		s.addItemToStock(addItem);
 		
-		MainFrame.getInventoryManager().addItems(addItem);
+		StockRepository.stockMap.replace(selectedStock, s);
+		
+			
+		FileWriterReader fileUtil = new FileWriterReader(MainFrame.getCompany());
+		fileUtil.saveStockRepo();
+		
 		JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");
 	}
 }

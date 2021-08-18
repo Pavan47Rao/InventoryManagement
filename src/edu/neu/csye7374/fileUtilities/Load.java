@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import edu.neu.csye7374.api.AbstractCompanyFactory;
 import edu.neu.csye7374.model.Company;
 
 import edu.neu.csye7374.model.Person;
+import edu.neu.csye7374.model.Stock;
 import edu.neu.csye7374.singleton.CompanyFactorySingleton;
 import edu.neu.csye7374.stock.StockRepository;
 
@@ -105,13 +107,13 @@ public class Load {
 
 	}
 
-	public StockRepository loadStockRepo() throws IOException, ClassNotFoundException {
+	public Map<String, Stock> loadStockRepo() throws IOException, ClassNotFoundException {
 		FileInputStream fis = new FileInputStream(stock_repo_file);
 		@SuppressWarnings("resource")
 		ObjectInputStream ois = new ObjectInputStream(fis);
 
 		System.out.println("Loading the stock repo...");
-		return (StockRepository) ois.readObject();
+		return (Map<String, Stock>) ois.readObject();
 	}
 
 }
