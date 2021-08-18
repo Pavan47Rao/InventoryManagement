@@ -23,7 +23,7 @@ public class Company implements Serializable{
 	
 	private List<Person> people;
 	
-	private List<InventoryManager> managers;
+	private List<InventoryManager> managers = new ArrayList<>();
 	
 	private List<Supplier> suppliers;
 	
@@ -34,7 +34,7 @@ public class Company implements Serializable{
 		// TODO Auto-generated constructor stub
 		inventory = new Inventory();
 		this.people = new ArrayList<Person>();
-		this.managers = new ArrayList<>();
+		//this.managers = new ArrayList<>();
 		this.suppliers = new ArrayList<>();
 		this.hrs = new ArrayList<>();
 	}
