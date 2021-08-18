@@ -8,11 +8,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import edu.neu.csye7374.model.Company;
 import edu.neu.csye7374.model.Item;
 import edu.neu.csye7374.model.Order;
 import edu.neu.csye7374.model.Person;
+import edu.neu.csye7374.model.Stock;
 import edu.neu.csye7374.stock.StockRepository;
 
 //a unified interface to a set of interfaces in a subsytem
@@ -63,7 +65,7 @@ public class FileWriterReader {
 	}
 	
 	
-	public StockRepository loadStockRepo () throws ClassNotFoundException, IOException {
+	public Map<String, Stock> loadStockRepo () throws ClassNotFoundException, IOException {
 		return loader.loadStockRepo();
 	}
 	

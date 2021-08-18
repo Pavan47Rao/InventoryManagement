@@ -11,6 +11,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import edu.neu.csye7374.fileUtilities.FileWriterReader;
 import edu.neu.csye7374.gui.LogoutPage;
 import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.model.Item;
@@ -22,7 +23,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -37,10 +40,15 @@ public class ManageItemPage {
 	
 	public ManageItemPage(JFrame frame) {
 		this.frame = frame;
-		prepareGUI();
+		try {
+			prepareGUI();
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	private void prepareGUI() {
+	private void prepareGUI() throws ClassNotFoundException, IOException {
 		panel = new JPanel();
 		panel.setBounds(new Rectangle(800, 500));
 		panel.setLayout(null);
@@ -111,7 +119,7 @@ public class ManageItemPage {
 		frame.setVisible(true);
 	}
 	
-	private DefaultTableModel loadTable() {
+	private DefaultTableModel loadTable() throws ClassNotFoundException, IOException {
 		String[] columns = {"Item ID", "Item Name", "Item Price", "Item Description", "Item Quantity", "Stock"};
 	      List<String[]> values = new ArrayList<String[]>();
 	      
@@ -120,18 +128,22 @@ public class ManageItemPage {
 //	    	, item.getItemDescription(), String.valueOf(item.getItemQuantity()), item.getStock().getStockType()	 
 //	    	 });
 //	     }
-	     
-	      	for(Map.Entry<String, Stock> mapElement: StockRepository.stockMap.entrySet()) {
-	      		String key = (String) mapElement.getKey();
-	      		Stock stock = (Stock) mapElement.getValue();
-	      		List<Item> itemList = stock.getStockItems();
-	      		
-	      		for(Item item: itemList) {
-	   	    	 values.add(new String[] {String.valueOf(item.getItemId()), item.getItemName(), String.valueOf(item.getItemPrice())
-	    	    	, item.getItemDescription(), String.valueOf(item.getItemQuantity()), item.getStock().getStockType()	 
-	    	    	 });
-	      		}
-	      	}
+	      
+	      FileWriterReader fileUtil = new FileWriterReader();
+	      Map<String, Stock> myMap = fileUtil.loadStockRepo();
+	      
+	      Iterator<String> it = myMap.keySet().iterator();
+	      while(it.hasNext()) {
+	    	 String key = it.next();
+	    	 List<Item> itemList = myMap.get(key).getStockItems();
+	    	 for(Item item: itemList) {
+	    		 values.add(new String[] {String.valueOf(item.getItemId()), item.getItemName(), String.valueOf(item.getItemPrice())
+	    			    	, item.getItemDescription(), String.valueOf(item.getItemQuantity()), item.getStock().getStockType()	 
+	    			    	 });
+	    	 }
+	    	 
+	      }
+	    
 	      
 	      
 	        
@@ -203,7 +215,12 @@ public class ManageItemPage {
 				JOptionPane.showMessageDialog(panel, "Item has been deleted successfully");
 			}
 		}
-		table.setModel(loadTable());
+		try {
+			table.setModel(loadTable());
+		} catch (ClassNotFoundException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 }

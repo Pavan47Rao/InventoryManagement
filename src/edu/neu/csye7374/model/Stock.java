@@ -1,10 +1,11 @@
 package edu.neu.csye7374.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Stock implements Cloneable{
-	
+public class Stock implements Cloneable, Serializable{
+
 	private int stockId;
 	
 	private List<Item> stockItems;
