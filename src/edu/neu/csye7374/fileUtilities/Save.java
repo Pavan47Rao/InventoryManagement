@@ -29,7 +29,7 @@ public class Save {
 		// Write objects to file
 		o.writeObject(this.company);
 
-		o.close();
+		o.close(); 
 		f.close();
 
 	}
