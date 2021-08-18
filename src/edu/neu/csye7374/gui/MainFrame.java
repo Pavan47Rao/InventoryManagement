@@ -34,6 +34,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -73,8 +74,8 @@ public class MainFrame {
 		AbstractCompanyFactory companyFactory = CompanyFactorySingleton.getCompanyObject();
 		company = companyFactory.getCompanyObject();
 
-		//FileWriterReader fileUtil1 = new FileWriterReader(company);
-		//fileUtil1.saveAll();
+//		FileWriterReader fileUtil1 = new FileWriterReader(company);
+//		fileUtil1.saveAll();
 		
 		FileWriterReader fileUtil = new FileWriterReader();
 		fileUtil.loadAll();
@@ -187,7 +188,7 @@ public class MainFrame {
 		System.out.println("Login button is clicked");
 		System.out.println("Home page accordingly should open");
 		String userName = userNameTextField.getText().toLowerCase();
-		String password = passwordTextField.getPassword().toString();
+		String password = new String(passwordTextField.getPassword());
 		
 		//inventory manager
 		if(userNameTextField.getText().equalsIgnoreCase("aa") && passwordTextField.getText().equals("aa")) {
@@ -206,10 +207,12 @@ public class MainFrame {
 		}
 		
 		FileWriterReader fwr = new FileWriterReader();
+		boolean foundUser = false;
 		try {
 			List<Person> staff = fwr.loadPersons();
 			for(Person person: staff) {
 				if(person.getAccount().getUserName().equals(userName) && person.getAccount().getPassword().equals(password)) {
+					foundUser = true;
 					switch(person.getRoleId()) {
 					case 1:
 						frame.getContentPane().removeAll();
@@ -235,6 +238,8 @@ public class MainFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		if(!foundUser)
+			JOptionPane.showMessageDialog(panel, "Incorrect credentials!");
 	}
 	
 	public static void demo() throws ClassNotFoundException, IOException {
