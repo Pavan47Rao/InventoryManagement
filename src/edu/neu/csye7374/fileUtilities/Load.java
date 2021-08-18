@@ -78,16 +78,16 @@ public class Load {
 		 * other wise we need to create a new instance first time
 		 * 
 		 */
-		
-	
-		
+
 		FileInputStream fis = new FileInputStream(company_file);
 		@SuppressWarnings("resource")
 		ObjectInputStream ois = new ObjectInputStream(fis);
 
 		System.out.println("Loading the company...");
-		Company c = (Company) ois.readObject();
-		return c;
+		//Company c = (Company) ois.readObject();
+		
+
+		return (Company) ois.readObject();
 
 	}
 
