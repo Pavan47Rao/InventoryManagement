@@ -40,7 +40,7 @@ public class Person extends Account implements Serializable{
 		}
 		this.address = "NH";
 		this.account = new Account();
-		this.account.setUserName(String.valueOf(personId));
+			this.account.setUserName(emailId);
 	}
 
 	public Person(int personId, int roleId, String firstName, String lastName, String emailId, Date dob, String address,
@@ -54,7 +54,7 @@ public class Person extends Account implements Serializable{
 		this.dob = dob;
 		this.address = address;
 		this.account = account;
-		this.account.setUserName(String.valueOf(personId));
+			this.account.setUserName(emailId);
 	}
 
 	
