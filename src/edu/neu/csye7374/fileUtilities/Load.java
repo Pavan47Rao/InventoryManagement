@@ -10,13 +10,10 @@ import edu.neu.csye7374.model.Company;
 import edu.neu.csye7374.model.HR;
 import edu.neu.csye7374.model.InventoryManager;
 import edu.neu.csye7374.model.Person;
-<<<<<<< HEAD
 import edu.neu.csye7374.model.Supplier;
-=======
 import edu.neu.csye7374.model.Stock;
 import edu.neu.csye7374.singleton.CompanyFactorySingleton;
 import edu.neu.csye7374.stock.StockRepository;
->>>>>>> 6dc9dd7a4be5341e0bc4e6ca1f4382cf084dbe9c
 
 public class Load {
 
