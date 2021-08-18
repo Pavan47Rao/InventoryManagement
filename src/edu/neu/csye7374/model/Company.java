@@ -8,6 +8,11 @@ import edu.neu.csye7374.fileUtilities.FileWriterReader;
 
 public class Company implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6937173705725889021L;
+
 	private String companyName;
 	
 	private int companyId;
