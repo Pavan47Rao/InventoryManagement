@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class InventoryManager extends Person{
+	private static final long serialVersionUID = 2431027597097584548L;
 	
 	public InventoryManager(int personId, int roleId, String firstName, String lastName, String emailId, Date dob, String address,
 			Account account){
