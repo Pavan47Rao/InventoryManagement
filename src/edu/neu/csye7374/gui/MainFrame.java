@@ -1,5 +1,27 @@
 package edu.neu.csye7374.gui;
 
+import edu.neu.csye7374.api.AbstractItemFactory;
+import edu.neu.csye7374.factories.AirpodsFactory;
+import edu.neu.csye7374.gui.inventory_mgr.*;
+import edu.neu.csye7374.gui.supplier.SupplierHomePage;
+import edu.neu.csye7374.items.Airpods;
+import edu.neu.csye7374.items.Pen;
+import edu.neu.csye7374.model.Company;
+import edu.neu.csye7374.model.Inventory;
+import edu.neu.csye7374.model.InventoryManager;
+import edu.neu.csye7374.model.Item;
+import edu.neu.csye7374.model.Person;
+import edu.neu.csye7374.singleton.AirpodsFactorySingleton;
+import edu.neu.csye7374.singleton.CheeseFactorySingleton;
+import edu.neu.csye7374.singleton.IphoneFactorySingleton;
+import edu.neu.csye7374.singleton.MilkFactorySingleton;
+import edu.neu.csye7374.singleton.PenFactorySingleton;
+import edu.neu.csye7374.singleton.PencilFactorySingleton;
+import edu.neu.csye7374.singleton.VRHeadsetFactorySingleton;
+import edu.neu.csye7374.singleton.WritingPadFactorySingleton;
+import edu.neu.csye7374.singleton.YogurtFactorySingleton;
+import edu.neu.csye7374.stock.StockRepository;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,11 +55,7 @@ public class MainFrame {
 	private static List<Item> itemList;
 	private static InventoryManager inventoryManager = new InventoryManager();
 	private static Person loggedInPerson;
-
-
-	
-
-
+	private static Company company;
 
 	public MainFrame() {
 		frame = new JFrame();
@@ -48,10 +66,20 @@ public class MainFrame {
 	private void init() {
 		StockRepository.loadItems();
 		itemList = new ArrayList<Item>();
+		company = new Company();
+		
 	}
 	
 
-	
+
+	public static Company getCompany() {
+		return company;
+	}
+
+	public static void setCompany(Company company) {
+		MainFrame.company = company;
+	}
+
 	public static List<Item> getItemList() {
 		return itemList;
 	}

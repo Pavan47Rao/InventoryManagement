@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +17,12 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import edu.neu.csye7374.gui.LogoutPage;
+import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.gui.ResetPasswordPage;
+import edu.neu.csye7374.model.Item;
+import edu.neu.csye7374.model.Stock;
+import edu.neu.csye7374.stock.StockRepository;
 
 public class InventoryManagerHomePage {
 	
@@ -48,6 +54,12 @@ public class InventoryManagerHomePage {
 		panel.add(backBtn);
 		
 		JButton logoutBtn = new JButton("Logout");
+		logoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new LogoutPage(frame);
+			}
+		});
 		logoutBtn.setBounds(672, 8, 89, 23);
 		panel.add(logoutBtn);
 		
@@ -119,10 +131,28 @@ public class InventoryManagerHomePage {
 	}
 	
 	private DefaultTableModel loadTable() {
-		String[] columns = {"Inventory ID", "Inventory Name", "Inventory Description", "Stock ID", "Stock Type", "Stock Description", "Item ID", "Item Name", "Item Price", "Item Quantity", "Item Description"};
+		String[] columns = {"Inventory ID", "Inventory Name", "Stock ID", "Stock Type",
+				"Stock Description", "Item ID", "Item Name", "Item Price",
+				"Item Quantity", "Item Description"};
+		
 	      List<String[]> values = new ArrayList<String[]>();
 	      
-	      values.add(new String[] {"IN1", "Inventory One", "Inventory One", "ST1", "Electronics", "Contains electronics item", "1", "Samsung TV", "10000.00", "100","TV with 4K UHD"});
+	      String inventoryId = String.valueOf(MainFrame.getCompany().getInventory().getInventoryId());
+	      String inventoryName = MainFrame.getCompany().getInventory().getInventoryName();
+	     
+	      Set<String> streMapSet = StockRepository.stockMap.keySet();
+	      
+	      for(String s: streMapSet) {
+	    	  Stock stock = StockRepository.getStock(s);
+	    	  stock.getStockItems().forEach(item -> {
+	    		  values.add(new String[] {inventoryId, inventoryName, String.valueOf(stock.getStockId()), 
+	    				  stock.getStockType(), stock.getStockDescription(), String.valueOf(item.getItemId()),
+	    				  item.getItemName(), String.valueOf(item.getItemPrice()), String.valueOf(item.getItemQuantity()),
+	    				  item.getItemDescription()});
+	    	  });
+	      }
+	      
+	     
 	
 	      
 	        
