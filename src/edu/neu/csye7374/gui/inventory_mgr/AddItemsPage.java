@@ -246,18 +246,7 @@ public class AddItemsPage {
 		CalculatorAdapter adpater = new CalculatorAdapter(cal);
 		boolean itemFound = false;
 		if(MainFrame.getInventoryManager().getItems().size() == 0) {
-			Item addItem = new Item();
-			addItem.setItemId(Integer.parseInt(idField.getText()));
-			addItem.setItemName(selctedItem.getObject().getItemName());
-			addItem.setItemPrice(Double.parseDouble(priceField.getText()));
-			addItem.setItemQuantity(Integer.parseInt(qtyField.getText()));
-			addItem.setStock(StockRepository.getStock(selectedStock));
-			addItem.setItemDescription(descPane.getText());
-			
-			StockRepository.getStock(selectedStock).addItemToStock(addItem);
-			
-			MainFrame.getInventoryManager().addItems(addItem);
-			JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");
+			addItem(selctedItem, selectedStock);
 		} else {
 			for(ListIterator<Item> itr = MainFrame.getInventoryManager().getItems().listIterator();itr.hasNext();) {
 				Item i = itr.next();
@@ -270,23 +259,24 @@ public class AddItemsPage {
 			}
 			
 			if(!itemFound) {
-				
-						
-						Item addItem = new Item();
-						addItem.setItemId(Integer.parseInt(idField.getText()));
-						addItem.setItemName(selctedItem.getObject().getItemName());
-						addItem.setItemPrice(Double.parseDouble(priceField.getText()));
-						addItem.setItemQuantity(Integer.parseInt(qtyField.getText()));
-						addItem.setStock(StockRepository.getStock(selectedStock));
-						addItem.setItemDescription(descPane.getText());
-						
-						StockRepository.getStock(selectedStock).addItemToStock(addItem);
-						
-					MainFrame.getInventoryManager().addItems(addItem);
-						JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");
-					
+			addItem(selctedItem, selectedStock);		
 			}
 		}
 		
+	}
+	
+	private void addItem(AbstractItemFactory selctedItem, String selectedStock) {
+		Item addItem = new Item();
+		addItem.setItemId(Integer.parseInt(idField.getText()));
+		addItem.setItemName(selctedItem.getObject().getItemName());
+		addItem.setItemPrice(Double.parseDouble(priceField.getText()));
+		addItem.setItemQuantity(Integer.parseInt(qtyField.getText()));
+		addItem.setStock(StockRepository.getStock(selectedStock));
+		addItem.setItemDescription(descPane.getText());
+		
+		StockRepository.getStock(selectedStock).addItemToStock(addItem);
+		
+		MainFrame.getInventoryManager().addItems(addItem);
+		JOptionPane.showMessageDialog(panel, qtyField.getText()+" "+selctedItem.getObject().getItemName()+" has been successfully added to the inventory");
 	}
 }
