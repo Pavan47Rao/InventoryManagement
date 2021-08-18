@@ -200,6 +200,8 @@ public class HumanResourceAddUserPage {
 		Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(textField_dob.getText());
 		newPerson.setDob(dob);
 		newPerson.getAccount().setPassword(passwordField.getText());
+		newPerson.getAccount().setUserName(newPerson.getEmailId());
+		newPerson.setPassword(passwordField.getText());
 		
 		MainFrame.getCompany().getPeople().add(newPerson);
 		FileWriterReader fileUtil = new FileWriterReader(MainFrame.getCompany());
