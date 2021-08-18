@@ -40,35 +40,17 @@ public class Load {
 	// ID=1 is Manager, ID=2 is HR, ID=3 is Supplier
 	// load all suppliers
 	public List<Supplier> loadSuppliers() throws IOException, ClassNotFoundException {
-		FileInputStream fis = new FileInputStream(company_file);
-		@SuppressWarnings("resource")
-		ObjectInputStream ois = new ObjectInputStream(fis);
-
-		System.out.println("Loading the company personnal...");
-		Company c = (Company) ois.readObject();
-		return c.getSuppliers();
+		return loadAll().getSuppliers();
 	}
 
 	// load all HRs
 	public List<HR> loadHR() throws IOException, ClassNotFoundException {
-		FileInputStream fis = new FileInputStream(company_file);
-		@SuppressWarnings("resource")
-		ObjectInputStream ois = new ObjectInputStream(fis);
-
-		System.out.println("Loading the company personnal...");
-		Company c = (Company) ois.readObject();
-		return c.getHrs();
+		return loadAll().getHrs();
 	}
 
 	// load all managers
 	public List<InventoryManager> loadManagers() throws IOException, ClassNotFoundException {
-		FileInputStream fis = new FileInputStream(company_file);
-		@SuppressWarnings("resource")
-		ObjectInputStream ois = new ObjectInputStream(fis);
-
-		System.out.println("Loading the company personnal...");
-		Company c = (Company) ois.readObject();
-		return c.getManagers();
+		return loadAll().getManagers();
 	}
 
 	public Company loadAll() throws IOException, ClassNotFoundException {
