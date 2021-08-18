@@ -58,6 +58,7 @@ public class MainFrame {
 	private static InventoryManager inventoryManager = new InventoryManager();
 	private static Person loggedInPerson;
 	private static Company company;
+	private JButton resetPwdButton;
 
 	public MainFrame() throws ClassNotFoundException, IOException {
 		frame = new JFrame();
@@ -121,7 +122,7 @@ public class MainFrame {
 		frame.setBounds(10, 20, 800, 500);
 		panel = new JPanel();
 		panel.setLayout(null);
-		frame.add(panel);
+		frame.getContentPane().add(panel);
 		
 		
 		JLabel headerLabel = new JLabel("Inventory Management");
@@ -166,6 +167,16 @@ public class MainFrame {
 		loginBtn.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		loginBtn.setBounds(273, 228, 137, 42);
 		panel.add(loginBtn);
+		
+		resetPwdButton = new JButton("Forgot Password? Reset Here");
+		resetPwdButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new ResetPasswordPage(frame);
+			}
+		});
+		resetPwdButton.setBounds(236, 303, 220, 42);
+		panel.add(resetPwdButton);
 		
 		
 		frame.setVisible(true);
