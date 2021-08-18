@@ -13,6 +13,7 @@ import edu.neu.csye7374.model.Company;
 import edu.neu.csye7374.model.Item;
 import edu.neu.csye7374.model.Order;
 import edu.neu.csye7374.model.Person;
+import edu.neu.csye7374.stock.StockRepository;
 
 //a unified interface to a set of interfaces in a subsytem
 public class FileWriterReader {
@@ -61,6 +62,16 @@ public class FileWriterReader {
 		return loader.loadHR();
 	}
 	
+	
+	public StockRepository loadStockRepo () throws ClassNotFoundException, IOException {
+		return loader.loadStockRepo();
+	}
+	
+	
+	public void saveStockRepo () throws ClassNotFoundException, IOException {
+		saver.saveStockRepo();
+		
+	}
 	
 
 
