@@ -26,6 +26,7 @@ import edu.neu.csye7374.model.Order;
 import edu.neu.csye7374.model.Person;
 import edu.neu.csye7374.model.Supplier;
 import edu.neu.csye7374.observer.PlaceOrder;
+import edu.neu.csye7374.observer.UpdateOrderStatus;
 import edu.neu.csye7374.singleton.AirpodsFactorySingleton;
 import edu.neu.csye7374.singleton.CheeseFactorySingleton;
 import edu.neu.csye7374.singleton.IphoneFactorySingleton;
@@ -183,9 +184,9 @@ public class ManageOrderPage {
 		addItemToOrderBtn.setBounds(641, 101, 127, 30);
 		panel.add(addItemToOrderBtn);
 		
-		JComboBox comboBox = new JComboBox(itemFactoryList.toArray());
-		comboBox.setBounds(380, 103, 213, 45);
-		panel.add(comboBox);
+		itemCombo = new JComboBox(itemFactoryList.toArray());
+		itemCombo.setBounds(380, 103, 213, 45);
+		panel.add(itemCombo);
 		frame.setVisible(true);
 	}
 	
@@ -196,6 +197,7 @@ public class ManageOrderPage {
 			List<InventoryManager> IM = fileUtil.loadManagers();
 			Order order = new Order();
 			AbstractItemFactory selectedItem = (AbstractItemFactory)itemCombo.getSelectedItem();
+			order.setItems(new ArrayList<>());
 			order.getItems().add(selectedItem.getObject());
 			order.setOrderId(Integer.valueOf(orderIdtextField.getText()));
 			order.setStatus("requested");
@@ -210,14 +212,16 @@ public class ManageOrderPage {
 			}
 			Supplier supplierOfOrder = null;
 			for(Supplier supplier: fileUtil.loadSupplier()) {
-				if(supplier.getFirstName().equals(supplierCombo.getSelectedItem()))
+ 				if(supplier.getFirstName().equals(supplierCombo.getSelectedItem().toString())) {
 					order.setSupplier(supplier);
 					supplierOfOrder = supplier;
 //					supplier.getOrders().add(order);
 					break;
+ 				}
 			}
-			PlaceOrder newOrder = new PlaceOrder();
-			newOrder.notifyObserver(order, managerOfOrder, supplierOfOrder);
+			PlaceOrder obj = new PlaceOrder();
+			UpdateOrderStatus obj2 = new UpdateOrderStatus(obj);
+			obj.notifyObserver(order, managerOfOrder, supplierOfOrder);
 			fileUtil = new FileWriterReader(MainFrame.getCompany());
 			fileUtil.saveAll();
 			
