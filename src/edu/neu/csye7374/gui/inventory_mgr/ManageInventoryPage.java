@@ -15,6 +15,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import edu.neu.csye7374.gui.LogoutPage;
+import edu.neu.csye7374.gui.MainFrame;
+import edu.neu.csye7374.stock.StockRepository;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JComboBox;
@@ -79,10 +81,10 @@ public class ManageInventoryPage {
 	}
 	
 	private DefaultTableModel loadTable() {
-		String[] columns = {"Inventory ID", "Inventory Name", "Inventory Description"};
+		String[] columns = {"Inventory ID", "Inventory Name", "Number of Stocks"};
 	      List<String[]> values = new ArrayList<String[]>();
 	      
-	      values.add(new String[] {"IN1", "Inventory One", "Inventory for electronics"});
+	      values.add(new String[] {String.valueOf(MainFrame.getCompany().getInventory().getInventoryId()), MainFrame.getCompany().getInventory().getInventoryName(), String.valueOf(StockRepository.stockMap.size())});
 	     
 	      
 	        
