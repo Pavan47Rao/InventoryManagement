@@ -1,9 +1,10 @@
 package edu.neu.csye7374.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class HR extends Person{
+public class HR extends Person implements Serializable{
 
 	public HR(int personId, int roleId, String firstName, String lastName, String emailId, Date dob, String address,
 			Account account){

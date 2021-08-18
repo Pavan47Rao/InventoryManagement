@@ -68,21 +68,8 @@ public class HumanResourcesHomePage {
 				addUserActionPerformed(e);
 			}
 		});
-		addBtn.setBounds(10, 52, 138, 63);
+		addBtn.setBounds(10, 166, 138, 63);
 		panel.add(addBtn);
-		
-		JButton deleteUserBtn = new JButton("Delete User");
-		deleteUserBtn.setBounds(10, 231, 138, 63);
-		panel.add(deleteUserBtn);
-		
-		JButton editIUserBtn = new JButton("Edit User");
-		editIUserBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				editUserActionPerformed(e);
-			}
-		});
-		editIUserBtn.setBounds(10, 145, 138, 63);
-		panel.add(editIUserBtn);
 		
 		frame.setVisible(true);
 	}
@@ -91,11 +78,6 @@ public class HumanResourcesHomePage {
 	
 		frame.getContentPane().removeAll();
 		new HumanResourceAddUserPage(frame);
-	}
-	
-	private void editUserActionPerformed(ActionEvent e) {
-		frame.getContentPane().removeAll();
-		new HumanResourceEditUserPage(frame);
 	}
 	
 	private DefaultTableModel loadTable() throws ClassNotFoundException, IOException {

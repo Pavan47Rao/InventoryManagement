@@ -216,6 +216,8 @@ public class HumanResourceAddUserPage {
 			supplier.getAccount().setPassword(new String(passwordField.getPassword()));
 			supplier.setOrders(new ArrayList<>());
 			MainFrame.getCompany().getSuppliers().add(supplier);
+			FileWriterReader f = new FileWriterReader();
+			f.saveAll();
 		}
 		else if(roleId == 3){
 			HR hr = new HR(Integer.parseInt(textField_ID.getText()), Integer.parseInt(role.substring(0, 1)),
@@ -225,6 +227,8 @@ public class HumanResourceAddUserPage {
 			hr.getAccount().setUserName(textField_email.getText());
 			hr.getAccount().setPassword(new String(passwordField.getPassword()));
 			MainFrame.getCompany().getHrs().add(hr);
+			FileWriterReader f = new FileWriterReader();
+			f.saveAll();
 		}
 		
 		FileWriterReader fileUtil = new FileWriterReader(MainFrame.getCompany());
