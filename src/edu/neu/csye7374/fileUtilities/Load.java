@@ -1,17 +1,15 @@
 package edu.neu.csye7374.fileUtilities;
 
 import java.io.FileInputStream;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
 import java.util.List;
 
-import edu.neu.csye7374.api.AbstractCompanyFactory;
 import edu.neu.csye7374.model.Company;
-
+import edu.neu.csye7374.model.HR;
+import edu.neu.csye7374.model.InventoryManager;
 import edu.neu.csye7374.model.Person;
-import edu.neu.csye7374.singleton.CompanyFactorySingleton;
+import edu.neu.csye7374.model.Supplier;
 
 public class Load {
 
@@ -35,51 +33,36 @@ public class Load {
 
 	// ID=1 is Manager, ID=2 is HR, ID=3 is Supplier
 	// load all suppliers
-	public List<Person> loadSuppliers() throws IOException, ClassNotFoundException {
-		
-		List<Person> persons = loadAllPersons();
-		List<Person> suppliers = new ArrayList<>();
-		System.out.println("Loading the suppliers...");
-		for (int i = 0; i < persons.size(); i++) {
-			if (persons.get(i).getRoleId() == 3) {
-				suppliers.add(persons.get(i));
-				System.out.println(persons.get(i));
-			}
-		}
+	public List<Supplier> loadSuppliers() throws IOException, ClassNotFoundException {
+		FileInputStream fis = new FileInputStream(company_file);
+		@SuppressWarnings("resource")
+		ObjectInputStream ois = new ObjectInputStream(fis);
 
-		return suppliers;
+		System.out.println("Loading the company personnal...");
+		Company c = (Company) ois.readObject();
+		return c.getSuppliers();
 	}
 
 	// load all HRs
-	public List<Person> loadHR() throws IOException, ClassNotFoundException {
-		
-		List<Person> persons = loadAllPersons();
-		List<Person> hr = new ArrayList<>();
-		System.out.println("Loading the HRs...");
-		for (int i = 0; i < persons.size(); i++) {
-			if (persons.get(i).getRoleId() == 2) {
-				hr.add(persons.get(i));
-				System.out.println(persons.get(i));
-			}
-		}
+	public List<HR> loadHR() throws IOException, ClassNotFoundException {
+		FileInputStream fis = new FileInputStream(company_file);
+		@SuppressWarnings("resource")
+		ObjectInputStream ois = new ObjectInputStream(fis);
 
-		return hr;
+		System.out.println("Loading the company personnal...");
+		Company c = (Company) ois.readObject();
+		return c.getHrs();
 	}
 
 	// load all managers
-	public List<Person> loadManagers() throws IOException, ClassNotFoundException {
-		
-		List<Person> persons = loadAllPersons();
-		List<Person> managers = new ArrayList<>();
-		System.out.println("Loading the company managers...");
-		for (int i = 0; i < persons.size(); i++) {
-			if (persons.get(i).getRoleId() == 1) {
-				managers.add(persons.get(i));
-				System.out.println(persons.get(i));
-			}
-		}
+	public List<InventoryManager> loadManagers() throws IOException, ClassNotFoundException {
+		FileInputStream fis = new FileInputStream(company_file);
+		@SuppressWarnings("resource")
+		ObjectInputStream ois = new ObjectInputStream(fis);
 
-		return managers;
+		System.out.println("Loading the company personnal...");
+		Company c = (Company) ois.readObject();
+		return c.getManagers();
 	}
 
 	public Company loadAll() throws IOException, ClassNotFoundException {

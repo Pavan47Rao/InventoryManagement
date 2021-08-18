@@ -58,7 +58,6 @@ public class MainFrame {
 	private JPasswordField passwordTextField;
 	private JButton loginBtn;
 	private static List<Item> itemList;
-	private static InventoryManager inventoryManager = new InventoryManager();
 	private static Person loggedInPerson;
 	private static Company company;
 	private JButton resetPwdButton;
@@ -101,17 +100,7 @@ public class MainFrame {
 
 	public static void setItemList(List<Item> itemList) {
 		MainFrame.itemList = itemList;
-	}
-	
-	public static InventoryManager getInventoryManager() {
-		return inventoryManager;
-	}
-
-	public static void setInventoryManager(InventoryManager inventoryManager) {
-		MainFrame.inventoryManager = inventoryManager;
-	}
-
-	
+	}	
 	
 	public static Person getLoggedInPerson() {
 		return loggedInPerson;

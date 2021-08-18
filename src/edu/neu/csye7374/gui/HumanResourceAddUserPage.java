@@ -1,28 +1,29 @@
 package edu.neu.csye7374.gui;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-
-import edu.neu.csye7374.fileUtilities.FileWriterReader;
-import edu.neu.csye7374.gui.inventory_mgr.InventoryManagerHomePage;
-import edu.neu.csye7374.gui.supplier.SupplierHomePage;
-import edu.neu.csye7374.model.Account;
-import edu.neu.csye7374.model.Person;
-
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.awt.event.ActionEvent;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import edu.neu.csye7374.fileUtilities.FileWriterReader;
+import edu.neu.csye7374.model.Account;
+import edu.neu.csye7374.model.HR;
+import edu.neu.csye7374.model.InventoryManager;
+import edu.neu.csye7374.model.Person;
+import edu.neu.csye7374.model.Supplier;
 
 public class HumanResourceAddUserPage {
 
@@ -189,21 +190,35 @@ public class HumanResourceAddUserPage {
 		System.out.println("Role is " + comboBox.getSelectedItem().toString());
 
 		// create new person
-		Person newPerson = new Person();
-		newPerson.setPersonId(Integer.parseInt(textField_ID.getText()));
-		newPerson.setFirstName(textField_firstName.getText());
-		newPerson.setLastName(textField_lastname.getText());
-		newPerson.getAccount().setUserName(textField_email.getText());
-		newPerson.setEmailId(textField_email.getText());
 		String role = comboBox.getSelectedItem().toString();
-		newPerson.setRoleId(Integer.parseInt(role.substring(0, 1)));
+		int roleId = Integer.parseInt(role.substring(0, 1));
 		Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(textField_dob.getText());
-		newPerson.setDob(dob);
-		newPerson.getAccount().setPassword(passwordField.getText());
-		newPerson.getAccount().setUserName(newPerson.getEmailId());
-		newPerson.setPassword(passwordField.getText());
+		if(roleId == 1) {
+			InventoryManager im = new InventoryManager(Integer.parseInt(textField_ID.getText()), Integer.parseInt(role.substring(0, 1)),
+					textField_firstName.getText(), textField_lastname.getText(), 
+					textField_email.getText(), dob, textField_addr.getText(), new Account());
+			im.getAccount().setUserName(textField_email.getText());
+			im.getAccount().setPassword(new String(passwordField.getPassword()));
+			MainFrame.getCompany().getManagers().add(im);
+		}
+		else if(roleId == 2) {
+			Supplier supplier = new Supplier(Integer.parseInt(textField_ID.getText()), Integer.parseInt(role.substring(0, 1)),
+					textField_firstName.getText(), textField_lastname.getText(), 
+					textField_email.getText(), dob, textField_addr.getText(), new Account());
+			supplier.getAccount().setUserName(textField_email.getText());
+			supplier.getAccount().setPassword(new String(passwordField.getPassword()));
+			MainFrame.getCompany().getSuppliers().add(supplier);
+		}
+		else {
+			HR hr = new HR(Integer.parseInt(textField_ID.getText()), Integer.parseInt(role.substring(0, 1)),
+					textField_firstName.getText(), textField_lastname.getText(), 
+					textField_email.getText(), dob, textField_addr.getText(), new Account());
+			
+			hr.getAccount().setUserName(textField_email.getText());
+			hr.getAccount().setPassword(new String(passwordField.getPassword()));
+			MainFrame.getCompany().getHrs().add(hr);
+		}
 		
-		MainFrame.getCompany().getPeople().add(newPerson);
 		FileWriterReader fileUtil = new FileWriterReader(MainFrame.getCompany());
 		fileUtil.saveAll();
 		

@@ -17,17 +17,46 @@ public class Company implements Serializable{
 	private Inventory inventory;
 	
 	private List<Person> people;
+	
+	private List<InventoryManager> managers;
+	
+	private List<Supplier> suppliers;
+	
+	private List<HR> hrs;
 
 	
 	public Company() {
 		// TODO Auto-generated constructor stub
 		inventory = new Inventory();
 		this.people = new ArrayList<Person>();
+		this.managers = new ArrayList<>();
+		this.suppliers = new ArrayList<>();
+		this.hrs = new ArrayList<>();
 	}
 	
+	public List<InventoryManager> getManagers() {
+		return managers;
+	}
 	
+	public void setManagers(List<InventoryManager> managers) {
+		this.managers = managers;
+	}
 	
+	public List<Supplier> getSuppliers() {
+		return suppliers;
+	}
+	
+	public void setSuppliers(List<Supplier> suppliers) {
+		this.suppliers = suppliers;
+	}
+	
+	public List<HR> getHrs() {
+		return hrs;
+	}
 
+	public void setHrs(List<HR> hrs) {
+		this.hrs = hrs;
+	}
 
 	public String getCompanyName() {
 		return companyName;
