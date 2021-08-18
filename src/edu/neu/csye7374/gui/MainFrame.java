@@ -1,3 +1,4 @@
+
 package edu.neu.csye7374.gui;
 
 import edu.neu.csye7374.api.AbstractCompanyFactory;
@@ -24,6 +25,9 @@ import edu.neu.csye7374.singleton.PencilFactorySingleton;
 import edu.neu.csye7374.singleton.VRHeadsetFactorySingleton;
 import edu.neu.csye7374.singleton.WritingPadFactorySingleton;
 import edu.neu.csye7374.singleton.YogurtFactorySingleton;
+import edu.neu.csye7374.state.LoggedInState;
+import edu.neu.csye7374.state.LoggedOutState;
+import edu.neu.csye7374.state.StateAPI;
 import edu.neu.csye7374.stock.StockRepository;
 
 import java.awt.Font;
@@ -62,6 +66,18 @@ public class MainFrame {
 	private static Company company;
 	private JButton resetPwdButton;
 
+	private LoggedInState loggedIn = new LoggedInState();
+	private LoggedOutState loggedOut = new LoggedOutState();
+	private StateAPI state = loggedOut;
+	
+
+	public StateAPI getState() {
+		return state;
+	}
+
+	public void setState(StateAPI state) {
+		this.state = state;
+	}
 	
 
 	public MainFrame() throws ClassNotFoundException, IOException {
@@ -223,6 +239,7 @@ public class MainFrame {
 							
 						}
 						loggedInPerson = person;
+						this.state = loggedIn;
 				}
 			}
 		
@@ -238,6 +255,7 @@ public class MainFrame {
 							
 						}
 						loggedInPerson = person;
+						this.state = loggedIn;
 				}
 
 			}
@@ -252,6 +270,7 @@ public class MainFrame {
 							
 						}
 						loggedInPerson = person;
+						this.state = loggedIn;
 				}
 			}
 			
