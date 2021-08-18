@@ -20,6 +20,11 @@ import javax.swing.SwingConstants;
 import edu.neu.csye7374.api.AbstractItemFactory;
 import edu.neu.csye7374.fileUtilities.FileWriterReader;
 import edu.neu.csye7374.gui.LogoutPage;
+import edu.neu.csye7374.gui.MainFrame;
+import edu.neu.csye7374.model.InventoryManager;
+import edu.neu.csye7374.model.Order;
+import edu.neu.csye7374.model.Person;
+import edu.neu.csye7374.model.Supplier;
 import edu.neu.csye7374.singleton.AirpodsFactorySingleton;
 import edu.neu.csye7374.singleton.CheeseFactorySingleton;
 import edu.neu.csye7374.singleton.IphoneFactorySingleton;
@@ -36,15 +41,32 @@ public class ManageOrderPage {
 	private JTextField orderIdtextField;
 	private JTextField textField;
 	private List<AbstractItemFactory> itemFactoryList;
-	private JComboBox itemCombo;
+	private JComboBox itemCombo, supplierCombo;
 	private FileWriterReader file;
+	private List<String> suppliers;
 	
 	public ManageOrderPage(JFrame frame) throws ClassNotFoundException, IOException {
 		this.frame = frame;
 		itemFactoryList = new ArrayList<AbstractItemFactory>();
 		file = new FileWriterReader();
+		loadSuppliers();
 		populateItemList(itemFactoryList);
 		prepareGUI();
+	}
+	
+	private void loadSuppliers() {
+		suppliers = new ArrayList<>();
+		try {
+			for(Person supplier: file.loadSupplier()) {
+				suppliers.add(supplier.getFirstName());
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private void populateItemList(List<AbstractItemFactory> itemFactoryList) {
@@ -138,7 +160,7 @@ public class ManageOrderPage {
 		supplierLabel.setBounds(254, 224, 116, 41);
 		panel.add(supplierLabel);
 		
-		JComboBox supplierCombo = new JComboBox();
+		supplierCombo = new JComboBox(suppliers.toArray());
 		supplierCombo.setBounds(380, 222, 209, 45);
 		panel.add(supplierCombo);
 		
@@ -166,16 +188,46 @@ public class ManageOrderPage {
 		frame.setVisible(true);
 	}
 	
-//	private void fetchSelectedItem(ActionEvent e) {
-//		AbstractItemFactory selctedItem = (AbstractItemFactory)itemCombo.getSelectedItem();
-//		for(AbstractItemFactory item: itemFactoryList) {
-//			if(item.getObject().getItemName().equals(selctedItem.getObject().getItemName())) {
-//				populateTextFields(selctedItem);
-//			}
-//		}
-//	}
-	
 	public void placeOrder(ActionEvent e) {
+		FileWriterReader fileUtil;
+		try {
+			fileUtil = new FileWriterReader();
+			List<InventoryManager> IM = fileUtil.loadManagers();
+			Order order = new Order();
+			AbstractItemFactory selectedItem = (AbstractItemFactory)itemCombo.getSelectedItem();
+			order.getItems().add(selectedItem.getObject());
+			order.setOrderId(Integer.valueOf(orderIdtextField.getText()));
+			order.setStatus("requested");
+			InventoryManager managerOfOrder;
+			for(InventoryManager p: IM) {
+				if(MainFrame.getLoggedInPerson().getAccount().getUserName().equals(p.getAccount().getUserName())) {
+					order.setInventoryManager(p);
+					managerOfOrder = p;
+//					p.getOrders().add(order);
+					break;
+				}	
+			}
+			Supplier supplierOfOrder;
+			for(Supplier supplier: fileUtil.loadSupplier()) {
+				if(supplier.getFirstName().equals(supplierCombo.getSelectedItem()))
+					order.setSupplier(supplier);
+					supplierOfOrder = supplier;
+//					supplier.getOrders().add(order);
+					break;
+			}
+			fileUtil = new FileWriterReader(MainFrame.getCompany());
+			fileUtil.saveAll();
+			
+			
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		
 	}
 	

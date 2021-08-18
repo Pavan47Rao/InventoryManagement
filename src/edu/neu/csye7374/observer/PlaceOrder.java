@@ -5,7 +5,9 @@ import java.util.List;
 
 import edu.neu.csye7374.api.ObserverAPI;
 import edu.neu.csye7374.api.SubjectAPI;
+import edu.neu.csye7374.model.InventoryManager;
 import edu.neu.csye7374.model.Order;
+import edu.neu.csye7374.model.Supplier;
 
 public class PlaceOrder implements SubjectAPI{
 
@@ -17,9 +19,9 @@ public class PlaceOrder implements SubjectAPI{
 	}
 
 	@Override
-	public void notifyObserver(Order order) {
+	public void notifyObserver(Order order, InventoryManager inventoryManager, Supplier supplier) {
 		for(ObserverAPI observer: observers) {
-			observer.update(order);
+			observer.update(order, inventoryManager, supplier);
 		}
 	}
 

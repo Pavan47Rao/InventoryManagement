@@ -2,16 +2,18 @@ package edu.neu.csye7374.observer;
 
 import java.util.Properties;
 
-import edu.neu.csye7374.api.ObserverAPI;
-import edu.neu.csye7374.api.SubjectAPI;
-import edu.neu.csye7374.model.Order;
-
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import edu.neu.csye7374.api.ObserverAPI;
+import edu.neu.csye7374.api.SubjectAPI;
+import edu.neu.csye7374.model.InventoryManager;
+import edu.neu.csye7374.model.Order;
+import edu.neu.csye7374.model.Supplier;
 
 public class UpdateOrderStatus implements ObserverAPI{
 
@@ -23,15 +25,15 @@ public class UpdateOrderStatus implements ObserverAPI{
 	}
 	
 	@Override
-	public void update(Order order) {
-		// update order status of InventoryManager
-		// update order status of Supplier
-		// send email
-		if(order.getStatus().equals("placed")) {
-			
+	public void update(Order order, InventoryManager inventoryManager, Supplier supplier) {
+		if(order.getStatus().equals("requested")) {
+			supplier.getOrders().add(order);
+			sendEmail(supplier.getAccount().getUserName(), "New order placed", "Inventory Manager "+ inventoryManager.getFirstName()+" has placed a new order "+order.getOrderId());
 		}
 		else if(order.getStatus().equals("approved")) {
-			
+			inventoryManager.getOrders().add(order);
+			sendEmail(inventoryManager.getAccount().getUserName(), "Order ready", "Supplier "+ supplier.getFirstName()+" has approved your order "+order.getOrderId());
+
 		}
 	}
 	
