@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 
 public class ManageItemPage {
@@ -114,11 +115,23 @@ public class ManageItemPage {
 		String[] columns = {"Item ID", "Item Name", "Item Price", "Item Description", "Item Quantity", "Stock"};
 	      List<String[]> values = new ArrayList<String[]>();
 	      
-	     for(Item item: MainFrame.getInventoryManager().getItems()) {
-	    	 values.add(new String[] {String.valueOf(item.getItemId()), item.getItemName(), String.valueOf(item.getItemPrice())
-	    	, item.getItemDescription(), String.valueOf(item.getItemQuantity()), item.getStock().getStockType()	 
-	    	 });
-	     }
+//	     for(Item item: MainFrame.getInventoryManager().getItems()) {
+//	    	 values.add(new String[] {String.valueOf(item.getItemId()), item.getItemName(), String.valueOf(item.getItemPrice())
+//	    	, item.getItemDescription(), String.valueOf(item.getItemQuantity()), item.getStock().getStockType()	 
+//	    	 });
+//	     }
+	     
+	      	for(Map.Entry<String, Stock> mapElement: StockRepository.stockMap.entrySet()) {
+	      		String key = (String) mapElement.getKey();
+	      		Stock stock = (Stock) mapElement.getValue();
+	      		List<Item> itemList = stock.getStockItems();
+	      		
+	      		for(Item item: itemList) {
+	   	    	 values.add(new String[] {String.valueOf(item.getItemId()), item.getItemName(), String.valueOf(item.getItemPrice())
+	    	    	, item.getItemDescription(), String.valueOf(item.getItemQuantity()), item.getStock().getStockType()	 
+	    	    	 });
+	      		}
+	      	}
 	      
 	      
 	        

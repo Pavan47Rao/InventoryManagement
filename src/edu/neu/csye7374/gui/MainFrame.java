@@ -1,5 +1,6 @@
 package edu.neu.csye7374.gui;
 
+import edu.neu.csye7374.api.AbstractCompanyFactory;
 import edu.neu.csye7374.api.AbstractItemFactory;
 import edu.neu.csye7374.factories.AirpodsFactory;
 import edu.neu.csye7374.gui.inventory_mgr.*;
@@ -13,6 +14,7 @@ import edu.neu.csye7374.model.Item;
 import edu.neu.csye7374.model.Person;
 import edu.neu.csye7374.singleton.AirpodsFactorySingleton;
 import edu.neu.csye7374.singleton.CheeseFactorySingleton;
+import edu.neu.csye7374.singleton.CompanyFactorySingleton;
 import edu.neu.csye7374.singleton.IphoneFactorySingleton;
 import edu.neu.csye7374.singleton.MilkFactorySingleton;
 import edu.neu.csye7374.singleton.PenFactorySingleton;
@@ -57,17 +59,21 @@ public class MainFrame {
 	private static Person loggedInPerson;
 	private static Company company;
 
-	public MainFrame() {
+	public MainFrame() throws ClassNotFoundException, IOException {
 		frame = new JFrame();
 		prepareGUI();
 		init();
 	}
 	
-	private void init() {
+	private void init() throws ClassNotFoundException, IOException {
 		StockRepository.loadItems();
 		itemList = new ArrayList<Item>();
-		company = new Company();
+//		company = new Company();
+		AbstractCompanyFactory companyFactory = CompanyFactorySingleton.getCompanyObject();
+		company = companyFactory.getCompanyObject();
 		
+		FileWriterReader fileUtil = new FileWriterReader(company);
+		fileUtil.saveAll();
 	}
 	
 
@@ -146,7 +152,12 @@ public class MainFrame {
 		loginBtn.setRequestFocusEnabled(false);
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				loginActionPerformed(e);
+				try {
+					loginActionPerformed(e);
+				} catch (ClassNotFoundException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		loginBtn.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -158,7 +169,7 @@ public class MainFrame {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void loginActionPerformed(ActionEvent e) {
+	public void loginActionPerformed(ActionEvent e) throws ClassNotFoundException, IOException {
 		System.out.println("Login button is clicked");
 		System.out.println("Home page accordingly should open");
 		String userName = userNameTextField.getText().toLowerCase();
@@ -212,7 +223,7 @@ public class MainFrame {
 		}
 	}
 	
-	public static void demo() {
+	public static void demo() throws ClassNotFoundException, IOException {
 		new MainFrame();
 	}
 }
