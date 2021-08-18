@@ -25,6 +25,7 @@ import edu.neu.csye7374.model.InventoryManager;
 import edu.neu.csye7374.model.Order;
 import edu.neu.csye7374.model.Person;
 import edu.neu.csye7374.model.Supplier;
+import edu.neu.csye7374.observer.PlaceOrder;
 import edu.neu.csye7374.singleton.AirpodsFactorySingleton;
 import edu.neu.csye7374.singleton.CheeseFactorySingleton;
 import edu.neu.csye7374.singleton.IphoneFactorySingleton;
@@ -198,7 +199,7 @@ public class ManageOrderPage {
 			order.getItems().add(selectedItem.getObject());
 			order.setOrderId(Integer.valueOf(orderIdtextField.getText()));
 			order.setStatus("requested");
-			InventoryManager managerOfOrder;
+			InventoryManager managerOfOrder = null;
 			for(InventoryManager p: IM) {
 				if(MainFrame.getLoggedInPerson().getAccount().getUserName().equals(p.getAccount().getUserName())) {
 					order.setInventoryManager(p);
@@ -207,7 +208,7 @@ public class ManageOrderPage {
 					break;
 				}	
 			}
-			Supplier supplierOfOrder;
+			Supplier supplierOfOrder = null;
 			for(Supplier supplier: fileUtil.loadSupplier()) {
 				if(supplier.getFirstName().equals(supplierCombo.getSelectedItem()))
 					order.setSupplier(supplier);
@@ -215,6 +216,8 @@ public class ManageOrderPage {
 //					supplier.getOrders().add(order);
 					break;
 			}
+			PlaceOrder newOrder = new PlaceOrder();
+			newOrder.notifyObserver(order, managerOfOrder, supplierOfOrder);
 			fileUtil = new FileWriterReader(MainFrame.getCompany());
 			fileUtil.saveAll();
 			
