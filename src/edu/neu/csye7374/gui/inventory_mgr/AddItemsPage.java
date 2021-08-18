@@ -40,9 +40,11 @@ import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.Set;
 import java.awt.event.ActionEvent;
 
@@ -226,7 +228,12 @@ public class AddItemsPage {
 		if(allFieldsArePopulated()) {
 		
 			
-			checkIfItemIsPresentInListAlready(Integer.parseInt(idField.getText()));
+			try {
+				checkIfItemIsPresentInListAlready(Integer.parseInt(idField.getText()));
+			} catch (NumberFormatException | ClassNotFoundException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 			
 		}
@@ -240,15 +247,19 @@ public class AddItemsPage {
 		}
 	}
 	
-	private void checkIfItemIsPresentInListAlready(int itemId) {
-		
+	private void checkIfItemIsPresentInListAlready(int itemId) throws ClassNotFoundException, IOException {
+		FileWriterReader fileUtil = new FileWriterReader(MainFrame.getCompany());
 		AbstractItemFactory selctedItem = (AbstractItemFactory)itemCombo.getSelectedItem();
 		String selectedStock = (String)stockCombo.getSelectedItem();
 		
 		Calculator cal = new Calculator();
 		CalculatorAdapter adpater = new CalculatorAdapter(cal);
 		boolean itemFound = false;
-		if(MainFrame.getInventoryManager().getItems().size() == 0) {
+		
+		
+			
+		
+		if(StockRepository.getStock(selectedStock).getStockItems().size() == 0) {
 			try {
 				addItem(selctedItem, selectedStock);
 			} catch (ClassNotFoundException | IOException e) {
@@ -256,13 +267,18 @@ public class AddItemsPage {
 				e.printStackTrace();
 			}
 		} else {
-			for(ListIterator<Item> itr = MainFrame.getInventoryManager().getItems().listIterator();itr.hasNext();) {
+			
+			
+			
+			for(ListIterator<Item> itr = StockRepository.getStock(selectedStock).getStockItems().listIterator();itr.hasNext();) {
 				Item i = itr.next();
 				if(i.getItemId() == itemId) {
 					
 					i.setItemQuantity(adpater.updateQuantity(i, Integer.parseInt(qtyField.getText())));
 					JOptionPane.showMessageDialog(panel, selctedItem.getObject().getItemName()+" already exist in the list. Updated quantity in inventory: "+i.getItemQuantity());
 					itemFound = true;
+					StockRepository.getStock(selectedStock).getStockItems().set(StockRepository.getStock(selectedStock).getStockItems().indexOf(i), i);
+					fileUtil.saveStockRepo();
 				}
 			}
 			
