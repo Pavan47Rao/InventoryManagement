@@ -1,3 +1,4 @@
+
 package edu.neu.csye7374.stock;
 
 import java.io.FileWriter;
@@ -12,6 +13,7 @@ import edu.neu.csye7374.model.Stock;
 public class StockRepository implements Serializable{
 	
 	public static Map<String, Stock> stockMap  = new HashMap<>();
+	private static final long serialVersionUID = -3238334885344814447L;
 	
 	public static Stock getStock(String itemId) {
 		Stock cachedStock = stockMap.get(itemId);
