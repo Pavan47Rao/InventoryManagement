@@ -35,6 +35,7 @@ public class ManageOrderPage {
 	private JTextField orderIdtextField;
 	private JTextField textField;
 	private List<AbstractItemFactory> itemFactoryList;
+	private JComboBox itemCombo;
 	private FileWriterReader file;
 	
 	public ManageOrderPage(JFrame frame) {
