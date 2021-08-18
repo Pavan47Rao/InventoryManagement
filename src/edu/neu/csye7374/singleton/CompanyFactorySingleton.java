@@ -13,6 +13,7 @@ public class CompanyFactorySingleton {
 	
 	public static AbstractCompanyFactory getCompanyObject() {
 		if(companyInstance == null) {
+			System.out.println("company Instance is null");
 			companyInstance = new CompanyFactory();
 		} 
 		return companyInstance;

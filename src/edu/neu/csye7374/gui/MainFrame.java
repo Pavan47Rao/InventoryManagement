@@ -72,9 +72,12 @@ public class MainFrame {
 //		company = new Company();
 		AbstractCompanyFactory companyFactory = CompanyFactorySingleton.getCompanyObject();
 		company = companyFactory.getCompanyObject();
+
+		//FileWriterReader fileUtil1 = new FileWriterReader(company);
+		//fileUtil1.saveAll();
 		
-		FileWriterReader fileUtil = new FileWriterReader(company);
-		fileUtil.saveAll();
+		FileWriterReader fileUtil = new FileWriterReader();
+		fileUtil.loadAll();
 	}
 	
 

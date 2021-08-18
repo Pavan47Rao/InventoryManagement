@@ -10,12 +10,14 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import edu.neu.csye7374.fileUtilities.FileWriterReader;
 import edu.neu.csye7374.gui.inventory_mgr.InventoryManagerHomePage;
 import edu.neu.csye7374.gui.supplier.SupplierHomePage;
 import edu.neu.csye7374.model.Account;
 import edu.neu.csye7374.model.Person;
 
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -106,7 +108,15 @@ public class HumanResourceAddUserPage {
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					submitBtnActionPerformed(e);
+					try {
+						submitBtnActionPerformed(e);
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -129,7 +139,12 @@ public class HumanResourceAddUserPage {
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.getContentPane().removeAll();
-				new HumanResourcesHomePage(frame);
+				try {
+					new HumanResourcesHomePage(frame);
+				} catch (ClassNotFoundException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		backBtn.setBounds(28, 11, 89, 23);
@@ -162,7 +177,7 @@ public class HumanResourceAddUserPage {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void submitBtnActionPerformed(ActionEvent e) throws ParseException {
+	public void submitBtnActionPerformed(ActionEvent e) throws ParseException, ClassNotFoundException, IOException {
 		System.out.println("Submit button is clicked after adding a new user");
 
 		System.out.println("ID is " + textField_ID.getText());
@@ -186,6 +201,9 @@ public class HumanResourceAddUserPage {
 		newPerson.setPassword(passwordField.getText());
 		
 		MainFrame.getCompany().getPeople().add(newPerson);
+		FileWriterReader fileUtil = new FileWriterReader(MainFrame.getCompany());
+		fileUtil.saveAll();
+		
 		frame.getContentPane().removeAll();
 		new HumanResourcesHomePage(frame);
 
