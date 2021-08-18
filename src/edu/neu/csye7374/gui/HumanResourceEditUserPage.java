@@ -3,6 +3,7 @@ package edu.neu.csye7374.gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -106,7 +107,12 @@ public class HumanResourceEditUserPage {
 		backBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.getContentPane().removeAll();
-				new HumanResourcesHomePage(frame);
+				try {
+					new HumanResourcesHomePage(frame);
+				} catch (ClassNotFoundException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		backBtn.setBounds(28, 11, 89, 23);

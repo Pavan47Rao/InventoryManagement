@@ -10,7 +10,11 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import edu.neu.csye7374.fileUtilities.FileWriterReader;
+import edu.neu.csye7374.model.Person;
+
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -20,12 +24,12 @@ public class HumanResourcesHomePage {
 	private JFrame frame;
 	private JPanel panel;
 	
-	public HumanResourcesHomePage(JFrame frame) {
+	public HumanResourcesHomePage(JFrame frame) throws ClassNotFoundException, IOException {
 		this.frame = frame;
 		prepareGUI();
 	}
 	
-	private void prepareGUI() {
+	private void prepareGUI() throws ClassNotFoundException, IOException {
 		panel = new JPanel();
 		panel.setBounds(0, 0, 800, 500);
 		frame.getContentPane().add(panel);
@@ -91,11 +95,25 @@ public class HumanResourcesHomePage {
 		new HumanResourceEditUserPage(frame);
 	}
 	
-	private DefaultTableModel loadTable() {
+	private DefaultTableModel loadTable() throws ClassNotFoundException, IOException {
 		String[] columns = {"ID", "Role", "First Name", "Last Name", "Email ID", "Date of Birth", "Address" };
 	      List<String[]> values = new ArrayList<String[]>();
 	      
-	      values.add(new String[] {"1", "Inventory Manager", "Siddhant", "Rao", "rao.sid@northeastern.edu", "12/07/1991", "Boston"});
+	      FileWriterReader fileUtil = new FileWriterReader();
+	      List<Person> personList = fileUtil.loadPersons();
+	      
+	      for(Person p: personList) {
+	    	  values.add(new String[] {
+	    			  String.valueOf(p.getPersonId()),
+	    			String.valueOf(p.getRoleId()),
+	    			p.getFirstName(),
+	    			p.getLastName(),
+	    			p.getEmailId(),
+	    			p.getDob().toString(),
+	    			p.getAddress()
+	    			  
+	    	  });
+	      }
 	     
 	      
 	        
