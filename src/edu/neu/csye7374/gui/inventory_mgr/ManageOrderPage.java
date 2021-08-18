@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class ManageOrderPage {
 	private List<AbstractItemFactory> itemFactoryList;
 	private FileWriterReader file;
 	
-	public ManageOrderPage(JFrame frame) {
+	public ManageOrderPage(JFrame frame) throws ClassNotFoundException, IOException {
 		this.frame = frame;
 		itemFactoryList = new ArrayList<AbstractItemFactory>();
 		file = new FileWriterReader();

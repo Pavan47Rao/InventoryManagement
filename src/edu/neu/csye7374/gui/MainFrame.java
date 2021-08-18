@@ -146,7 +146,12 @@ public class MainFrame {
 		loginBtn.setRequestFocusEnabled(false);
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				loginActionPerformed(e);
+				try {
+					loginActionPerformed(e);
+				} catch (ClassNotFoundException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		loginBtn.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -158,7 +163,7 @@ public class MainFrame {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void loginActionPerformed(ActionEvent e) {
+	public void loginActionPerformed(ActionEvent e) throws ClassNotFoundException, IOException {
 		System.out.println("Login button is clicked");
 		System.out.println("Home page accordingly should open");
 		String userName = userNameTextField.getText().toLowerCase();

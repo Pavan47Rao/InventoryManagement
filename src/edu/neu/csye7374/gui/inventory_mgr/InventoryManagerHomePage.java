@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -100,7 +101,15 @@ public class InventoryManagerHomePage {
 		JButton orderBtn = new JButton("Manage Orders");
 		orderBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				manageOrderActionPerformed(e);
+				try {
+					manageOrderActionPerformed(e);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		orderBtn.setBounds(10, 304, 166, 57);
@@ -176,7 +185,7 @@ public class InventoryManagerHomePage {
 		new ManageItemPage(frame);
 	}
 	
-	private void manageOrderActionPerformed(ActionEvent e) {
+	private void manageOrderActionPerformed(ActionEvent e) throws ClassNotFoundException, IOException {
 		frame.getContentPane().removeAll();
 		new ManageOrderPage(frame);
 	}
