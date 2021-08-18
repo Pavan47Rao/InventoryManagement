@@ -41,7 +41,7 @@ public class ManageOrderPage {
 	private JFrame frame;
 	private JPanel panel;
 	private JTextField orderIdtextField;
-	private JTextField textField;
+	private JTextField qtyTextField;
 	private List<AbstractItemFactory> itemFactoryList;
 	private JComboBox itemCombo, supplierCombo;
 	private FileWriterReader file;
@@ -153,10 +153,10 @@ public class ManageOrderPage {
 		lblQuantity_1.setBounds(254, 170, 116, 41);
 		panel.add(lblQuantity_1);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(380, 166, 209, 45);
-		panel.add(textField);
+		qtyTextField = new JTextField();
+		qtyTextField.setColumns(10);
+		qtyTextField.setBounds(380, 166, 209, 45);
+		panel.add(qtyTextField);
 		
 		JLabel supplierLabel = new JLabel("Supplier");
 		supplierLabel.setBounds(254, 224, 116, 41);
@@ -175,15 +175,6 @@ public class ManageOrderPage {
 		purchaseOrderBtn.setBounds(287, 288, 275, 36);
 		panel.add(purchaseOrderBtn);
 		
-		JButton addItemToOrderBtn = new JButton("Add Item");
-		addItemToOrderBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				addItemToOrderActionPerformed(e);
-			}
-		});
-		addItemToOrderBtn.setBounds(641, 101, 127, 30);
-		panel.add(addItemToOrderBtn);
-		
 		itemCombo = new JComboBox(itemFactoryList.toArray());
 		itemCombo.setBounds(380, 103, 213, 45);
 		panel.add(itemCombo);
@@ -200,6 +191,7 @@ public class ManageOrderPage {
 			order.setItems(new ArrayList<>());
 			order.getItems().add(selectedItem.getObject());
 			order.setOrderId(Integer.valueOf(orderIdtextField.getText()));
+			order.setQuantity(Integer.parseInt(qtyTextField.getText()));
 			order.setStatus("requested");
 			InventoryManager managerOfOrder = null;
 			for(InventoryManager p: IM) {
@@ -222,8 +214,8 @@ public class ManageOrderPage {
 			PlaceOrder obj = new PlaceOrder();
 			UpdateOrderStatus obj2 = new UpdateOrderStatus(obj);
 			obj.notifyObserver(order, managerOfOrder, supplierOfOrder);
-			fileUtil = new FileWriterReader(MainFrame.getCompany());
-			fileUtil.saveAll();
+//			fileUtil = new FileWriterReader(MainFrame.getCompany());
+//			fileUtil.saveAll();
 			
 			
 		} catch (ClassNotFoundException e1) {
@@ -236,9 +228,5 @@ public class ManageOrderPage {
 		
 		
 		
-	}
-	
-	private void addItemToOrderActionPerformed(ActionEvent e) {
-		System.out.println("Adding item to order code would come here");
 	}
 }

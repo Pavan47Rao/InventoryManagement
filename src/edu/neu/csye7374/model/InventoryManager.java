@@ -1,11 +1,12 @@
 package edu.neu.csye7374.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
-public class InventoryManager extends Person{
+public class InventoryManager extends Person implements Serializable{
 	private static final long serialVersionUID = 2431027597097584548L;
 	
 	public InventoryManager(int personId, int roleId, String firstName, String lastName, String emailId, Date dob, String address,

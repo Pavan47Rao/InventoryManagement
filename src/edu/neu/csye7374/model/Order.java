@@ -1,8 +1,9 @@
 	package edu.neu.csye7374.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Order {
+public class Order implements Serializable {
 	
 	public Order() {}
 	
@@ -16,6 +17,18 @@ public class Order {
 	
 	private InventoryManager inventoryManager;
 	
+	private int quantity;
+	
+	
+	
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	public InventoryManager getInventoryManager() {
 		return inventoryManager;
 	}
