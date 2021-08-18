@@ -6,7 +6,9 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -199,7 +201,11 @@ public class HumanResourceAddUserPage {
 					textField_email.getText(), dob, textField_addr.getText(), new Account());
 			im.getAccount().setUserName(textField_email.getText());
 			im.getAccount().setPassword(new String(passwordField.getPassword()));
+		//	List<InventoryManager> m = new ArrayList<>();
+		//	MainFrame.getCompany().setManagers(m);
 			MainFrame.getCompany().getManagers().add(im);
+			FileWriterReader f = new FileWriterReader();
+			f.saveAll();
 		}
 		else if(roleId == 2) {
 			Supplier supplier = new Supplier(Integer.parseInt(textField_ID.getText()), Integer.parseInt(role.substring(0, 1)),
