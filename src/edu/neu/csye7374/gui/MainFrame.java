@@ -21,13 +21,13 @@ import edu.neu.csye7374.singleton.VRHeadsetFactorySingleton;
 import edu.neu.csye7374.singleton.WritingPadFactorySingleton;
 import edu.neu.csye7374.singleton.YogurtFactorySingleton;
 import edu.neu.csye7374.stock.StockRepository;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
