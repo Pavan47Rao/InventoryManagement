@@ -12,11 +12,14 @@ import edu.neu.csye7374.model.Company;
 
 import edu.neu.csye7374.model.Person;
 import edu.neu.csye7374.singleton.CompanyFactorySingleton;
+import edu.neu.csye7374.stock.StockRepository;
 
 public class Load {
 
 	private String company_file = "company.ser";
-
+	private String stock_repo_file = "stock_repo_file.ser";
+	
+	
 	public Load() {
 
 	}
@@ -100,6 +103,15 @@ public class Load {
 		Company c = (Company) ois.readObject();
 		return c;
 
+	}
+
+	public StockRepository loadStockRepo() throws IOException, ClassNotFoundException {
+		FileInputStream fis = new FileInputStream(stock_repo_file);
+		@SuppressWarnings("resource")
+		ObjectInputStream ois = new ObjectInputStream(fis);
+
+		System.out.println("Loading the stock repo...");
+		return (StockRepository) ois.readObject();
 	}
 
 }
