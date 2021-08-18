@@ -1,11 +1,12 @@
 package edu.neu.csye7374.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.neu.csye7374.fileUtilities.FileWriterReader;
 
-public class Company {
+public class Company implements Serializable{
 
 	private String companyName;
 	
@@ -15,12 +16,13 @@ public class Company {
 	
 	private Inventory inventory;
 	
-	private List<Person> people = new ArrayList<>();
+	private List<Person> people;
 
 	
 	public Company() {
 		// TODO Auto-generated constructor stub
 		inventory = new Inventory();
+		this.people = new ArrayList<Person>();
 	}
 	
 	

@@ -9,6 +9,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class LogoutPage {
@@ -40,7 +41,12 @@ public class LogoutPage {
 		loginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.getContentPane().removeAll();
-				new MainFrame();
+				try {
+					new MainFrame();
+				} catch (ClassNotFoundException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		loginBtn.setBounds(316, 173, 171, 53);
