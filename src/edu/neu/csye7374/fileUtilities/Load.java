@@ -98,7 +98,6 @@ public class Load {
 
 		System.out.println("Loading the company...");
 		Company c = (Company) ois.readObject();
-		System.out.println(c.getCompanyName());
 		return c;
 
 	}
