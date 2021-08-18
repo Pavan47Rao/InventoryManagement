@@ -198,6 +198,7 @@ public class HumanResourceAddUserPage {
 		newPerson.setRoleId(Integer.parseInt(role.substring(0, 1)));
 		Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(textField_dob.getText());
 		newPerson.setDob(dob);
+		newPerson.getAccount().setUserName(newPerson.getEmailId());
 		newPerson.setPassword(passwordField.getText());
 		
 		MainFrame.getCompany().getPeople().add(newPerson);
