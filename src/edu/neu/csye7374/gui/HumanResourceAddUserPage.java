@@ -165,13 +165,13 @@ public class HumanResourceAddUserPage {
 	public void submitBtnActionPerformed(ActionEvent e) throws ParseException {
 		System.out.println("Submit button is clicked after adding a new user");
 
-		System.out.println("ID field is " + textField_ID.getText());
+		System.out.println("ID is " + textField_ID.getText());
 		System.out.println("first name is " + textField_firstName.getText());
 		System.out.println("last name is " + textField_lastname.getText());
-		System.out.println("email field is " + textField_email.getText());
-		System.out.println("addr field is " + textField_addr.getText());
-		System.out.println("dob field is " + textField_dob.getText());
-		System.out.println("Role field is " + comboBox.getSelectedItem().toString());
+		System.out.println("email is " + textField_email.getText());
+		System.out.println("addr is " + textField_addr.getText());
+		System.out.println("dob is " + textField_dob.getText());
+		System.out.println("Role is " + comboBox.getSelectedItem().toString());
 
 		// create new person
 		Person newPerson = new Person();
@@ -184,6 +184,10 @@ public class HumanResourceAddUserPage {
 		Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(textField_dob.getText());
 		newPerson.setDob(dob);
 		newPerson.setPassword(passwordField.getText());
+		
+		MainFrame.getCompany().getPeople().add(newPerson);
+		frame.getContentPane().removeAll();
+		new HumanResourcesHomePage(frame);
 
 	}
 
