@@ -18,14 +18,21 @@ import edu.neu.csye7374.model.Person;
 public class FileWriterReader {
 
 	private Save saver;
-	private Load loader;
+	private Load loader = new Load();
 	private Company company;
 
-
-	public FileWriterReader() {
+	// when there is no files. Need to initialize a company and people 
+	public FileWriterReader(Company company) throws ClassNotFoundException, IOException {
+		this.company = company;
 		this.saver = new Save(company);
-		this.loader = new Load(company);
 
+	}
+	
+	//when there are files written already
+	public FileWriterReader() throws ClassNotFoundException, IOException {
+		this.company = loadAll();
+				
+		
 	}
 
 	public void saveAll() throws IOException {
@@ -48,6 +55,10 @@ public class FileWriterReader {
 	
 	public List<Person> loadManagers() throws ClassNotFoundException, IOException {
 		return loader.loadManagers();
+	}
+	
+	public List<Person> loadHRs() throws ClassNotFoundException, IOException {
+		return loader.loadHR();
 	}
 	
 	

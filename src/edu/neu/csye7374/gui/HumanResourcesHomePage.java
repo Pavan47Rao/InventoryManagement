@@ -34,6 +34,8 @@ public class HumanResourcesHomePage {
 		JButton logoutBtn = new JButton("Logout");
 		logoutBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new LogoutPage(frame);
 			}
 		});
 		logoutBtn.setBounds(645, 11, 89, 23);

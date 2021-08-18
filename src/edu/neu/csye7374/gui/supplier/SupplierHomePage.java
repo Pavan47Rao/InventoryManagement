@@ -10,9 +10,14 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import edu.neu.csye7374.gui.LogoutPage;
+
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SupplierHomePage {
 	
@@ -39,6 +44,12 @@ public class SupplierHomePage {
 		panel.add(lblNewLabel);
 		
 		JButton btnNewButton = new JButton("Logout");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new LogoutPage(frame);
+			}
+		});
 		btnNewButton.setBounds(629, 8, 89, 23);
 		panel.add(btnNewButton);
 		

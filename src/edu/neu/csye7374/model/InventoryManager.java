@@ -61,5 +61,7 @@ public class InventoryManager extends Person{
 				itr.remove();
 			}
 		}
+		
+		
 	}
 }

@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import edu.neu.csye7374.gui.LogoutPage;
 import edu.neu.csye7374.gui.MainFrame;
 import edu.neu.csye7374.model.Item;
 import edu.neu.csye7374.stock.StockRepository;
@@ -64,6 +65,12 @@ public class EditItemPage {
 		panel.add(btnBack);
 		
 		JButton logoutBtn = new JButton("Logout");
+		logoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.getContentPane().removeAll();
+				new LogoutPage(frame);
+			}
+		});
 		logoutBtn.setBounds(586, 7, 89, 23);
 		panel.add(logoutBtn);
 		
@@ -117,11 +124,11 @@ public class EditItemPage {
 		Set<String> stockMapSet = StockRepository.stockMap.keySet();
 		
 		stockCombo = new JComboBox(stockMapSet.toArray());
+		stockCombo.setEnabled(false);
 		stockCombo.setBounds(342, 249, 220, 34);
 		panel.add(stockCombo);
 		
 		descPane = new JTextArea();
-		descPane.setEditable(false);
 		descPane.setBounds(342, 304, 220, 93);
 		panel.add(descPane);
 		
@@ -148,14 +155,12 @@ public class EditItemPage {
 	}
 	
 	private void updateItemActionPerformed(ActionEvent e) {
-		StockRepository.getStock(editItem.getStock().getStockType()).deleteItemInStock(editItem.getItemId());;
-		String selectedStock = (String)stockCombo.getSelectedItem();
+
+	
 	for(Item i: MainFrame.getInventoryManager().getItems()) {
 		if(i.getItemId() == editItem.getItemId()) {
 			i.setItemQuantity(Integer.parseInt(qtyField.getText()));
-			i.setStock(StockRepository.getStock(selectedStock));
-			StockRepository.getStock(selectedStock).addItemToStock(i);
-		
+			i.setItemDescription(descPane.getText());
 		}
 	}
 	JOptionPane.showMessageDialog(panel, "Item "+editItem.getItemName()+" has been updated successfully");
