@@ -76,9 +76,15 @@ public class MainFrame {
 
 		AbstractCompanyFactory companyFactory = CompanyFactorySingleton.getCompanyObject();
 		company = companyFactory.getCompanyObject();
+		List<InventoryManager> managers = new ArrayList<>();
+		List<HR> hrs = new ArrayList<>();
+		List<Supplier> suppliers = new ArrayList<>();
+	//	company.setManagers(managers);
+	//	company.setHrs(hrs);
+	//	company.setSuppliers(suppliers);
 
-//		FileWriterReader fileUtil1 = new FileWriterReader(company);
-//		fileUtil1.saveAll();
+		//FileWriterReader fileUtil1 = new FileWriterReader(company);
+		//fileUtil1.saveAll();
 		
 		FileWriterReader fileUtil = new FileWriterReader();
 		fileUtil.loadAll();
