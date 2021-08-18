@@ -32,21 +32,11 @@ public class FileWriterReader {
 		saver.saveAll();
 	}
 	
-	public void savePersons(List<Person> persons) throws IOException {
-		saver.savePersons(persons);
-	}
-	
-	public void saveOrders(List<Order> orders) throws IOException {
-		saver.saveOrders(orders);
-	}
 
 	public Company loadAll() throws ClassNotFoundException, IOException {
 		return loader.loadAll();
 	}
 	
-	public void saveItems(List<Item> items) throws IOException {
-		saver.saveItems(items);
-	}
 	
 	public List<Person> loadPersons() throws ClassNotFoundException, IOException {
 		return loader.loadAllPersons();

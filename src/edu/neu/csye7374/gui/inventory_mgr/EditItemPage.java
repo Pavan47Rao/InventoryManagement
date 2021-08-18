@@ -148,11 +148,13 @@ public class EditItemPage {
 	}
 	
 	private void updateItemActionPerformed(ActionEvent e) {
+		StockRepository.getStock(editItem.getStock().getStockType()).deleteItemInStock(editItem.getItemId());;
 		String selectedStock = (String)stockCombo.getSelectedItem();
 	for(Item i: MainFrame.getInventoryManager().getItems()) {
 		if(i.getItemId() == editItem.getItemId()) {
 			i.setItemQuantity(Integer.parseInt(qtyField.getText()));
 			i.setStock(StockRepository.getStock(selectedStock));
+			StockRepository.getStock(selectedStock).addItemToStock(i);
 		
 		}
 	}
