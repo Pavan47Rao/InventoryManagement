@@ -28,7 +28,7 @@ public class FileWriterReader {
 	//when there are files written already
 	public FileWriterReader() throws ClassNotFoundException, IOException {
 		this.company = loadAll();
-				
+		this.saver = new Save(company);
 		
 	}
 
