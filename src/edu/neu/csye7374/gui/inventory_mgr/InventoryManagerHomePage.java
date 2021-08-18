@@ -126,17 +126,6 @@ public class InventoryManagerHomePage {
 		frame.getContentPane().revalidate();
 		frame.getContentPane().add(panel);
 		
-		JButton resetPwdButton = new JButton("Reset Password");
-		resetPwdButton.setBounds(542, 5, 130, 29);
-		resetPwdButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.getContentPane().removeAll();
-				new ResetPasswordPage(frame);
-			}
-		});
-		panel.add(resetPwdButton);
-		frame.setVisible(true);
-		
 	}
 	
 	private DefaultTableModel loadTable() {

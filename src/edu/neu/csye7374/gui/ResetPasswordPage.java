@@ -3,6 +3,7 @@ package edu.neu.csye7374.gui;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,6 +12,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import edu.neu.csye7374.fileUtilities.FileWriterReader;
+import edu.neu.csye7374.model.Account;
+import edu.neu.csye7374.model.Person;
 import edu.neu.csye7374.strategy.AutoGeneratePassword;
 import edu.neu.csye7374.strategy.Context;
 import edu.neu.csye7374.strategy.CreateNewPassword;
@@ -43,10 +47,17 @@ public class ResetPasswordPage {
 		JButton generatePwdBtn = new JButton("Generate New Password");
 		generatePwdBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AutoGeneratePassword newPwd = new AutoGeneratePassword();
-				Context context = new Context(newPwd);
-				context.performReset(MainFrame.getLoggedInPerson().getAccount(), "");
-				JOptionPane.showMessageDialog(panel, "New password created: "+MainFrame.getLoggedInPerson().getAccount().getPassword());
+				Account acc = getAccountByEmailId(emailIdValue.toString());
+				if(acc == null) {
+					JOptionPane.showMessageDialog(panel, "User not registered!");
+				}
+				else {
+					AutoGeneratePassword newPwd = new AutoGeneratePassword();
+					Context context = new Context(newPwd);
+					context.performReset(acc, "");
+					JOptionPane.showMessageDialog(panel, "New password created: "+MainFrame.getLoggedInPerson().getAccount().getPassword());
+				}
+				
 			}
 		});
 		generatePwdBtn.setBounds(397, 126, 200, 29);
@@ -84,10 +95,16 @@ public class ResetPasswordPage {
 		submitBtn = new JButton("Submit");
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CreateNewPassword newPwd = new CreateNewPassword();
-				Context context = new Context(newPwd);
-				context.performReset(MainFrame.getLoggedInPerson().getAccount(), newPasswordValue.getText());
-				JOptionPane.showMessageDialog(panel, "Updated password successfully");
+				Account acc = getAccountByEmailId(emailIdValue.toString());
+				if(acc == null) {
+					JOptionPane.showMessageDialog(panel, "User not registered!");
+				}
+				else {
+					CreateNewPassword newPwd = new CreateNewPassword();
+					Context context = new Context(newPwd);
+					context.performReset(acc, newPasswordValue.getText());
+					JOptionPane.showMessageDialog(panel, "Updated password successfully");
+				}
 			}
 		});
 		submitBtn.setBounds(229, 236, 117, 29);
@@ -95,5 +112,23 @@ public class ResetPasswordPage {
 		panel.add(submitBtn);
 		frame.setVisible(true);
 	
+	}
+	
+	private static Account getAccountByEmailId(String email) {
+		try {
+			FileWriterReader file = new FileWriterReader();
+			for(Person person: file.loadPersons()) {
+				if(person.getAccount().getUserName().equals(email))
+					return person.getAccount();
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 }
