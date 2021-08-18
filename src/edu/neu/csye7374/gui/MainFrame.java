@@ -208,26 +208,45 @@ public class MainFrame {
 		FileWriterReader fwr = new FileWriterReader();
 		boolean foundUser = false;
 		try {
-			List<Person> staff = fwr.loadPersons();
-			System.out.println(staff);
-			for(Person person: staff) {
+			List<InventoryManager> managers = fwr.loadManagers();
+			List<Supplier> suppliers = fwr.loadSupplier();
+			List<HR> hrs = fwr.loadHRs();
+			for(InventoryManager person: managers) {
 				if(person.getAccount().getUserName().equals(userName) && person.getAccount().getPassword().equals(password)) {
 					foundUser = true;
-					switch(person.getRoleId()) {
-					case 1:
 						frame.getContentPane().removeAll();
 						new InventoryManagerHomePage(frame);
-						break;
-					case 2:
-						frame.getContentPane().removeAll();
-						new SupplierHomePage(frame);
-						break;
-					case 3:
-						frame.getContentPane().removeAll();
-						new HumanResourcesHomePage(frame);
-						break;
+					
+						
 					}
 					loggedInPerson = person;
+			}
+			
+			if(!foundUser) {
+				
+				for(Supplier person: suppliers) {
+					if(person.getAccount().getUserName().equals(userName) && person.getAccount().getPassword().equals(password)) {
+						foundUser = true;
+							frame.getContentPane().removeAll();
+							new SupplierHomePage(frame);
+						
+							
+						}
+						loggedInPerson = person;
+				}
+
+			}
+	
+			if(!foundUser) {
+				for(HR person: hrs) {
+					if(person.getAccount().getUserName().equals(userName) && person.getAccount().getPassword().equals(password)) {
+						foundUser = true;
+							frame.getContentPane().removeAll();
+							new HumanResourcesHomePage(frame);
+						
+							
+						}
+						loggedInPerson = person;
 				}
 			}
 			

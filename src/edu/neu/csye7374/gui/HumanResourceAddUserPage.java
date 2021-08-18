@@ -129,7 +129,7 @@ public class HumanResourceAddUserPage {
 
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(
-				new String[] { "--None--", "1 - Inventory Manager", "2 - HR", "3 - Supplied" }));
+				new String[] { "--None--", "1 - Inventory Manager", "2 - Supplier", "3 - HR" }));
 		comboBox.setBounds(378, 92, 217, 22);
 		panel.add(comboBox);
 
@@ -215,7 +215,7 @@ public class HumanResourceAddUserPage {
 			supplier.getAccount().setPassword(new String(passwordField.getPassword()));
 			MainFrame.getCompany().getSuppliers().add(supplier);
 		}
-		else {
+		else if(roleId == 3){
 			HR hr = new HR(Integer.parseInt(textField_ID.getText()), Integer.parseInt(role.substring(0, 1)),
 					textField_firstName.getText(), textField_lastname.getText(), 
 					textField_email.getText(), dob, textField_addr.getText(), new Account());
