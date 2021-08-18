@@ -203,6 +203,7 @@ public class HumanResourceAddUserPage {
 			im.getAccount().setPassword(new String(passwordField.getPassword()));
 		//	List<InventoryManager> m = new ArrayList<>();
 		//	MainFrame.getCompany().setManagers(m);
+			im.setOrders(new ArrayList<>());
 			MainFrame.getCompany().getManagers().add(im);
 			FileWriterReader f = new FileWriterReader();
 			f.saveAll();
@@ -213,6 +214,7 @@ public class HumanResourceAddUserPage {
 					textField_email.getText(), dob, textField_addr.getText(), new Account());
 			supplier.getAccount().setUserName(textField_email.getText());
 			supplier.getAccount().setPassword(new String(passwordField.getPassword()));
+			supplier.setOrders(new ArrayList<>());
 			MainFrame.getCompany().getSuppliers().add(supplier);
 		}
 		else if(roleId == 3){
