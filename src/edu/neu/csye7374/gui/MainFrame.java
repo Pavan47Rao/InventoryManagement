@@ -1,3 +1,4 @@
+
 package edu.neu.csye7374.gui;
 
 import edu.neu.csye7374.api.AbstractCompanyFactory;
@@ -65,8 +66,6 @@ public class MainFrame {
 	private static Company company;
 	private JButton resetPwdButton;
 
-	
-	
 	private LoggedInState loggedIn = new LoggedInState();
 	private LoggedOutState loggedOut = new LoggedOutState();
 	private StateAPI state = loggedOut;
@@ -79,6 +78,7 @@ public class MainFrame {
 	public void setState(StateAPI state) {
 		this.state = state;
 	}
+	
 
 	public MainFrame() throws ClassNotFoundException, IOException {
 		frame = new JFrame();
@@ -205,39 +205,44 @@ public class MainFrame {
 		System.out.println("Home page accordingly should open");
 		String userName = userNameTextField.getText().toLowerCase();
 		String password = new String(passwordTextField.getPassword());
-		//inventory manager
-		if(userNameTextField.getText().equalsIgnoreCase("aa") && passwordTextField.getText().equals("aa")) {
-			frame.getContentPane().removeAll();
-			new InventoryManagerHomePage(frame);
-		}
-		//Human resources
-		if(userNameTextField.getText().equalsIgnoreCase("bb") && passwordTextField.getText().equals("bb")) {
-			frame.getContentPane().removeAll();
-			new HumanResourcesHomePage(frame);
-		}
-		//Supplier
-		if(userNameTextField.getText().equalsIgnoreCase("cc") && passwordTextField.getText().equals("cc")) {
-			frame.getContentPane().removeAll();
-			new SupplierHomePage(frame);
-		}
+//		//inventory manager
+//		if(userNameTextField.getText().equalsIgnoreCase("aa") && passwordTextField.getText().equals("aa")) {
+//			frame.getContentPane().removeAll();
+//			new InventoryManagerHomePage(frame);
+//		}
+//		
+//		//Supplier
+//		if(userNameTextField.getText().equalsIgnoreCase("cc") && passwordTextField.getText().equals("cc")) {
+//			frame.getContentPane().removeAll();
+//			new SupplierHomePage(frame);
+//		}
 	
 		FileWriterReader fwr = new FileWriterReader();
 		boolean foundUser = false;
 		try {
+			//Human resources
+			if(userNameTextField.getText().equalsIgnoreCase("bb") && passwordTextField.getText().equals("bb")) {
+				foundUser = true;
+				frame.getContentPane().removeAll();
+				new HumanResourcesHomePage(frame);
+			}
 			List<InventoryManager> managers = fwr.loadManagers();
 			List<Supplier> suppliers = fwr.loadSupplier();
 			List<HR> hrs = fwr.loadHRs();
-			for(InventoryManager person: managers) {
-				if(person.getAccount().getUserName().equals(userName) && person.getAccount().getPassword().equals(password)) {
-					foundUser = true;
-						frame.getContentPane().removeAll();
-						new InventoryManagerHomePage(frame);
-					
+			if(!foundUser) {
+				for(InventoryManager person: managers) {
+					if(person.getAccount().getUserName().equals(userName) && person.getAccount().getPassword().equals(password)) {
+						foundUser = true;
+							frame.getContentPane().removeAll();
+							new InventoryManagerHomePage(frame);
 						
-					}
-					loggedInPerson = person;
-					this.state = loggedIn;
+							
+						}
+						loggedInPerson = person;
+						this.state = loggedIn;
+				}
 			}
+		
 			
 			if(!foundUser) {
 				
