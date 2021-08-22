@@ -7,4 +7,4 @@ Adapter Pattern - Item update\
 Observer Pattern - Update order status\
 Strategy Pattern - Password Reset\
 State Pattern - User login and logout\
-Command & Facade Patterns - File read and write\
+Command & Facade Patterns - File read and write
